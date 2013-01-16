@@ -1,0 +1,245 @@
+to write file and jump to shell, with Ctrl-D to jump back:
+:w|sh
+
+to jump to highlighted tag, with Ctrl-T to jump back:
+Ctrl-]
+
+select inner word:
+viw
+
+select inner sentence:
+siw
+
+select between quotes, parenthesis block, curly braces block:
+vi'
+vib
+viB
+
+inclusive select:
+va'
+
+delete everything between brackets:
+d%
+
+delete until space:
+dt<space bar>
+
+add # in front of several lines:
+Ctrl-V, then I#, then Esc
+paste in front of several lines:
+Ctrl-V, I, Ctrl-R "
+(Can be any register)
+append "hi" to several lines:
+Ctrl-V, then $, then A, then hi, then Esc
+or
+:.,.+5s/$/hi
+
+go to previous cursor position:
+''
+``
+
+search yanked text:
+/ Ctrl-R 0
+
+re-open a tab that was closed
+:ls " get the buffer number
+:tabnew +Nbuf " where N is the buffer number
+
+case-insensitive search:
+:set ignorecase
+or (for current search only)
+/foo\c
+
+:%s/foo/bar/gci
+    Change each 'foo' (case insensitive) to 'bar'; ask for confirmation. 
+
+reload current file
+:edit
+
+"Always view status bar
+:set laststatus=2
+
+To increment a number:
+Ctrl-a
+To decrement a number:
+Ctrl-x
+
+Jump forward in history:
+Ctrl-i
+Jump backward in history:
+Ctrl-o
+
+Replace all commas with newlines
+:%s/,/^V^M/g
+
+Paste current directory
+!!pwd
+
+Move up to next blank line
+{
+Move down to next blank line
+}
+
+Move to a '{' in the first column
+[[ 
+]]
+
+C-style comments
+:set comments=sl:/*,mb:**,elx
+
+Delete everything before cursor on line
+d0
+
+Use make without a makefile
+:set makeprg=gcc\ test.c
+:set makeprg=gcc\ % #gcc on current filename
+
+:nnoremap <F5> :<C-U>make<CR>
+
+Replace tabs with newlines
+:%s/\t/\n/g
+Access tab character with Ctrl-V Ctrl-I
+
+View whitespace and non-printing characters
+:set list
+:set nolist #to undo
+
+Jump to longest help
+
+Paste longest line length
+:%yank
+:%!wc -L
+:put
+
+If you want to paste in a web address, make sure you are in insert mode, otherwise it will interpret the ':' in 'http:' as entering command mode
+
+Auto-complete filenames while in insert mode:
+Ctrl-X Ctrl-F
+(See :help compl-filename)
+
+Word count of current file:
+:! wc %
+
+Dump wikipedia page into new buffer
+:r ! w3m http://en.wikipedia.org/wiki/Vi -dump
+
+Run the current line as a shell command
+V      #Select block
+Esc    #Enter command mode
+:w !sh #Runs command
+
+Inserting/pasting registers in command mode
+Ctrl-R "
+#See :help c_CTRL-R
+
+#Move window without moving cursor
+Ctrl-Y
+Ctrl-E
+
+#Put the time in insert mode
+<C-R>=strftime("%c")<CR><Esc>
+
+#map k to gk and j to gj
+:noremap k gk
+:noremap j gj
+"undo the mapping
+:unmap k
+:unmap j
+
+#Yank a line, delete another, put the first line
+yy
+"(move)
+dd
+"0p
+
+#Yank current line into register a
+"ayy
+#Yank visual selection into register a
+"ay
+#Put register a
+"ap
+
+#Paste system clipboard
+"*p
+
+#Help on command in insert mode
+:help i_Ctrl-X_Ctrl-L
+
+#Open filename under cursor
+gf
+
+#Inspect character for hex, octal
+ga
+#Inspect utf-8
+g8
+#Enter an ñ (enye) in insert mode:
+Ctrl-K n?
+
+#Put line numbers into file using unix nl command:
+:%!nl
+#Reverse order of lines
+:%!tac
+#Sort lines 4-7
+:!4,7!sort -u
+#Sort lines 4 to end of document
+:4,$ !sort -u
+#Sort visual selection
+:!sort -u
+
+#Execute current line in shell
+yy:!<C-R>"<ENTER>
+
+#Replace current line with the output results
+:.!sh
+
+#Load man page for current word or visual selection
+K
+#Load 4th man page
+4K
+#Open, e.g. 'sort' command manpage as new tab
+:tabnew|read !man sort
+#Some people think you need to use ul to get the 'underline and bold escape codes into readable format,' but I haven't had any problems.
+:tabnew|read !man sort | ul -i
+
+#Backwards/forwards in the jump list (older/newer cursor position)
+Ctrl-O
+Ctrl-I
+:ju #see all jumps in the jumplist
+
+#output as a PostScript file instead of printing
+:hardcopy > %.ps
+
+#split line on a space
+r<CR>
+
+#View line numbers
+:set number
+#View relative line numbers
+:set relativenumber
+
+#Count characters in visual selction
+(Make visual selection)
+g Ctrl-g
+
+#Delete current sentence
+das
+dis
+
+#Dump content of command into current buffer:
+:r !uname -r
+#Make current buffer match content of command:
+:%!uname -r
+
+#Center screen on cursor
+z.
+
+#Moving vertically (http://vimuniversity.com/samples/jumping-long-distances)
+nG - jump to line n ("line 5, Go")
+C-o - jump backwards ("out")
+C-i - jump forwards ("in")
+L - jump to bottom of screen ("low")
+M - jump to middle of screen ("middle")
+H - jump to top of screen ("high")
+zt - put this line at the 't'op of the screen
+zb - put this line at the 'b'ottom of the screen
+zz - put this line at the middle of the screen
