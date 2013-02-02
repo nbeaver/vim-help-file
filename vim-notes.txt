@@ -128,6 +128,9 @@ V      #Select block
 Esc    #Enter command mode
 :w !sh #Runs command
 
+Running shell commands
+:! my-shell-command
+
 Inserting/pasting registers in command mode
 Ctrl-R "
 #See :help c_CTRL-R
