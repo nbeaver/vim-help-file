@@ -260,3 +260,6 @@ g,
 
 #Open new line while in insert mode
 Alt-o
+
+#Return to 10 seconds earlier
+:earlier 10s
