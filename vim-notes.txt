@@ -252,3 +252,11 @@ zz - put this line at the middle of the screen
 
 #Start editing at the end of a file/bottom of document/last line
 vim + myfile.txt
+
+#Jump to last edited spot
+g;
+#Jump to next edited spot
+g,
+
+#Open new line while in insert mode
+Alt-o
