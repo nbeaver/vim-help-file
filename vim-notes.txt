@@ -266,3 +266,10 @@ Alt-o
 
 #Delete all trailing whitespace
 :%s/\s\+$//
+
+#jump to next space
+f 
+(i.e. f<space>)
+
+#search for decimal ascii value, e.g. 142
+/^V142
