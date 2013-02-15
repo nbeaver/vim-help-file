@@ -258,8 +258,11 @@ g;
 #Jump to next edited spot
 g,
 
-#Open new line while in insert mode
+#Open new line while in insert mode (if you're using a terminal, not gvim)
 Alt-o
 
 #Return to 10 seconds earlier
 :earlier 10s
+
+#Delete all trailing whitespace
+:%s/\s\+$//
