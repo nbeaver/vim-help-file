@@ -273,3 +273,6 @@ f
 
 #search for decimal ascii value, e.g. 142
 /^V142
+
+# Remove dos line feeds
+:%s/\r\+$//e
