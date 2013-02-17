@@ -271,8 +271,13 @@ Alt-o
 f 
 (i.e. f<space>)
 
+#change till next space
+ct 
+(i.e. ct<space>)
+
 #search for decimal ascii value, e.g. 142
 /^V142
 
 # Remove dos line feeds
 :%s/\r\+$//e
+
