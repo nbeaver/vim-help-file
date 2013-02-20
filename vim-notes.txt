@@ -281,3 +281,6 @@ ct
 # Remove dos line feeds
 :%s/\r\+$//e
 
+# Moving by space-separated words, not just letters and underscores
+W
+E
