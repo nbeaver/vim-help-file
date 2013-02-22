@@ -1,242 +1,242 @@
-to write file and jump to shell, with Ctrl-D to jump back:
+" to write file and jump to shell, with Ctrl-D to jump back:
 :w|sh
 
-to jump to highlighted tag, with Ctrl-T to jump back:
+" to jump to highlighted tag, with Ctrl-T to jump back:
 Ctrl-]
 
-select inner word:
+" select inner word:
 viw
 
-select inner sentence:
+" select inner sentence:
 siw
 
-select between quotes, parenthesis block, curly braces block:
+" select between quotes, parenthesis block, curly braces block:
 vi'
 vib
 viB
 
-inclusive select:
+" inclusive select:
 va'
 
-delete everything between brackets:
+" delete everything between brackets:
 d%
 
-delete until space:
+" delete until space:
 dt<space bar>
 
-add # in front of several lines:
+" add # in front of several lines:
 Ctrl-V, then I#, then Esc
-paste in front of several lines:
+" paste in front of several lines:
 Ctrl-V, I, Ctrl-R "
-(Can be any register)
-append "hi" to several lines:
+" (Can be any register)
+" append "hi" to several lines:
 Ctrl-V, then $, then A, then hi, then Esc
-or
+" or
 :.,.+5s/$/hi
 
-go to previous cursor position:
+" go to previous cursor position:
 ''
 ``
 
-search yanked text:
+" search yanked text:
 / Ctrl-R 0
 
-re-open a tab that was closed
+" re-open a tab that was closed
 :ls " get the buffer number
 :tabnew +Nbuf " where N is the buffer number
 
-case-insensitive search:
+" case-insensitive search:
 :set ignorecase
-or (for current search only)
+" or (for current search only)
 /foo\c
 
+" Change each 'foo' (case insensitive) to 'bar'; ask for confirmation. 
 :%s/foo/bar/gci
-    Change each 'foo' (case insensitive) to 'bar'; ask for confirmation. 
 
-reload current file
+" reload current file
 :edit
 
-"Always view status bar
+" Always view status bar
 :set laststatus=2
 
-To increment a number:
+" To increment a number:
 Ctrl-a
-To decrement a number:
+" To decrement a number:
 Ctrl-x
 
-Jump forward in history:
+" Jump forward in history:
 Ctrl-i
-Jump backward in history:
+" Jump backward in history:
 Ctrl-o
 
-Replace all commas with newlines
+" Replace all commas with newlines
 :%s/,/^V^M/g
 
-Paste current directory
+" Paste current directory
 !!pwd
 
-Move up to next blank line
+" Move up to next blank line
 {
-Move down to next blank line
+" Move down to next blank line
 }
 
-Move to a '{' in the first column
+" Move to a '{' in the first column
 [[ 
 ]]
 
-C-style comments
+" C-style comments
 :set comments=sl:/*,mb:**,elx
 
-Delete everything before cursor on line
+" Delete everything before cursor on line
 d0
 
-Use make without a makefile
+" Use make without a makefile
 :set makeprg=gcc\ test.c
-:set makeprg=gcc\ % #gcc on current filename
+:set makeprg=gcc\ % " gcc on current filename
 
 :nnoremap <F5> :<C-U>make<CR>
 
-Replace tabs with newlines
+" Replace tabs with newlines
 :%s/\t/\n/g
-Access tab character with Ctrl-V Ctrl-I
+" Access tab character with Ctrl-V Ctrl-I
 
-View whitespace and non-printing characters
+" View whitespace and non-printing characters
 :set list
-:set nolist #to undo
+:set nolist " to undo
 
-Jump to longest help
+" Jump to longest help
 
-Paste longest line length
+" Paste longest line length
 :%yank
 :%!wc -L
 :put
 
-If you want to paste in a web address, make sure you are in insert mode, otherwise it will interpret the ':' in 'http:' as entering command mode
+" If you want to paste in a web address, make sure you are in insert mode, otherwise it will interpret the ':' in 'http:' as entering command mode
 
-Auto-complete filenames while in insert mode:
+" Auto-complete filenames while in insert mode:
 Ctrl-X Ctrl-F
-(See :help compl-filename)
+" (See :help compl-filename)
 
-Word count of current file:
+" Word count of current file:
 :! wc %
 
-Dump wikipedia page into new buffer
+" Dump wikipedia page into new buffer
 :r ! w3m http://en.wikipedia.org/wiki/Vi -dump
 
-Run the current line as a shell command
-V      #Select block
-Esc    #Enter command mode
-:w !sh #Runs command
+" Run the current line as a shell command
+V      " Select block
+Esc    " Enter command mode
+:w !sh " Runs command
 
-Running shell commands
+" Running shell commands
 :! my-shell-command
 
-Inserting/pasting registers in command mode
+" Inserting/pasting registers in command mode
 Ctrl-R "
-#See :help c_CTRL-R
+" See :help c_CTRL-R
 
-#Move window without moving cursor
+" Move window without moving cursor
 Ctrl-Y
 Ctrl-E
 
-#Put the time in insert mode
+" Put the time in insert mode
 <C-R>=strftime("%c")<CR><Esc>
 
-#map k to gk and j to gj
+" map k to gk and j to gj
 :noremap k gk
 :noremap j gj
-"undo the mapping
+" undo the mapping
 :unmap k
 :unmap j
 
-#Yank a line, delete another, put the first line
+" Yank a line, delete another, put the first line
 yy
-"(move)
+" (move)
 dd
 "0p
 
-#Yank current line into register a
+" Yank current line into register a
 "ayy
-#Yank visual selection into register a
+" Yank visual selection into register a
 "ay
-#Put register a
+" Put register a
 "ap
 
-#Paste system clipboard
+" Paste system clipboard
 "*p
 
-#Help on command in insert mode
+" Help on command in insert mode
 :help i_Ctrl-X_Ctrl-L
 
-#Open filename under cursor
+" Open filename under cursor
 gf
 
-#Inspect character for hex, octal
+" Inspect character for hex, octal
 ga
-#Inspect utf-8
+" Inspect utf-8
 g8
-#Enter an ñ (enye) in insert mode:
+" Enter an ñ (enye) in insert mode:
 Ctrl-K n?
 
-#Put line numbers into file using unix nl command:
+" Put line numbers into file using unix nl command:
 :%!nl
-#Reverse order of lines
+" Reverse order of lines
 :%!tac
-#Sort lines 4-7
+" Sort lines 4-7
 :!4,7!sort -u
-#Sort lines 4 to end of document
+" Sort lines 4 to end of document
 :4,$ !sort -u
-#Sort visual selection
+" Sort visual selection
 :!sort -u
 
-#Execute current line in shell
+" Execute current line in shell
 yy:!<C-R>"<ENTER>
 
-#Replace current line with the output results
+" Replace current line with the output results
 :.!sh
 
-#Load man page for current word or visual selection
+" Load man page for current word or visual selection
 K
-#Load 4th man page
+" Load 4th man page
 4K
-#Open, e.g. 'sort' command manpage as new tab
+" Open, e.g. 'sort' command manpage as new tab
 :tabnew|read !man sort
-#Some people think you need to use ul to get the 'underline and bold escape codes into readable format,' but I haven't had any problems.
+" Some people think you need to use ul to get the 'underline and bold escape codes into readable format,' but I haven't had any problems.
 :tabnew|read !man sort | ul -i
 
-#Backwards/forwards in the jump list (older/newer cursor position)
+" Backwards/forwards in the jump list (older/newer cursor position)
 Ctrl-O
 Ctrl-I
-:ju #see all jumps in the jumplist
+:ju " see all jumps in the jumplist
 
-#output as a PostScript file instead of printing
+" output as a PostScript file instead of printing
 :hardcopy > %.ps
 
-#split line on a space
+" split line on a space
 r<CR>
 
-#View line numbers
+" View line numbers
 :set number
-#View relative line numbers
+" View relative line numbers
 :set relativenumber
 
-#Count characters in visual selction
-(Make visual selection)
+" Count characters in visual selction
+" (Make visual selection)
 g Ctrl-g
 
-#Delete current sentence
+" Delete current sentence
 das
 dis
 
-#Dump content of command into current buffer:
+" Dump content of command into current buffer:
 :r !uname -r
-#Make current buffer match content of command:
+" Make current buffer match content of command:
 :%!uname -r
 
-#Center screen on cursor
+" Center screen on cursor
 z.
 
-#Moving vertically (http://vimuniversity.com/samples/jumping-long-distances)
+" Moving vertically (http://vimuniversity.com/samples/jumping-long-distances)
 nG - jump to line n ("line 5, Go")
 C-o - jump backwards ("out")
 C-i - jump forwards ("in")
@@ -247,40 +247,49 @@ zt - put this line at the 't'op of the screen
 zb - put this line at the 'b'ottom of the screen
 zz - put this line at the middle of the screen
 
-#The Vim documentation format
+" The Vim documentation format
 :help help-writing
 
-#Start editing at the end of a file/bottom of document/last line
+" Start editing at the end of a file/bottom of document/last line
 vim + myfile.txt
 
-#Jump to last edited spot
+" Jump to last edited spot
 g;
-#Jump to next edited spot
+" Jump to next edited spot
 g,
 
-#Open new line while in insert mode (if you're using a terminal, not gvim)
+" Open new line while in insert mode (if you're using a terminal, not gvim)
 Alt-o
 
-#Return to 10 seconds earlier
+" Return to 10 seconds earlier
 :earlier 10s
 
-#Delete all trailing whitespace
+" Delete all trailing whitespace
 :%s/\s\+$//
 
-#jump to next space
+" jump to next space
 f 
-(i.e. f<space>)
+" (i.e. f<space>)
 
-#change till next space
+" change till next space
 ct 
-(i.e. ct<space>)
+" (i.e. ct<space>)
 
-#search for decimal ascii value, e.g. 142
+" search for decimal ascii value, e.g. 142
 /^V142
 
-# Remove dos line feeds
+" Remove dos line feeds
 :%s/\r\+$//e
 
-# Moving by space-separated words, not just letters and underscores
+"  Moving by space-separated words, not just letters and underscores
 W
 E
+
+" find out the current working directory
+:pwd
+
+" Set working directory to whatever file you're editing
+:set autochdir
+
+" Find full path of current file, and other helpful information
+Ctrl-G
