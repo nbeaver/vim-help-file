@@ -26,6 +26,8 @@ dt<space bar>
 
 " add # in front of several lines:
 Ctrl-V, then I#, then Esc
+" alternatively,
+Shift-V, then : (ex mode) s/^/#/
 " paste in front of several lines:
 Ctrl-V, I, Ctrl-R "
 " (Can be any register)
@@ -37,6 +39,7 @@ Ctrl-V, then $, then A, then hi, then Esc
 " go to previous cursor position:
 ''
 ``
+Ctrl-O
 
 " search yanked text:
 / Ctrl-R 0
@@ -72,8 +75,10 @@ Ctrl-o
 " Replace all commas with newlines
 :%s/,/^V^M/g
 
-" Paste current directory
+" Paste directory vim was invoked in
 !!pwd
+" Put/paste full path of file in insert mode
+Ctrl-R %
 
 " Move up to next blank line
 {
@@ -89,6 +94,8 @@ Ctrl-o
 
 " Delete everything before cursor on line
 d0
+" Delete everything after curson on line
+D
 
 " Use make without a makefile
 :set makeprg=gcc\ test.c
@@ -125,8 +132,8 @@ Ctrl-X Ctrl-F
 
 " Run the current line as a shell command
 V      " Select block
-Esc    " Enter command mode
 :w !sh " Runs command
+'<,'>w !sh " Looks like this
 
 " Running shell commands
 :! my-shell-command
@@ -162,8 +169,17 @@ dd
 " Put register a
 "ap
 
-" Paste system clipboard
+" Paste primary selection (same as middle click)
 "*p
+" Paste clipboard (same as Ctrl-V in other programs)
+"+p
+" Yank into primary selection (cut)
+"*x
+" Yank into primary selection (copy)
+"*y
+" Yank into clibpoard (copy)
+"+y
+
 
 " Help on command in insert mode
 :help i_Ctrl-X_Ctrl-L
@@ -177,6 +193,10 @@ ga
 g8
 " Enter an ñ (enye) in insert mode:
 Ctrl-K n?
+" Enter the degree symbol
+Ctrl-K DG
+" See all available digraphs
+:digraphs
 
 " Put line numbers into file using unix nl command:
 :%!nl
@@ -188,6 +208,14 @@ Ctrl-K n?
 :4,$ !sort -u
 " Sort visual selection
 :!sort -u
+" Sort entire document
+:sort
+" Reverse sort
+:%sort!
+" Sort removing duplicates
+:%sort u
+" Numeric sort
+:sort n
 
 " Execute current line in shell
 yy:!<C-R>"<ENTER>
@@ -293,3 +321,156 @@ E
 
 " Find full path of current file, and other helpful information
 Ctrl-G
+
+"ROT13 a visual selection:
+g?
+
+" Check spelling
+:set spell
+
+" When you find you're editing a file without the needed permissions (not root)
+:w !sudo tee > /dev/null %
+
+" Delete previous word in insert mode
+Ctrl-W
+
+" Access normal mode without leaving insert mode
+Ctrl-O
+
+" Start new change in insert mode, so u (undo) doesn't delete everything
+Ctrl-G u
+
+" Access shell aliases from vim
+:set shellcmdflag=-ic
+
+" Opening multiple buffers with vim (not tabs)
+vim file1 file2 file3
+" See open buffers, one on each line (also works with tabs)
+:ls
+" Briefer list of open buffers (also works with tabs)
+:args
+" Switch to a buffer using tab completion
+:b [Tab]
+" Open a new buffer
+:e ./file.txt
+" Add tab-completion to new buffer
+:set wildmenu
+
+" Save/rename a file and start editing it instead of the current file
+:saveas
+
+" Run :set list as soon as it's loaded.
+vim -c "set list" file.txt
+
+" Move current line down 4 lines
+:m +4
+
+" Search for 'for' and 'done' in the same line
+/for.*done
+
+" See the current directory
+:vs.
+
+" Jump to the 100th byte
+100go
+:goto 100
+
+" Remove blank lines
+:g/^$/d
+
+" Macros and registers
+qy " Start recording macro y
+:reg " see registers, including macros. Press enter to see more and q when finished.
+@y "run macro
+"yp " Paste macro onto current line
+"yy " Yank the current selection into the y register
+
+" Replace non-printing characters (high ascii), e.g. 0x85 with \r
+:%s/\%x85/\r/gc
+
+" Get filename without extension
+%:r
+" Use it in a script
+:!markdown % > %:r.html
+" Run multiple commands with pipe (|), so we can write out and convert to html, excluding the .mardown extension
+:w|!markdown % > %:r.html
+
+" Paste without moving cursor
+" http://stackoverflow.com/questions/1587178/paste-in-vim-without-moving-the-cursor
+p`[
+
+" See all lines that don't contain the @ symbol
+:v/@/p
+" What this does is do a global search (equivalent to :g!) and excute the :p command for each matching line
+
+" Update the diffs for vimdiff
+:diffupdate
+
+" Delete last two chars: make visual selection with V, then:
+:s/..$//
+
+" Flip case of entire line, i.e. CAPS LOCK IS CRUISE CONTROL FOR COOL.
+g~~
+
+" Run the q macro on each line of some visually selected text.
+:normal @q
+" Run the q macros on lines matching the 'vim' pattern http://blog.sanctum.geek.nz/advanced-vim-macros/
+:g/vim/ normal @q
+
+" Format it by using columns program
+:%!column -t
+
+" Remove all spaces on a line
+:s/\s//g
+
+" Jumping to spaces
+F<space>
+T<space>
+
+" Overwriting a word with yanked text
+y<motion>
+<move to text>
+ve " Visually select to end of word 
+p  " Overwrite word without clobbering the " register
+
+" Edit a macro in the 'a' register.
+:let @a='
+Ctrl-R Ctrl-R a
+" Modify as desired, then add a closing '''. Use double '' for literal ' inside, not \'
+'
+" Press enter, and you're done. If it ends with <CR> or <NL>, though, you are in for trouble.
+
+" Another way to edit a named macro; 'a' in this case.
+"ap
+" Edit macro.
+" When finished, delete the line back into the "a register.
+"add
+
+" Abandon a buffer so it won't complain if you make changes and then leave without saving.
+:set hidden
+
+" Replace current line with filename
+!!echo %
+
+" Variable length search
+/computer.*fun
+
+" Redraw screen
+Ctrl-L
+
+" Make the visual selection texified.
+:!pandoc -t latex
+
+" Choose vim's syntax hightlighting
+:setf c
+:setf php
+:setf messages " e.g. /var/log/syslog
+" or
+set filetype=c
+set filetype " Shows the current language used
+
+" Getting help for different modes.
+:help ctrl-f   " ctrl-f in normal mode
+:help i_ctrl-f " ctrl-f in insert mode
+:help c_ctrl-f " ctrl-f in ex mode (after typing : or Q)
+" Use tab to cycle through the various options.
