@@ -187,9 +187,9 @@ dd
 " Open filename under cursor
 gf
 
-" Inspect character for hex, octal
+" Inspect character for decimal, hex, or octal representation. Useful combined with unicode(1) command..
 ga
-" Inspect utf-8
+" Inspect utf-8. Not useful for searching with unicode(1).
 g8
 " Enter an ñ (enye) in insert mode:
 Ctrl-K n?
@@ -479,3 +479,21 @@ set filetype " Shows the current language used
 :help i_ctrl-f " ctrl-f in insert mode
 :help c_ctrl-f " ctrl-f in ex mode (after typing : or Q)
 " Use tab to cycle through the various options.
+
+" Go to local variable definition
+gd
+" Go to global variable definition
+gD
+
+" Reload all windows
+:windo e
+" Reload all buffer
+:buffdo e
+" Reload all tabs
+:tabdo e
+
+" Keep vim up to date
+:set autoread
+
+" Keep only the current buffer up to date
+:setlocal autoread 
