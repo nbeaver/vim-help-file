@@ -521,3 +521,10 @@ gD
 \L non-lowercase character
 \u uppercase character
 \U non-uppercase character
+
+" Basic vim indentation.
+" http://tedlogan.com/techblog3.html
+:set softtabstop=4 shiftwidth=4 expandtab smartindent
+" softabstop is how many columns vim moves when you press tab.
+" shiftwidth controls >> << and cindent
+" expandtab produces spaces when the tab key is pressed
