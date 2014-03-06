@@ -77,8 +77,10 @@ Ctrl-o
 
 " Paste directory vim was invoked in
 !!pwd
-" Put/paste full path of file in insert mode
+" Put/paste full path and filename in insert mode
 Ctrl-R %
+" Put/paste full path and filename in normal mode
+"%p
 
 " Move up to next blank line
 {
@@ -327,6 +329,15 @@ g?
 
 " Check spelling
 :set spell
+" Move to next misspelled word
+]s
+" Move back to previous misspelled word
+[s
+" Mark a word as correct (add a word to vim's dictionary)
+zg
+" Mark a word as incorrect (remove from vim's dictionary)
+zw
+" Vim dictionary is by default in ~/.vim/spell/en.utf-8.add
 
 " When you find you're editing a file without the needed permissions (not root)
 :w !sudo tee > /dev/null %
@@ -395,7 +406,7 @@ qy " Start recording macro y
 %:r
 " Use it in a script
 :!markdown % > %:r.html
-" Run multiple commands with pipe (|), so we can write out and convert to html, excluding the .mardown extension
+" Run multiple commands with pipe (|), so we can write out and convert to html, excluding the .markdown extension
 :w|!markdown % > %:r.html
 
 " Paste without moving cursor
@@ -464,7 +475,7 @@ Ctrl-L
 " Make the visual selection texified.
 :!pandoc -t latex
 
-" Choose vim's syntax hightlighting
+" Choose vim's syntax highlighting
 :setf c
 :setf php
 :setf messages " e.g. /var/log/syslog
@@ -528,3 +539,10 @@ gD
 " softabstop is how many columns vim moves when you press tab.
 " shiftwidth controls >> << and cindent
 " expandtab produces spaces when the tab key is pressed
+
+" Insert literal tab when expandtab is on.
+Ctrl-V <tab>
+" See help i_Ctrl-V
+"http://blog.swwomm.com/2011/01/literal-tabs-in-vi.html
+" Insert literal null character
+Ctrl-V 0 <enter>
