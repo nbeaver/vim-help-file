@@ -55,6 +55,10 @@ Ctrl-O
 
 " Change each 'foo' (case insensitive) to 'bar'; ask for confirmation. 
 :%s/foo/bar/gci
+" Change file paths without escaping everything
+:%s;/home/user1;/home/user2;gci
+:%s,/home/user1,/home/user2,gci
+" You can use anything except an alphanumeric character, \, ", or |
 
 " reload current file
 :edit
@@ -75,12 +79,13 @@ Ctrl-o
 " Replace all commas with newlines
 :%s/,/^V^M/g
 
-" Paste directory vim was invoked in
+" Paste directory vim was invoked in, or path of buffer if autochdir is set
 !!pwd
-" Put/paste full path and filename in insert mode
+" Put/paste filename in insert mode (may include path, depending on how vim was invoked)
 Ctrl-R %
-" Put/paste full path and filename in normal mode
+" Put/paste filename in normal mode (may include path, depending on how vim was invoked)
 "%p
+
 
 " Move up to next blank line
 {
@@ -136,6 +141,8 @@ Ctrl-X Ctrl-F
 V      " Select block
 :w !sh " Runs command
 '<,'>w !sh " Looks like this
+" Run the current line in bash
+:w !bash
 
 " Running shell commands
 :! my-shell-command
@@ -202,6 +209,12 @@ Ctrl-K DG
 
 " Put line numbers into file using unix nl command:
 :%!nl
+" Number a visual selection
+" Make visual selectoin, then:
+:!nl
+" Will show up as
+:'<,'>!nl
+
 " Reverse order of lines
 :%!tac
 " Sort lines 4-7
@@ -233,6 +246,7 @@ K
 :tabnew|read !man sort
 " Some people think you need to use ul to get the 'underline and bold escape codes into readable format,' but I haven't had any problems.
 :tabnew|read !man sort | ul -i
+
 
 " Backwards/forwards in the jump list (older/newer cursor position)
 Ctrl-O
@@ -465,6 +479,13 @@ Ctrl-R Ctrl-R a
 
 " Replace current line with filename
 !!echo %
+
+" Replace current line with math calculations from bc (integers only)
+!!bc
+" Replace current line with math calculations from bc (do 20 digits of floating point precision and load math library)
+!bc -l
+" Replace several lines with math calculations from bc (i.e. do a calculation for each line)
+<make visual selection>
 
 " Variable length search
 /computer.*fun
