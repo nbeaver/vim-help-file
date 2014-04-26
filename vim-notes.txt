@@ -202,8 +202,10 @@ ga
 g8
 " Enter an ñ (enye) in insert mode:
 Ctrl-K n?
-" Enter the degree symbol
+" Enter the degree symbol, °
 Ctrl-K DG
+" Enter the section sign, §
+Ctrl-K DE
 " See all available digraphs
 :digraphs
 
