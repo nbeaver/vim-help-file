@@ -53,12 +53,18 @@ Ctrl-O
 " or (for current search only)
 /foo\c
 
-" Change each 'foo' (case insensitive) to 'bar'; ask for confirmation. 
+" Change each 'foo' (case insensitive) to 'bar' starting from the top; ask for confirmation. 
 :%s/foo/bar/gci
+" The % is short for 1,$ (the entire file). See :help range
 " Change file paths without escaping everything
 :%s;/home/user1;/home/user2;gci
 :%s,/home/user1,/home/user2,gci
 " You can use anything except an alphanumeric character, \, ", or |
+
+" Change each 'foo' (case insensitive) to 'bar', starting from the current line; ask for confirmation. 
+:.,$s/foo/bar/gci
+" shorter version. Note that . refers to the current line and can be assume, while $ refers to the last line in the file
+:,$s/foo/bar/gci
 
 " reload current file
 :edit
