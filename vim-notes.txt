@@ -61,6 +61,11 @@ Ctrl-O
 :%s,/home/user1,/home/user2,gci
 " You can use anything except an alphanumeric character, \, ", or |
 
+" Count number of matches the pattern "blah". May be multiple matches per line.
+:%s/blah//gn
+" Count number of lines matching the pattern "start with + sign", e.g. for added lines in a patch.
+:%s/^+//n
+
 " Change each 'foo' (case insensitive) to 'bar', starting from the current line; ask for confirmation. 
 :.,$s/foo/bar/gci
 " shorter version. Note that . refers to the current line and can be assume, while $ refers to the last line in the file
