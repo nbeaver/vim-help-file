@@ -204,8 +204,10 @@ dd
 " Help on command in insert mode
 :help i_Ctrl-X_Ctrl-L
 
-" Open filename under cursor
+" Open filename under cursor (must save current file first)
 gf
+" Open filename under cursor (in new window)
+Ctrl-W Ctrl-F
 
 " Inspect character for decimal, hex, or octal representation. Useful combined with unicode(1) command..
 ga
@@ -567,6 +569,9 @@ gD
 \u uppercase character
 \U non-uppercase character
 
+" Search for # followed by an alphabetic character
+/\#\a
+
 " Basic vim indentation.
 " http://tedlogan.com/techblog3.html
 :set softtabstop=4 shiftwidth=4 expandtab smartindent
@@ -580,3 +585,14 @@ Ctrl-V <tab>
 "http://blog.swwomm.com/2011/01/literal-tabs-in-vi.html
 " Insert literal null character
 Ctrl-V 0 <enter>
+
+" Search for # followed by a letter (not a space)
+/\#\a
+" Substitute # followed by letter by an interspersed space
+:%s/\#\(\a\)/\# \1/gc
+
+" Note: vim swap files (.swp) don't hold edit history,
+" so if you do a vim -r myfile.txt,
+" you'll have to output the resulting file and diff it,
+" not press u and Ctrl-R to run through the history.
+" There will be no history.
