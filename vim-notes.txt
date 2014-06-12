@@ -596,3 +596,6 @@ Ctrl-V 0 <enter>
 " you'll have to output the resulting file and diff it,
 " not press u and Ctrl-R to run through the history.
 " There will be no history.
+
+" Reload the vimrc file
+:source $MYVIMRC
