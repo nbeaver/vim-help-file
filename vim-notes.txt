@@ -402,6 +402,9 @@ vim file1 file2 file3
 " Run :set list as soon as it's loaded.
 vim -c "set list" file.txt
 
+" Set vim so that it will write a file in place rather than making a temp or backup file (.swp)
+vim -c "set backupcopy=yes|set noswapfile" myfile
+
 " Move current line down 4 lines
 :m +4
 
