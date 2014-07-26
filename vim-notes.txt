@@ -262,6 +262,10 @@ K
 " Some people think you need to use ul to get the 'underline and bold escape codes into readable format,' but I haven't had any problems.
 :tabnew|read !man sort | ul -i
 
+" Insert a new line with the date from the date(1) command.
+:read !date
+" Same, but with day only date in ISO format, e.g. 2014-07-22
+:read !date -I
 
 " Backwards/forwards in the jump list (older/newer cursor position)
 Ctrl-O
