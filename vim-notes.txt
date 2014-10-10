@@ -53,7 +53,7 @@ Ctrl-O
 " or (for current search only)
 /foo\c
 
-" Change each 'foo' (case insensitive) to 'bar' starting from the top; ask for confirmation. 
+" Change each 'foo' (case insensitive) to 'bar' starting from the top; ask for confirmation.
 :%s/foo/bar/gci
 " The % is short for 1,$ (the entire file). See :help range
 " Change file paths without escaping everything
@@ -66,7 +66,7 @@ Ctrl-O
 " Count number of lines matching the pattern "start with + sign", e.g. for added lines in a patch.
 :%s/^+//n
 
-" Change each 'foo' (case insensitive) to 'bar', starting from the current line; ask for confirmation. 
+" Change each 'foo' (case insensitive) to 'bar', starting from the current line; ask for confirmation.
 :.,$s/foo/bar/gci
 " shorter version. Note that . refers to the current line and can be assume, while $ refers to the last line in the file
 :,$s/foo/bar/gci
@@ -104,7 +104,7 @@ Ctrl-R %
 }
 
 " Move to a '{' in the first column
-[[ 
+[[
 ]]
 
 " C-style comments
@@ -128,6 +128,7 @@ D
 " View whitespace and non-printing characters
 :set list
 :set nolist " to undo
+" TODO: how do you make this work for all files?
 
 " Jump to longest help
 
@@ -331,11 +332,11 @@ Alt-o
 :%s/\s\+$//
 
 " jump to next space
-f 
+f
 " (i.e. f<space>)
 
 " change till next space
-ct 
+ct
 " (i.e. ct<space>)
 
 " search for decimal ascii value, e.g. 142
@@ -480,7 +481,7 @@ T<space>
 " Overwriting a word with yanked text
 y<motion>
 <move to text>
-ve " Visually select to end of word 
+ve " Visually select to end of word
 p  " Overwrite word without clobbering the " register
 
 " Edit a macro in the 'a' register.
@@ -550,7 +551,7 @@ gD
 :set autoread
 
 " Keep only the current buffer up to date
-:setlocal autoread 
+:setlocal autoread
 
 " Vim regular expressions for searching
 " http://vimregex.com/#metacharacters
@@ -606,3 +607,11 @@ Ctrl-V 0 <enter>
 
 " Reload the vimrc file
 :source $MYVIMRC
+
+" Repeat last change or yank.
+.
+" Repeat last colon command.
+@:
+" Repeat last colon command again.
+@@
+
