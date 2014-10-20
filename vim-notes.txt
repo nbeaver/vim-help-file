@@ -430,7 +430,10 @@ vim -c "set backupcopy=yes|set noswapfile" myfile
 :g/^#/d
 
 " Macros and registers
-qy " Start recording macro y
+" Start recording macro y
+qy
+" Stop recording macro y
+q
 :reg " see registers, including macros. Press enter to see more and q when finished.
 @y "run macro
 "yp " Paste macro onto current line
