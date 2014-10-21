@@ -536,14 +536,21 @@ Ctrl-R Ctrl-R a
 " Replace several lines with math calculations from bc (i.e. do a calculation for each line)
 <make visual selection>
 
+" rot13 (Caesar cipher) some lines of text.
+" First, select linewise with V. Then:
+!rot13
+" Look like this when typed:
+:'<,'>!rot13
+
 " Variable length search
 /computer.*fun
 
 " Redraw screen
 Ctrl-L
 
-" Make the visual selection texified.
-:!pandoc -t latex
+" Convert visual selection to LaTeX syntax by running it through pandoc
+" For example, this will escape &, %, and # to \&, \%, and \#.
+!pandoc -t latex
 
 " Choose vim's syntax highlighting
 :setf c
@@ -554,6 +561,20 @@ set filetype=c
 set filetype " Shows the current language used
 " Turn off syntax highlighting
 :syntax off
+
+" Force syntax highlight if e.g. file extension is wrong.
+:set syntax=python
+:set syntax=rst
+:set syntax=markdown
+:set syntax=vim
+
+" Force filetype (also afffects syntax highlighting).
+:set filetype=help
+
+" Could use modelines to enable syntax highlighting and so on,
+" but mostly modeline is disabled by default for security reasons.
+" See if modeline is enabled:
+:verbose set modeline?
 
 " Getting help for different modes.
 :help ctrl-f   " ctrl-f in normal mode
@@ -647,16 +668,3 @@ nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
-" Force syntax highlight if e.g. file extension is wrong.
-:set syntax=python
-:set syntax=rst
-:set syntax=markdown
-:set syntax=vim
-
-" Force filetype (also afffects syntax highlighting).
-:set filetype=help
-
-" Could use modelines to enable syntax highlighting and so on,
-" but mostly modeline is disabled by default for security reasons.
-" See if modeline is enabled:
-:verbose set modeline?
