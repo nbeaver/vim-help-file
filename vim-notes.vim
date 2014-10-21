@@ -80,9 +80,11 @@ Ctrl-O
 " Count number of lines matching the pattern "start with + sign", e.g. for added lines in a patch.
 :%s/^+//n
 
-" Change each 'foo' (case insensitive) to 'bar', starting from the current line; ask for confirmation.
+" Change each 'foo' (case insensitive) to 'bar',
+" starting from the current line; ask for confirmation.
 :.,$s/foo/bar/gci
-" shorter version. Note that . refers to the current line and can be assume, while $ refers to the last line in the file
+" Shorter version. Note that . refers to the current line and can be assumed,
+" while $ refers to the last line in the file.
 :,$s/foo/bar/gci
 
 " reload current file
@@ -107,34 +109,37 @@ Ctrl-o
 " Set working directory to whatever file you're editing
 :set autochdir
 
-" Find name of current file, and other helpful information
+" Find name of current file and other helpful information.
 Ctrl-G
 
-" Find out the current working directory
+" Find out the current working directory.
 :pwd
 
-" Paste directory vim was invoked in, or path of buffer if autochdir is set
+" Paste directory vim was invoked in,
+" or path of buffer if autochdir is set
 !!pwd
-" Put/paste filename in insert mode (may include path, depending on how vim was invoked)
+" Put/paste filename in insert mode.
+" May include path, depending on how vim was invoked.
 Ctrl-R %
-" Put/paste filename in normal mode (may include path, depending on how vim was invoked)
+" Put/paste filename in normal mode
+" May include path, depending on how vim was invoked.
 "%p
 
-" Move up to next blank line
+" Move up to next blank line.
 {
 " Move down to next blank line
 }
 
-" Move to a '{' in the first column
+" Move to a '{' in the first column.
 [[
 ]]
 
 " C-style comments
 :set comments=sl:/*,mb:**,elx
 
-" Delete everything before cursor on line
+" Delete everything before cursor on line.
 d0
-" Delete everything after curso on line
+" Delete everything after curso on line.
 D
 
 " Set what make does,
@@ -144,14 +149,20 @@ D
 
 :nnoremap <F5> :<C-U>make<CR>
 
-" Replace tabs with newlines
+" Replace tabs with newlines.
 :%s/\t/\n/g
 " Access tab character with Ctrl-V Ctrl-I
 
 " View whitespace and non-printing characters
 :set list
-:set nolist " to undo
-" TODO: how do you make this work for all files?
+" Stop viewing whitespace.
+:set nolist 
+" Do this for all buffers.
+:bufdo set list
+" Do this for all windows.
+:windo set list
+" Do this for all tabs.
+:tabdo set list
 
 " Jump to help tags
 Ctrl-[
