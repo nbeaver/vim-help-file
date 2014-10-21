@@ -24,21 +24,35 @@ d%
 " delete until space:
 dt<space bar>
 
-" add # in front of several lines:
-Ctrl-V, then I#, then Esc
-" alternatively,
-Shift-V, then : (ex mode) s/^/#/
-" paste in front of several lines:
+" Using blockwise visual mode to add # in front of several lines to e.g. comment them out:
+Ctrl-v
+" Now motion, such as jjjj.
+" Now move into insert mode at the beginning of each line.
+I
+" Now type the comment character, e.g. #
+#
+" Now get out of insert mode.
+Esc
+" paste contents of " register in front of several lines:
 Ctrl-V, I, Ctrl-R "
 " (Can be any register)
+
+" Way to add # in front of several lines using linewise visual mode:
+V
+" Then use ex mode commands.
+:s/^/#/
+" It will actually look like this after typing:
+:'<,'>s/^/#/
+
 " append "hi" to several lines:
 Ctrl-V, then $, then A, then hi, then Esc
 " or
 :.,.+5s/$/hi
 
-" go to previous cursor position:
+" Toggle previous cursor position:
 ''
 ``
+" Run backwards through jump list.
 Ctrl-O
 
 " search yanked text:
@@ -90,13 +104,21 @@ Ctrl-o
 " Replace all commas with newlines
 :%s/,/^V^M/g
 
+" Set working directory to whatever file you're editing
+:set autochdir
+
+" Find name of current file, and other helpful information
+Ctrl-G
+
+" Find out the current working directory
+:pwd
+
 " Paste directory vim was invoked in, or path of buffer if autochdir is set
 !!pwd
 " Put/paste filename in insert mode (may include path, depending on how vim was invoked)
 Ctrl-R %
 " Put/paste filename in normal mode (may include path, depending on how vim was invoked)
 "%p
-
 
 " Move up to next blank line
 {
@@ -112,10 +134,11 @@ Ctrl-R %
 
 " Delete everything before cursor on line
 d0
-" Delete everything after curson on line
+" Delete everything after curso on line
 D
 
-" Use make without a makefile
+" Set what make does,
+" e.g. compile a C program without using a makefile
 :set makeprg=gcc\ test.c
 :set makeprg=gcc\ % " gcc on current filename
 
@@ -130,18 +153,19 @@ D
 :set nolist " to undo
 " TODO: how do you make this work for all files?
 
-" Jump to longest help
+" Jump to help tags
+Ctrl-[
 
 " Paste longest line length
 :%yank
 :%!wc -L
 :put
 
-" If you want to paste in a web address, make sure you are in insert mode, otherwise it will interpret the ':' in 'http:' as entering command mode
-
 " Auto-complete filenames while in insert mode:
 Ctrl-X Ctrl-F
 " (See :help compl-filename)
+" (See :help i_Ctrl-X)
+" 
 
 " Word count of current file:
 :! wc %
@@ -192,8 +216,15 @@ dd
 
 " Paste primary selection (same as middle click)
 "*p
+
 " Paste clipboard (same as Ctrl-V in other programs)
 "+p
+" If you want to paste in a web address,
+" this is much better than using your terminal to paste (e.g. with Ctrl-Shift-V).
+" If you aren't in insert mode and use Ctrl-Shift-V,
+" it will interpret the ':' in 'http:' as entering command mode.
+" Also, for large amounts of text Ctrl-Shift-V tends to be much slower.
+
 " Yank into primary selection (cut)
 "*x
 " Yank into primary selection (copy)
@@ -349,14 +380,6 @@ ct
 W
 E
 
-" find out the current working directory
-:pwd
-
-" Set working directory to whatever file you're editing
-:set autochdir
-
-" Find full path of current file, and other helpful information
-Ctrl-G
 
 "ROT13 a visual selection:
 g?
@@ -623,3 +646,17 @@ nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
+
+" Force syntax highlight if e.g. file extension is wrong.
+:set syntax=python
+:set syntax=rst
+:set syntax=markdown
+:set syntax=vim
+
+" Force filetype (also afffects syntax highlighting).
+:set filetype=help
+
+" Could use modelines to enable syntax highlighting and so on,
+" but mostly modeline is disabled by default for security reasons.
+" See if modeline is enabled:
+:verbose set modeline?
