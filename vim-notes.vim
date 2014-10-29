@@ -57,6 +57,28 @@ Ctrl-O
 
 " search yanked text:
 / Ctrl-R 0
+" alternately (faster)
+q/p
+Enter
+" or even
+#
+" or
+*
+
+" search for visual selection of text.
+" http://vim.wikia.com/wiki/Search_and_replace_in_a_visual_selection#Searching_with_.2F_and_.3F
+" http://vim.wikia.com/wiki/Search_for_visually_selected_text
+v$
+" or other visual selection.
+" Now yank:
+y
+" And search as above.
+/
+Ctrl-R 0
+" or
+q/p
+Enter
+
 
 " re-open a tab that was closed
 :ls " get the buffer number
@@ -249,6 +271,11 @@ dd
 
 " Open filename under cursor (must save current file first)
 gf
+" Open filename under cursor (even if there are spaces or other weird
+" characters in the path not in isfname.
+v$
+" or other visual selection
+gf
 " Open filename under cursor (in new window)
 Ctrl-W Ctrl-F
 
@@ -289,6 +316,10 @@ Ctrl-K DE
 :%sort u
 " Numeric sort
 :sort n
+" Sort visual selection based on 52 character.
+:sort /.*\%52v/
+" Looks like this when typed:
+:'<,'>sort /.*\%52v/
 
 " Execute current line in shell
 yy:!<C-R>"<ENTER>
