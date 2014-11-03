@@ -394,6 +394,7 @@ vim + myfile.txt
 g;
 " Jump to next edited spot
 g,
+" Jump to last visual selection
 
 " Open new line while in insert mode (if you're using a terminal, not gvim)
 Alt-o
@@ -463,8 +464,17 @@ vim file1 file2 file3
 :b [Tab]
 " Open a new buffer
 :e ./file.txt
+" Select a folder or directory to enter rather than cycling through them.
+Ctrl-E
+" see :help complete_CTRL-E for more.
+" Show the options for the next completion (better than Ctrl-E)
+Ctrl-D
 " Add tab-completion to new buffer
 :set wildmenu
+" Close a buffer
+:bd
+" Wipe out a buffer.
+:bw
 
 " Save/rename a file and start editing it instead of the current file
 :saveas
