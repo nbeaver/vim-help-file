@@ -493,6 +493,8 @@ vim -c "set backupcopy=yes|set noswapfile" myfile
 :g/^$/d
 " Remove lines starting with #
 :g/^#/d
+" Longer version
+:global/^#/d
 
 " Macros and registers
 " Start recording macro y
@@ -521,6 +523,12 @@ p`[
 " See all lines that don't contain the @ symbol
 :v/@/p
 " What this does is do a global search (equivalent to :g!) and excute the :p command for each matching line
+
+" Delete all lines that don't have the @ symbol.
+:v/@/d
+
+" Longer version.
+:vglobal/@/d
 
 " Update the diffs for vimdiff
 :diffupdate
