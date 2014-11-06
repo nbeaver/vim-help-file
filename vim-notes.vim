@@ -374,7 +374,9 @@ dis
 z.
 
 " Moving vertically (http://vimuniversity.com/samples/jumping-long-distances)
-nG - jump to line n ("line 5, Go")
+5G - jump to line 5 ("line 5, Go")
+" or
+:5
 C-o - jump backwards ("out")
 C-i - jump forwards ("in")
 L - jump to bottom of screen ("low")
@@ -383,6 +385,8 @@ H - jump to top of screen ("high")
 zt - put this line at the 't'op of the screen
 zb - put this line at the 'b'ottom of the screen
 zz - put this line at the middle of the screen
+" Go to a percentage of the file (about)
+50%
 
 " The Vim documentation format
 :help help-writing
@@ -458,23 +462,33 @@ Ctrl-G u
 vim file1 file2 file3
 " See open buffers, one on each line (also works with tabs)
 :ls
-" Briefer list of open buffers (also works with tabs)
+" List arguments to vim when it was invoked.
+" Will not include e.g. buffers opened with :badd or :tabnew.
 :args
 " Switch to a buffer using tab completion
 :b [Tab]
-" Open a new buffer
-:e ./file.txt
+" Open a new empty, blank buffer
+:new
+" Add a buffer from e.g. a different file.
+:badd
+" Jump to last buffer.
+:b#
+" Repeat last colon command.
+@:
+
 " Select a folder or directory to enter rather than cycling through them.
 Ctrl-E
 " see :help complete_CTRL-E for more.
 " Show the options for the next completion (better than Ctrl-E)
 Ctrl-D
+
 " Add tab-completion to new buffer
 :set wildmenu
 " Close a buffer
 :bd
 " Wipe out a buffer.
 :bw
+
 
 " Save/rename a file and start editing it instead of the current file
 :saveas
@@ -728,3 +742,7 @@ nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
+" Saving a vim session.
+:mksession! ~/temp/current.ses
+" Restore that same session.
+vim -S ~/temp/current.ses
