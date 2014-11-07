@@ -92,6 +92,10 @@ Enter
 " Change each 'foo' (case insensitive) to 'bar' starting from the top; ask for confirmation.
 :%s/foo/bar/gci
 " The % is short for 1,$ (the entire file). See :help range
+" Change each 'foo' (case insensitive) to 'bar' starting from current line; ask for confirmation.
+:.s/foo/bar/gci
+" The . is short for current line. See :help range
+
 " Change file paths without escaping everything
 :%s;/home/user1;/home/user2;gci
 :%s,/home/user1,/home/user2,gci
@@ -186,8 +190,8 @@ D
 " Do this for all tabs.
 :tabdo set list
 
-" Jump to help tags
-Ctrl-[
+" Jump to help tags like |tag-commands|
+Ctrl-]
 
 " Paste longest line length
 :%yank
@@ -278,6 +282,9 @@ v$
 gf
 " Open filename under cursor (in new window)
 Ctrl-W Ctrl-F
+" Resize window to 90 lines.
+:resize 90
+" http://vim.wikia.com/wiki/Resize_splits_more_quickly
 
 " Inspect character for decimal, hex, or octal representation. Useful combined with unicode(1) command..
 ga
@@ -438,6 +445,7 @@ g?
 " Move back to previous misspelled word
 [s
 " Mark a word as correct (add a word to vim's dictionary)
+" Mnemonic: good
 zg
 " Mark a word as incorrect (remove from vim's dictionary)
 zw
@@ -462,6 +470,18 @@ Ctrl-G u
 vim file1 file2 file3
 " See open buffers, one on each line (also works with tabs)
 :ls
+" From vim docs:
+" u	an unlisted buffer (only displayed when [!] is used) |unlisted-buffer|
+" %	the buffer in the current window
+" #	the alternate buffer for ":e #" and CTRL-^
+" a	an active buffer: it is loaded and visible
+" h	a hidden buffer: It is loaded, but currently not displayed in a window |hidden-buffer|
+" -	a buffer with 'modifiable' off
+" =	a readonly buffer
+" +	a modified buffer
+" x	a buffer with read errors
+
+"
 " List arguments to vim when it was invoked.
 " Will not include e.g. buffers opened with :badd or :tabnew.
 :args
@@ -735,6 +755,7 @@ Ctrl-V 0 <enter>
 @:
 " Repeat last colon command again.
 @@
+" Unfortunately, no way to repeat last movement.
 
 " Disable arrow keys.
 nnoremap <up> <nop>
