@@ -243,6 +243,8 @@ yy
 " (move)
 dd
 "0p
+" Since the 0 register contains the last yank,
+" even if the default register " changed.
 
 " Yank current line into register a
 "ayy
@@ -495,6 +497,8 @@ vim file1 file2 file3
 :b#
 " Repeat last colon command.
 @:
+" Jump to the alternate buffer.
+Ctrl-6
 
 " Select a folder or directory to enter rather than cycling through them.
 Ctrl-E
@@ -545,10 +549,12 @@ vim -c "set backupcopy=yes|set noswapfile" myfile
 qy
 " Stop recording macro y
 q
+
 :reg " see registers, including macros. Press enter to see more and q when finished.
 @y "run macro
 "yp " Paste macro onto current line
 "yy " Yank the current selection into the y register
+
 
 " Replace non-printing characters (high ascii), e.g. 0x85 with \r
 :%s/\%x85/\r/gc
@@ -748,6 +754,11 @@ Ctrl-V 0 <enter>
 
 " Reload the vimrc file
 :source $MYVIMRC
+
+" Go to next buffer.
+" Note that you must save the file first,
+" unlike going to the next tab.
+:bn
 
 " Repeat last change or yank.
 .
