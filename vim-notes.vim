@@ -182,7 +182,7 @@ D
 " View whitespace and non-printing characters
 :set list
 " Stop viewing whitespace.
-:set nolist 
+:set nolist
 " Do this for all buffers.
 :bufdo set list
 " Do this for all windows.
@@ -202,7 +202,7 @@ Ctrl-]
 Ctrl-X Ctrl-F
 " (See :help compl-filename)
 " (See :help i_Ctrl-X)
-" 
+"
 
 " Word count of current file:
 :! wc %
@@ -271,6 +271,11 @@ dd
 " Yank into clibpoard (copy)
 "+y
 
+" Before pasting into vim,
+" turn off autowrap and such:
+:set paste
+" then turn it all back on.
+:set nopaste
 
 " Help on command in insert mode
 :help i_Ctrl-X_Ctrl-L
@@ -349,6 +354,12 @@ K
 :read !date
 " Same, but with day only date in ISO format, e.g. 2014-07-22
 :read !date -I
+" Less typing.
+:r !date -I
+" Even less typing, but will overwrite current line.
+!!date -I
+" http://stackoverflow.com/questions/56052/best-way-to-insert-timestamp-in-vim
+" http://stackoverflow.com/a/7681121
 
 " Backwards/forwards in the jump list (older/newer cursor position)
 Ctrl-O
@@ -662,6 +673,15 @@ set filetype " Shows the current language used
 " Turn off syntax highlighting
 :syntax off
 
+" Filetype plugins are in e.g.
+/usr/share/vim/vimcurrent/ftplugin/python.vim
+/usr/share/vim/vimcurrent/indent/python.vim
+/usr/share/vim/vimcurrent/syntax/python.vim
+
+/usr/share/vim/vimcurrent/ftplugin/sh.vim
+/usr/share/vim/vimcurrent/indent/sh.vim
+/usr/share/vim/vimcurrent/syntax/sh.vim
+
 " Force syntax highlight if e.g. file extension is wrong.
 :set syntax=python
 :set syntax=rst
@@ -675,6 +695,15 @@ set filetype " Shows the current language used
 " but mostly modeline is disabled by default for security reasons.
 " See if modeline is enabled:
 :verbose set modeline?
+" Modelines are useful for e.g. setting the filetype even if the file
+" extension is misleading. For example:
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+" in a python file will make the spacing come out right.
+" Or this in a javascript file:
+// vim: set ft=javascript:
+
+" http://vim.wikia.com/wiki/Modeline_magic
+" https://wiki.python.org/moin/Vim
 
 " Getting help for different modes.
 :help ctrl-f   " ctrl-f in normal mode
@@ -778,3 +807,19 @@ nnoremap <right> <nop>
 :mksession! ~/temp/current.ses
 " Restore that same session.
 vim -S ~/temp/current.ses
+
+" Fix indentation for an entire file.
+gg=G
+" http://vim.wikia.com/wiki/Fix_indentation
+
+" Stop jumping to start of line.
+:set nostartofline
+" http://stackoverflow.com/questions/16748161/jump-to-last-line-but-stay-in-the-same-column
+
+" Show command history as an editable vim window.
+q:
+" Press enter to execute the command the cursor is on or Ctrl-C to quit.
+
+" Show search history as an editable vim window.
+q/
+" Press enter to choose that search line or Ctrl-C to quit.
