@@ -65,6 +65,9 @@ Enter
 " or
 *
 
+" search clipboard text:
+/ Ctrl-R +
+
 " search for visual selection of text.
 " http://vim.wikia.com/wiki/Search_and_replace_in_a_visual_selection#Searching_with_.2F_and_.3F
 " http://vim.wikia.com/wiki/Search_for_visually_selected_text
@@ -277,6 +280,12 @@ dd
 " then turn it all back on.
 :set nopaste
 
+" Wrap long lines.
+:set wrap
+" Don't wrap long lines.
+:set nowrap
+" :set unwrap might make more sense.
+
 " Help on command in insert mode
 :help i_Ctrl-X_Ctrl-L
 
@@ -428,6 +437,8 @@ Alt-o
 
 " Delete all trailing whitespace
 :%s/\s\+$//
+" Search for trailing whitespace, ignoring a line that is only whitespace.
+/\w\s $
 
 " jump to next space
 f
@@ -823,3 +834,8 @@ q:
 " Show search history as an editable vim window.
 q/
 " Press enter to choose that search line or Ctrl-C to quit.
+
+" .file.txt.swp cannot be used on this computer.
+" The file was created on <thinkpad> <nathaniel-laptop>,
+" or the file has been damaged.
+" https://groups.google.com/forum/#!msg/vim_use/-wKUzSTun04/4Gu6cXUkKwUJ
