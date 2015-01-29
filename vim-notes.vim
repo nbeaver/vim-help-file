@@ -1,11 +1,12 @@
-" Vim help tag prefix conventions:
+" Vim help tag conventions:
 "    = no prefix means keystrokes in normal mode. |Normal-mode| |command-mode|
-" i_ = keystrokes in insert mode. |Insert-mode|
-" :  = commands in command-line mode. |:|
-" :_ = keystrokes in command-line or colon mode. |Cmdline-mode|
-" c_ = keystrokes command-line or colon mode. |Cmdline-mode|
-" v_ = keystrokes in visual mode. |Visual-mode|
-" 'option' = options changed with :set |'option'|
+" i_ = prefix for keystrokes in insert mode. |Insert-mode|
+" :  = prefix for commands in command-line mode. |:|
+" :_ = prefix for keystrokes in command-line or colon mode. |Cmdline-mode|
+" c_ = prefix for keystrokes command-line or colon mode. |Cmdline-mode|
+" v_ = prefix for keystrokes in visual mode. |Visual-mode|
+" /  = prefix for keystrokes in search mode, e.g. |/.|
+" 'option' = options changed with |:set| |'option'|
 " <key> = Special key. |<>| |keycodes|
 
 " to write file and jump to shell, with Ctrl-D to jump back. |:shell|
