@@ -1,8 +1,26 @@
+" Vim help tag prefix conventions:
+"    = no prefix means keystrokes in normal mode. |Normal-mode| |command-mode|
+" i_ = keystrokes in insert mode. |Insert-mode|
+" :  = commands in command-line mode. |:|
+" :_ = keystrokes in command-line or colon mode. |Cmdline-mode|
+" c_ = keystrokes command-line or colon mode. |Cmdline-mode|
+" v_ = keystrokes in visual mode. |Visual-mode|
+" 'option' = options changed with :set |'option'|
+" <key> = Special key. |<>| |keycodes|
+
 " to write file and jump to shell, with Ctrl-D to jump back. |:shell|
 :w|sh
 
-" to jump to highlighted tag, with Ctrl-T to jump back. |Ctrl-]| |tag-regexp|
+" Jump to tag under cursor. |Ctrl-]| |tag-regexp|
+" Current buffer must be saved.
 Ctrl-]
+" Jump back. |CTRL-T|
+Ctrl-t
+" TODO Is there any way to jump forward, like Ctrl-I for tag stacks?
+
+" Open tag in new window. |CTRL-W_]|
+Ctrl-W]
+" http://vim.wikia.com/wiki/Follow_tag_in_new_window
 
 " Begin visual selection. |characterwise-visual|
 v
@@ -30,32 +48,33 @@ vib
 " Select curly braces block. |v_iB|
 viB
 
-
 " When on a matched bracket, e.g. ([{}]), delete everything brackets and
 " everything in between. |d| |%|
 d%
 
 " Delete until space.
 " Usually dW does the same thing and is faster.
-dt<space bar>
+dt<Space>
 
-" Using blockwise visual mode to add # in front of several lines to e.g. comment them out. |blockwise-visual| |CTRL-V|
-Ctrl-v
-" Now motion, such as jjjj or }.
+" Using blockwise visual mode to add # in front of several lines.
+" Useful for commenting out blocks of code. |blockwise-visual| |CTRL-V|
+Ctrl-v{motion}
 " Now move into insert mode at the beginning of each line. |v_b_I|
 I
 " Now type the comment character, e.g. #
 #
-" Now get out of insert mode.
+" Now get out of insert mode. |i_esc|
 Esc
 
-" Put contents of the last yank (unnamed " register) in front of several lines. |registers|
+" Put contents of the last yank in front of multiple contiguous lines.
+" |i_CTRL-R|
 Ctrl-v{motion}
 I
 Ctrl-r "
-" Can use any register instead of ".
+" Can use any register. |registers|
 
-" Way to add # in front of several lines using linewise visual mode:
+" Add # in front of several lines, but using linewise visual mode
+" instead of block visual mode. |linewise-visual|
 V
 " Then use ex mode commands.
 :s/^/#/
@@ -74,6 +93,7 @@ hi     " type the desired text.
 " Toggle previous cursor position. |''| |``|
 ''
 ``
+
 " Run backwards through jump list. |CTRL-O|
 Ctrl-o
 
@@ -105,6 +125,9 @@ q/p
 :ls " get the buffer number
 :tabnew +Nbuf " where N is the buffer number
 
+" Show options that are different from the default value.
+:set
+
 " Case-insensitive search. |'ignorecase'|
 :set ignorecase
 " or (for current search only) |/\c|
@@ -124,9 +147,11 @@ q/p
 :%s;/home/user1;/home/user2;gci
 :%s,/home/user1,/home/user2,gci
 
-" Count number of matches the pattern "blah". May be multiple matches per line. |count-items|
+" Count number of matches the pattern "blah".
+" There may be multiple matches per line. |count-items|
 :%s/blah//gn
-" Count number of lines matching the pattern "start with + sign", e.g. for added lines in a patch.
+" Count number of lines starting with + sign.
+" Useful for counting number of added lines in a patch.
 :%s/^+//n
 
 " Change each 'foo' (case insensitive) to 'bar',
@@ -142,106 +167,123 @@ q/p
 " Always view status bar. |status-line| |'laststatus'|
 :set laststatus=2
 
-" To increment a number:
+" To increment a number. |CTRL-A|
 Ctrl-a
-" To decrement a number:
+" To decrement a number. |CTRL-X|
 Ctrl-x
 
-" Jump forward in history:
+" Jump forward in history. |CTRL-I| |<Tab>|
 Ctrl-i
-" Jump backward in history:
+" Jump backward in history. |CTRL-O|
 Ctrl-o
 
-" Replace all commas with newlines
-:%s/,/^V^M/g
+" Replace all commas with newlines. |/\r|
+:%s/,/\r/g
 
-" Set working directory to whatever file you're editing
+" Set working directory to whatever file you're editing |'autochdir'|
 :set autochdir
 
-" Find name of current file and other helpful information.
-Ctrl-G
+" Find name of current file and other helpful information. |CTRL-G| |:file|
+Ctrl-g
+
+" Count characters in file or visual selection. |g_CTRL-G| |word-count| |byte-count|
+g Ctrl-g
 
 " Find out the current working directory.
 :pwd
 
-" Paste directory vim was invoked in,
-" or path of buffer if autochdir is set
+" Overwrite current line with directory vim was invoked in,
+" or path of buffer if autochdir is set.
+" |!!| |filter| |'autochdir'|
 !!pwd
-" Put/paste filename in insert mode.
+" looks like this when typed:
+:.!pwd
+
+" Put/paste filename in insert mode. |:_%|
 " May include path, depending on how vim was invoked.
 Ctrl-R %
-" Put/paste filename in normal mode
+" Put/paste filename in normal mode. |quote%|
 " May include path, depending on how vim was invoked.
 "%p
-" Yank filename to the unnamed register.
+
+" Yank filename to the unnamed register. |:_%| |expand()| |:let|
 :let @" = expand("%")
-" Yank full path to the unnamed register.
+" Yank full path to the unnamed register. |%:p| |expand()| |:let|
 :let @" = expand("%:p")
 " https://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
 
-" Move up to next blank line.
+" Move up to next blank line. |{| |object-motions|
 {
-" Move down to next blank line
+" Move down to next blank line. |}| |object-motions|
 }
 
-" Move to a '{' in the first column.
+" Move to a '{' in the first column. |[[| |]]| |object-motions|
 [[
 ]]
 
 " C-style comments
 :set comments=sl:/*,mb:**,elx
 
-" Delete everything before cursor on line.
+" Delete everything before cursor on line. |d|
 d0
-" Delete everything after cursor on line.
+" Delete everything after cursor on line. |D|
 D
 
-" Set what make does,
-" e.g. compile a C program without using a makefile
+" Set what |:make| does,
+" e.g. compile a C program without using a makefile.
+" |:make| |'makeprg'|
 :set makeprg=gcc\ test.c
-:set makeprg=gcc\ % " gcc on current filename
-
+" Run gcc on current filename
+:set makeprg=gcc\ %
+" Make <F5> run make.
 :nnoremap <F5> :<C-U>make<CR>
 
 " Replace tabs with newlines.
 :%s/\t/\n/g
-" Access tab character with Ctrl-V Ctrl-I
+" Insert tab character even if |'expandtab'| is set.
+" |i_CTRL-V|
+Ctrl-V Ctrl-I
 
-" View whitespace and non-printing characters
+" View whitespace and non-printing characters. |'list'|
 :set list
 " Stop viewing whitespace.
 :set nolist
-" Do this for all buffers.
+" Do this for all buffers. |:bufdo|
 :bufdo set list
-" Do this for all windows.
+" Do this for all windows. |:windo|
 :windo set list
-" Do this for all tabs.
+" Do this for all tabs. |:tabdo|
 :tabdo set list
 
 " Jump to help tags like |tag-commands|
 Ctrl-]
 
-" Paste longest line length
+" Word count of current file using external wc(1) command. |:!| |:_%| |c_%|
+:! wc %
+
+" Paste longest line length using external wc(1) command.
 :%yank
 :%!wc -L
 :put
 
-" Auto-complete filenames while in insert mode:
+" Auto-complete filenames while in insert mode.
+" |i_CTRL-X_CTRL-F| |compl-filename|
+" |i_CTRL-X| |insert_expand|
 Ctrl-X Ctrl-F
-" (See :help compl-filename)
-" (See :help i_Ctrl-X)
-"
 
-" Word count of current file:
-:! wc %
-
-" Dump wikipedia page into new buffer
+" Dump wikipedia page into new buffer. |:r| |:!|
 :r ! w3m http://en.wikipedia.org/wiki/Vi -dump
+" From the docs: |file-read|
+" An example on how to use ":r !": >
+:r !uuencode binfile binfile
+" This command reads "binfile", uuencodes it and reads it into the current
+" buffer.  Useful when you are editing e-mail and want to include a binary
+" file.
 
 " Run the current line as a shell command
-V      " Select block
-:w !sh " Runs command
-'<,'>w !sh " Looks like this
+V          " Select block
+:w !sh     " Type this.
+'<,'>w !sh " Looks like this when typed.
 " Run the current line in bash
 :w !bash
 
@@ -252,11 +294,12 @@ V      " Select block
 Ctrl-R "
 " See :help c_CTRL-R
 
-" Move window without moving cursor
+" Scroll window without moving cursor. |CTRL-Y| |CTRL-E|
 Ctrl-y
 Ctrl-e
 
-" Put the time in insert mode
+" Put the time in insert mode.
+" Best to make a macro out of this.
 <C-R>=strftime("%c")<CR><Esc>
 
 " map k to gk and j to gj
@@ -300,10 +343,11 @@ dd
 "+y
 
 " Before pasting into vim,
-" turn off autowrap and such:
+" turn off autowrap and such.
 :set paste
 " then turn it all back on.
 :set nopaste
+" |'paste'|
 
 " Wrap long lines.
 :set wrap
@@ -312,32 +356,44 @@ dd
 " :set unwrap might make more sense.
 
 " Help on command in insert mode
-:help i_Ctrl-X_Ctrl-L
+:help i_<command>
 
-" Open filename under cursor (must save current file first)
+|i_CTRL-X_CTRL-L|
+
+" Open filename or path under cursor. |gf|
+" Must save current file first. |E37|
+" Path must not contain spaces. |'isfname'|
 gf
-" Open filename under cursor (even if there are spaces or other weird
-" characters in the path not in isfname.
-v$
-" or other visual selection
+
+" Open selected file or path containing spaces,
+" even if |'isfname'| does not contain a space.
+v{motion}
 gf
-" Open filename under cursor (in new window)
+
+~
+
+" Open filename under cursor in new window.
+" |CTRL-W_f| |CTRL-W_CTRL-F|
 Ctrl-W Ctrl-F
-" Resize window to 90 lines.
+
+" Resize window to 90 lines. |:resize|
 :resize 90
 " http://vim.wikia.com/wiki/Resize_splits_more_quickly
 
-" Inspect character for decimal, hex, or octal representation. Useful combined with unicode(1) command..
+" Inspect character for decimal, hex, or octal representation.
+" Useful combined with unicode(1) command. |ga| |:ascii|
 ga
 " Inspect utf-8. Not useful for searching with unicode(1).
 g8
-" Enter an ñ (enye) in insert mode:
+
+" Examples of entering digraphs in insert modek. |i_CTRL-K|
+" Enter an ñ (enye).
 Ctrl-K n?
 " Enter the degree symbol, °
 Ctrl-K DG
 " Enter the section sign, §
 Ctrl-K DE
-" See all available digraphs
+" See all available digraphs. |:digraphs|
 :digraphs
 
 " Put line numbers into file using unix nl command:
@@ -356,15 +412,15 @@ Ctrl-K DE
 :4,$ !sort -u
 " Sort visual selection
 :!sort -u
-" Sort entire document
+" Sort entire document alphabetically. |:sort|
 :sort
-" Reverse sort
-:%sort!
-" Sort removing duplicates
-:%sort u
-" Numeric sort
+" Sort in reverse order.
+:sort!
+" Sort removing duplicates (unique).
+:sort u
+" Sort numerically instead of alphabetically.
 :sort n
-" Sort visual selection based on 52 character.
+" Sort visual selection based on 52nd character.
 :sort /.*\%52v/
 " Looks like this when typed:
 :'<,'>sort /.*\%52v/
@@ -375,16 +431,16 @@ yy:!<C-R>"<ENTER>
 " Replace current line with the output results
 :.!sh
 
-" Load man page for current word or visual selection
+" Load man page for current word or visual selection. |K| |'keywordprg'|
 K
-" Load 4th man page
+" Load section 4 of a man page, e.g. urandom (4) or console (4)
 4K
 " Open, e.g. 'sort' command manpage as new tab
 :tabnew|read !man sort
 " Some people think you need to use ul to get the 'underline and bold escape codes into readable format,' but I haven't had any problems.
 :tabnew|read !man sort | ul -i
 
-" Insert a new line with the date from the date(1) command.
+" Insert a new line with the date from the date(1) command. |:read|
 :read !date
 " Same, but with day only date in ISO format, e.g. 2014-07-22
 :read !date -I
@@ -401,24 +457,24 @@ K
 " Backwards/forwards in the jump list (older/newer cursor position)
 Ctrl-O
 Ctrl-I
-:ju " see all jumps in the jumplist
+" see all jumps in the jumplist.
+:ju
 
-" output as a PostScript file instead of printing
+" output as a PostScript file instead of printing.
 :hardcopy > %.ps
 
-" split line on a space
+" Quickly split a line.
 r<CR>
+" Much faster than
+i<Enter><Esc>
 
 " View line numbers
 :set number
 " View relative line numbers
 :set relativenumber
 
-" Count characters in visual selction
-" (Make visual selection)
-g Ctrl-g
 
-" Delete current sentence
+" Delete current sentence.
 das
 dis
 
@@ -427,7 +483,7 @@ dis
 " Make current buffer match content of command:
 :%!uname -r
 
-" Center screen on cursor
+" Center screen on cursor. |z.|
 z.
 
 " Moving vertically (http://vimuniversity.com/samples/jumping-long-distances)
@@ -445,7 +501,7 @@ zz - put this line at the middle of the screen
 " Go to a percentage of the file (about)
 50%
 
-" The Vim documentation format
+" The Vim documentation format. |help-writing|
 :help help-writing
 
 " Start editing at the end of a file/bottom of document/last line
@@ -457,70 +513,81 @@ g;
 g,
 " Jump to last visual selection
 
-" Open new line while in insert mode (if you're using a terminal, not gvim)
+" Open new line while in insert mode.
+" Only works in a terminal with Alt-sends-Escape,
+" not in e.g. gVim.
 Alt-o
 
-" Return to 10 seconds earlier
+" Return to 10 seconds earlier. |:earlier|
 :earlier 10s
 
-" Delete all trailing whitespace
+" Delete all trailing whitespace.
 :%s/\s\+$//
-" Search for trailing whitespace, ignoring a line that is only whitespace.
+" Search for trailing whitespace,
+" ignoring a line that is only whitespace.
 /\w\s $
 
-" jump to next space
-f
-" (i.e. f<space>)
+" Jump to next space. |f|
+f<Space>
 
-" change till next space
-ct
-" (i.e. ct<space>)
+" Change text till next space
+ct<Space>
 
-" search for decimal ascii value, e.g. 142
+ascii
+" Search for decimal ascii value.
+" Useful for getting rid of control characters in a text file,
+" e.g. the control character U+008E <control> UTF-8: c2 8e  UTF-16BE: 008e  Decimal: &#142;
+" http://en.wikipedia.org/wiki/%C2%8E
 /^V142
 
-" Remove dos line feeds
+" Remove DOS line feeds (\r\n).
 :%s/\r\+$//e
+" https://en.wikipedia.org/wiki/Newline
 
-"  Moving by space-separated words, not just letters and underscores
+"  Moving by space-separated words, not just letters and underscores.
 W
 E
 
-
-"ROT13 a visual selection:
+" ROT13 a visual selection. |g?|
 g?
 
-" Check spelling
+" Check spelling. |'spell'|
 :set spell
-" Move to next misspelled word
+" Move to next misspelled word. |]s|
 ]s
 " Move back to previous misspelled word
 [s
-" Mark a word as correct (add a word to vim's dictionary)
+" Mark a word as spelled correctly (add a word to vim's dictionary). |zg|
 " Mnemonic: good
 zg
-" Mark a word as incorrect (remove from vim's dictionary)
+" Mark a word as misspelled (remove from vim's dictionary). |zw|
+" Mnemonic: wrong.
 zw
-" Vim dictionary is by default in ~/.vim/spell/en.utf-8.add
+" Vim personal dictionary is by default in ~/.vim/spell/en.utf-8.add
 
 " When you find you're editing a file without the needed permissions (not root)
 :w !sudo tee > /dev/null %
+" https://stackoverflow.com/questions/1005/getting-root-permissions-on-a-file-inside-of-vi
+" http://www.commandlinefu.com/commands/view/1204/save-a-file-you-edited-in-vim-without-the-needed-permissions
+" https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
 
-" Delete previous word in insert mode
+" Delete previous word in insert mode. |i_CTRL-W|
 Ctrl-W
 
-" Access normal mode without leaving insert mode
+" Access normal mode for one command, then go back to insert mode. |i_CTRL-O|
 Ctrl-O
 
-" Start new change in insert mode, so u (undo) doesn't delete everything
+" Start new change in insert mode. |i_CTRL-G_u|
+" This way, |u| (undo) doesn't delete everything.
 Ctrl-G u
 
-" Access shell aliases from vim
+" Access shell aliases from vim.
 :set shellcmdflag=-ic
 
 " Opening multiple buffers with vim (not tabs)
 vim file1 file2 file3
-" See open buffers, one on each line (also works with tabs)
+" See open buffers, one on each line. |:ls|
+" (Also shows windows tabs.)
 :ls
 " From vim docs:
 " u	an unlisted buffer (only displayed when [!] is used) |unlisted-buffer|
@@ -535,11 +602,11 @@ vim file1 file2 file3
 
 "
 " List arguments to vim when it was invoked.
-" Will not include e.g. buffers opened with :badd or :tabnew.
+" Will not include e.g. buffers opened with |:badd| or |:tabnew|.
 :args
-" Switch to a buffer using tab completion
-:b [Tab]
-" Open a new empty, blank buffer
+" Switch to a buffer using tab completion.
+:b <Tab>
+" Open a new empty, blank buffer.
 :new
 " Add a buffer from e.g. a different file.
 :badd
@@ -547,12 +614,14 @@ vim file1 file2 file3
 :b#
 " Repeat last colon command.
 @:
-" Jump to the alternate buffer.
+" Jump to the alternate buffer. |CTRL-6|
 Ctrl-6
 
 " Select a folder or directory to enter rather than cycling through them.
+" |c_End| |c_CTRL-E|
+End
+" or
 Ctrl-E
-" see :help complete_CTRL-E for more.
 " Show the options for the next completion (better than Ctrl-E)
 Ctrl-D
 
@@ -757,13 +826,16 @@ gd
 gD
 
 " Reload all windows
+" |:windo|
 :windo e
 " Reload all buffer
 :buffdo e
 " Reload all tabs
 :tabdo e
 
-" Keep vim up to date
+" Automatically keep buffers up to date,
+" in case a program other than vim changes them.
+" |'autoread'|
 :set autoread
 
 " Keep only the current buffer up to date
@@ -810,9 +882,11 @@ Ctrl-V <tab>
 " Insert literal null character
 Ctrl-V 0 <enter>
 
-" Search for # followed by a letter (not a space)
+" Search for # followed by a letter (not a space). |/\a|
 /\#\a
-" Substitute # followed by letter by an interspersed space
+" Search for # followed by a letter,
+" then put a space between them.
+" |/\1| |/\(\)|
 :%s/\#\(\a\)/\# \1/gc
 
 " Note: vim swap files (.swp) don't hold edit history,
@@ -820,6 +894,10 @@ Ctrl-V 0 <enter>
 " you'll have to output the resulting file and diff it,
 " not press u and Ctrl-R to run through the history.
 " There will be no history.
+" |swap-file|
+"     The swap file is updated after typing 200 characters or when you have not
+"     typed anything for four seconds.  This only happens if the buffer was
+"     changed, not when you only moved around.
 
 " Reload the vimrc file
 :source $MYVIMRC
@@ -831,11 +909,13 @@ Ctrl-V 0 <enter>
 
 " Repeat last change or yank.
 .
-" Repeat last colon command.
+" Repeat last colon command. |@:|
 @:
-" Repeat last colon command again.
+" Repeat last colon command again. |@@|
 @@
-" Unfortunately, no way to repeat last movement.
+" TODO Any way to repeat last movement?
+" http://vim.1045645.n5.nabble.com/How-to-repeat-the-last-movement-command-td1173323.html
+" http://vim.sourceforge.net/scripts/script.php?script_id=2174
 
 " Disable arrow keys.
 nnoremap <up> <nop>
@@ -848,11 +928,11 @@ nnoremap <right> <nop>
 " Restore that same session.
 vim -S ~/temp/current.ses
 
-" Fix indentation for an entire file.
+" Fix indentation for an entire file. |=| |filter|
 gg=G
 " http://vim.wikia.com/wiki/Fix_indentation
 
-" Stop jumping to start of line.
+" Stop jumping to start of line when moving around.
 :set nostartofline
 " http://stackoverflow.com/questions/16748161/jump-to-last-line-but-stay-in-the-same-column
 
@@ -868,3 +948,21 @@ q/
 " The file was created on <thinkpad> <nathaniel-laptop>,
 " or the file has been damaged.
 " https://groups.google.com/forum/#!msg/vim_use/-wKUzSTun04/4Gu6cXUkKwUJ
+
+" Capture output of ex command.
+" Useful with the q: command.
+" |:redir|
+" Example: capture open buffers into unnamed register.
+:redir @" | ls | redir END
+" Example: store all digraphs to file.
+:redir > digraphs.txt | digraphs | redir END
+" http://vim.wikia.com/wiki/Capture_ex_command_output
+" https://stackoverflow.com/questions/2573021/how-to-redirect-ex-command-output-into-current-buffer-or-file
+
+" Reflow/wrap/format the selected text. |gq|
+" Useful for hard-wrapping long lines.
+gq
+" Reflow/wrap/format only the line under the cursor. |gqq|
+gqq
+" Warning: easily mistyped with |gQ|, which means go into |Ex-mode|.
+gQ
