@@ -1,41 +1,59 @@
-" to write file and jump to shell, with Ctrl-D to jump back:
+" to write file and jump to shell, with Ctrl-D to jump back. |:shell|
 :w|sh
 
-" to jump to highlighted tag, with Ctrl-T to jump back:
+" to jump to highlighted tag, with Ctrl-T to jump back. |Ctrl-]| |tag-regexp|
 Ctrl-]
 
-" select inner word:
+" Begin visual selection. |characterwise-visual|
+v
+" End visual selection.
+v
+" TODO Train myself to do this instead of Esc.
+
+" select a word, starting from the current cursor postion and ending at the
+" start of the next word.
+vw
+
+" select a word if you are at the beginning, end, or somewhere in the middle. |v_iw|
 viw
 
-" select inner sentence:
-siw
+" Select inner sentence. |v_is|
+vis
 
-" select between quotes, parenthesis block, curly braces block:
-vi'
+" Select between quotes. |v_iquote|
+vi"
+" Inclusive select between quotes. |v_aquote|
+va"
+
+" Select parenthesis block. |v_ib|
 vib
+" Select curly braces block. |v_iB|
 viB
 
-" inclusive select:
-va'
 
-" delete everything between brackets:
+" When on a matched bracket, e.g. ([{}]), delete everything brackets and
+" everything in between. |d| |%|
 d%
 
-" delete until space:
+" Delete until space.
+" Usually dW does the same thing and is faster.
 dt<space bar>
 
-" Using blockwise visual mode to add # in front of several lines to e.g. comment them out:
+" Using blockwise visual mode to add # in front of several lines to e.g. comment them out. |blockwise-visual| |CTRL-V|
 Ctrl-v
-" Now motion, such as jjjj.
-" Now move into insert mode at the beginning of each line.
+" Now motion, such as jjjj or }.
+" Now move into insert mode at the beginning of each line. |v_b_I|
 I
 " Now type the comment character, e.g. #
 #
 " Now get out of insert mode.
 Esc
-" paste contents of " register in front of several lines:
-Ctrl-V, I, Ctrl-R "
-" (Can be any register)
+
+" Put contents of the last yank (unnamed " register) in front of several lines. |registers|
+Ctrl-v{motion}
+I
+Ctrl-r "
+" Can use any register instead of ".
 
 " Way to add # in front of several lines using linewise visual mode:
 V
@@ -45,66 +63,68 @@ V
 :'<,'>s/^/#/
 
 " append "hi" to several lines:
-Ctrl-V, then $, then A, then hi, then Esc
-" or
+Ctrl-v " begin block visual mode.
+$      " move to end of each line.
+A      " enter insert mode after the cursor.
+hi     " type the desired text.
+<Esc>  " exit insert mode.
+" or use ex commands.
 :.,.+5s/$/hi
 
-" Toggle previous cursor position:
+" Toggle previous cursor position. |''| |``|
 ''
 ``
-" Run backwards through jump list.
-Ctrl-O
+" Run backwards through jump list. |CTRL-O|
+Ctrl-o
 
-" search yanked text:
+" search for yanked text:
 / Ctrl-R 0
 " alternately (faster)
 q/p
-Enter
-" or even
-#
-" or
+<Enter>
+
+" Search forward for word under cursor. |star|
 *
+" Search backward for word under cursor. |#|
+#
 
 " search clipboard text:
 / Ctrl-R +
 
 " search for visual selection of text.
-" http://vim.wikia.com/wiki/Search_and_replace_in_a_visual_selection#Searching_with_.2F_and_.3F
-" http://vim.wikia.com/wiki/Search_for_visually_selected_text
-v$
-" or other visual selection.
+v{motion}
 " Now yank:
 y
 " And search as above.
-/
-Ctrl-R 0
-" or
 q/p
-Enter
+<Enter>
+" http://vim.wikia.com/wiki/Search_and_replace_in_a_visual_selection#Searching_with_.2F_and_.3F
+" http://vim.wikia.com/wiki/Search_for_visually_selected_text
 
-
-" re-open a tab that was closed
+" re-open a recentlly closed tab.
 :ls " get the buffer number
 :tabnew +Nbuf " where N is the buffer number
 
-" case-insensitive search:
+" Case-insensitive search. |'ignorecase'|
 :set ignorecase
-" or (for current search only)
+" or (for current search only) |/\c|
 /foo\c
+" TODO why can't I jump to the |/ignorecase| tag?
 
 " Change each 'foo' (case insensitive) to 'bar' starting from the top; ask for confirmation.
 :%s/foo/bar/gci
-" The % is short for 1,$ (the entire file). See :help range
+" The % is short for 1,$ (the entire file). |:%| |:range|
 " Change each 'foo' (case insensitive) to 'bar' starting from current line; ask for confirmation.
 :.s/foo/bar/gci
-" The . is short for current line. See :help range
+" The . is short for current line. |:.| |:range|
 
-" Change file paths without escaping everything
+" Using a slash for the substitute command is not necessary. |E146|
+" You can use anything except an alphanumeric character, \, ", or |
+" For example, changing file paths without escaping all the / characters.
 :%s;/home/user1;/home/user2;gci
 :%s,/home/user1,/home/user2,gci
-" You can use anything except an alphanumeric character, \, ", or |
 
-" Count number of matches the pattern "blah". May be multiple matches per line.
+" Count number of matches the pattern "blah". May be multiple matches per line. |count-items|
 :%s/blah//gn
 " Count number of lines matching the pattern "start with + sign", e.g. for added lines in a patch.
 :%s/^+//n
@@ -116,10 +136,10 @@ Enter
 " while $ refers to the last line in the file.
 :,$s/foo/bar/gci
 
-" reload current file
+" Reload current file. |:edit|
 :edit
 
-" Always view status bar
+" Always view status bar. |status-line| |'laststatus'|
 :set laststatus=2
 
 " To increment a number:
@@ -153,6 +173,11 @@ Ctrl-R %
 " Put/paste filename in normal mode
 " May include path, depending on how vim was invoked.
 "%p
+" Yank filename to the unnamed register.
+:let @" = expand("%")
+" Yank full path to the unnamed register.
+:let @" = expand("%:p")
+" https://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
 
 " Move up to next blank line.
 {
@@ -168,7 +193,7 @@ Ctrl-R %
 
 " Delete everything before cursor on line.
 d0
-" Delete everything after curso on line.
+" Delete everything after cursor on line.
 D
 
 " Set what make does,
@@ -228,8 +253,8 @@ Ctrl-R "
 " See :help c_CTRL-R
 
 " Move window without moving cursor
-Ctrl-Y
-Ctrl-E
+Ctrl-y
+Ctrl-e
 
 " Put the time in insert mode
 <C-R>=strftime("%c")<CR><Esc>
@@ -369,6 +394,9 @@ K
 !!date -I
 " http://stackoverflow.com/questions/56052/best-way-to-insert-timestamp-in-vim
 " http://stackoverflow.com/a/7681121
+
+" Yank the date into the unnamed register.
+:let @" = system("date")
 
 " Backwards/forwards in the jump list (older/newer cursor position)
 Ctrl-O
@@ -683,6 +711,7 @@ set filetype=c
 set filetype " Shows the current language used
 " Turn off syntax highlighting
 :syntax off
+" /usr/share/vim/vimcurrent/doc/filetype.txt
 
 " Filetype plugins are in e.g.
 /usr/share/vim/vimcurrent/ftplugin/python.vim
