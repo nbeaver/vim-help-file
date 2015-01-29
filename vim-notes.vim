@@ -291,9 +291,8 @@ V          " Select block
 " Running shell commands
 :! my-shell-command
 
-" Inserting/pasting registers in command mode
+" Inserting/pasting registers in command mode. |c_CTRL-R|
 Ctrl-R "
-" See :help c_CTRL-R
 
 " Scroll window without moving cursor. |CTRL-Y| |CTRL-E|
 Ctrl-y
@@ -549,8 +548,6 @@ ascii
 W
 E
 
-" ROT13 a visual selection. |g?|
-g?
 
 " Check spelling. |'spell'|
 :set spell
@@ -694,16 +691,16 @@ p`[
 :v/@/p
 " What this does is do a global search (equivalent to :g!) and excute the :p command for each matching line
 
-" Delete all lines that don't have the @ symbol.
+" Delete all lines that don't have the @ symbol. |:v|
 :v/@/d
-
-" Longer version.
+" or
 :vglobal/@/d
 
-" Update the diffs for vimdiff
-:diffupdate
+" Update the diffs for vimdiff. |:diffupdate|
+:diffu
 
-" Delete last two chars: make visual selection with V, then:
+" Delete last two chars of contiguous lines.
+V{motion}
 :s/..$//
 
 " Flip case of entire line, i.e. CAPS LOCK IS CRUISE CONTROL FOR COOL.
@@ -756,17 +753,20 @@ Ctrl-R Ctrl-R a
 " Replace several lines with math calculations from bc (i.e. do a calculation for each line)
 <make visual selection>
 
-" rot13 (Caesar cipher) some lines of text.
+" ROT13 a visual selection. |g?|
+g?
+" ROT13 (Caesar cipher) with external program.
 " First, select linewise with V. Then:
 !rot13
 " Look like this when typed:
 :'<,'>!rot13
 
+
 " Variable length search
 /computer.*fun
 
-" Redraw screen
-Ctrl-L
+" Redraw screen. |CTRL-L|
+Ctrl-l
 
 " Convert visual selection to LaTeX syntax by running it through pandoc
 " For example, this will escape &, %, and # to \&, \%, and \#.
@@ -821,9 +821,9 @@ set filetype " Shows the current language used
 :help c_ctrl-f " ctrl-f in ex mode (after typing : or Q)
 " Use tab to cycle through the various options.
 
-" Go to local variable definition
+" Go to local variable definition. |gd|
 gd
-" Go to global variable definition
+" Go to global variable definition. |gD|
 gD
 
 " Reload all windows
@@ -842,11 +842,11 @@ gD
 " Keep only the current buffer up to date
 :setlocal autoread
 
-" Vim regular expressions for searching
+" Vim regular expressions for searching. |/character-classes| |/ordinary-atom|
 " http://vimregex.com/#metacharacters
-.  any character except new line
-\s whitespace character
-\S non-whitespace character
+.  any character except new line |whitespace|
+\s whitespace character          |/\s|
+\S non-whitespace character      etc.
 \d digit
 \D non-digit
 \x hex digit
@@ -872,13 +872,12 @@ gD
 " Basic vim indentation.
 " http://tedlogan.com/techblog3.html
 :set softtabstop=4 shiftwidth=4 expandtab smartindent
-" softabstop is how many columns vim moves when you press tab.
-" shiftwidth controls >> << and cindent
-" expandtab produces spaces when the tab key is pressed
+" softtabstop is how many columns vim moves when you press tab. |'softtabstop'|
+" shiftwidth controls >> << and cindent                         |'shiftwidth'|
+" expandtab produces spaces when the tab key is pressed         |'expandtab'|
 
-" Insert literal tab when expandtab is on.
+" Insert literal tab when expandtab is on. |i_CTRL-V|
 Ctrl-V <tab>
-" See help i_Ctrl-V
 "http://blog.swwomm.com/2011/01/literal-tabs-in-vi.html
 " Insert literal null character
 Ctrl-V 0 <enter>
