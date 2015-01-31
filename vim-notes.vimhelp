@@ -4,18 +4,21 @@
 1. Vim help tag prefix conventions.	|tag-prefixes|
 2. Colon commands.			|my-colon-commands|
 
-==============================================================================
+================================================================================
 1. Vim help tag prefix conventions.				*tag-prefixes*
 
-   : no prefix for keystrokes in normal mode.			|Normal-mode| |command-mode|
-i_ : tag prefix for keystrokes in insert mode.			|Insert-mode|
-:  : tag prefix for ex/colon/comand-line mode			|:|
-:_ : tag prefix for keystrokes in ex/colon/comand-line mode.	|Cmdline-mode|
-c_ : Same as above.						|Cmdline-mode|
-v_ : tag prefix for keystrokes in visual mode.			|Visual-mode|
-/  : tag prefix for patterns.					|pattern-overview|
--  : tag prefix for arguments when invoking vim			|vim-arguments|
-'option' = options changed with |:set| |'option'|			|set-option|
+   Description                                  Example   Reference
+----------------------------------------------------------------------------------
+   No prefix for keystrokes in normal mode.     |CTRL-R|    |Normal-mode| |command-mode|
+i_ Tag prefix for keystrokes in insert mode.    |i_CTRL-R|  |Insert-mode|
+:  Tag prefix for ex/colon/cmdline mode.        |:shell|    |:|
+:_ Tag prefix for characters in cmdline mode.   |:_!|       |Cmdline-mode|
+c_ Tag prefix for keystrokes in ex mode.        |c_CTRL-C|  |Cmdline-mode|
+v_ Tag prefix for keystrokes in visual mode.    |v_!|       |Visual-mode|
+/  Tag prefix for patterns.                     |/star|     |pattern-overview|
+-  Tag prefix for arguments when invoking Vim.  |-+|        |vim-arguments|
+
+Vim |options| are in 'single' 'quotes'.                     |set-option|
 
 	http://vim.wikia.com/wiki/Learn_to_use_help#Context
 
