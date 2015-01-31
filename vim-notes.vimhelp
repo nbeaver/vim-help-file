@@ -1,24 +1,28 @@
 *vim-notes.vimhelp*	Personal vim notes.
 
-		 Personal VIM Notes
 
-Vim help tag context conventions:
+1. Vim help tag prefix conventions.	|tag-prefixes|
+2. Colon commands.			|my-colon-commands|
 
-	   = no prefix means keystrokes in normal mode. |Normal-mode| |command-mode|
-	i_ = prefix for keystrokes in insert mode. |Insert-mode|
-	:  = prefix for ex commands (a.k.a. colon mode, command-line mode). |:|
-	:_ = prefix for keystrokes in command-line or colon mode. |Cmdline-mode|
-	c_ = prefix for keystrokes command-line or colon mode. |Cmdline-mode|
-	v_ = prefix for keystrokes in visual mode. |Visual-mode|
-	/  = prefix for keystrokes in search mode, e.g. |/.|
-	-  = prefix for arguments to vim when starting it from a shell. |vim-arguments|
-	'option' = options changed with |:set| |'option'|
-	<key> = Special key. |<>| |keycodes|
+==============================================================================
+1. Vim help tag prefix conventions.				*tag-prefixes*
 
-http://vim.wikia.com/wiki/Learn_to_use_help#Context
+   : no prefix for keystrokes in normal mode.			|Normal-mode| |command-mode|
+i_ : tag prefix for keystrokes in insert mode.			|Insert-mode|
+:  : tag prefix for ex/colon/comand-line mode			|:|
+:_ : tag prefix for keystrokes in ex/colon/comand-line mode.	|Cmdline-mode|
+c_ : Same as above.						|Cmdline-mode|
+v_ : tag prefix for keystrokes in visual mode.			|Visual-mode|
+/  : tag prefix for patterns.					|pattern-overview|
+-  : tag prefix for arguments when invoking vim			|vim-arguments|
+'option' = options changed with |:set| |'option'|			|set-option|
 
-Write file and jump to shell, with Ctrl-D to jump back. |:shell|
-	:w|sh
+	http://vim.wikia.com/wiki/Learn_to_use_help#Context
+
+==============================================================================
+2. Colon commands. *my-colon-commands*
+:w|sh			Write file and jump to shell,
+			with Ctrl-D to jump back. |:shell|
 
 " Jump to tag under cursor. |Ctrl-]| |tag-regexp|
 " Current buffer must be saved.
