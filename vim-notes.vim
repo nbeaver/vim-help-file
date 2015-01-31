@@ -1,13 +1,20 @@
-" Vim help tag conventions:
+" TODO: Make this into a vim help file instead of a vimscript file,
+" then use /usr/share/vim/vimcurrent/doc/vim2html.pl to turn it into html.
+" Indent with tabs to get monospace.
+
+
+" Vim help tag context conventions:
 "    = no prefix means keystrokes in normal mode. |Normal-mode| |command-mode|
 " i_ = prefix for keystrokes in insert mode. |Insert-mode|
-" :  = prefix for commands in command-line mode. |:|
+" :  = prefix for ex commands (a.k.a. colon mode, command-line mode). |:|
 " :_ = prefix for keystrokes in command-line or colon mode. |Cmdline-mode|
 " c_ = prefix for keystrokes command-line or colon mode. |Cmdline-mode|
 " v_ = prefix for keystrokes in visual mode. |Visual-mode|
 " /  = prefix for keystrokes in search mode, e.g. |/.|
+" -  = prefix for arguments to vim when starting it from a shell. |vim-arguments|
 " 'option' = options changed with |:set| |'option'|
 " <key> = Special key. |<>| |keycodes|
+" http://vim.wikia.com/wiki/Learn_to_use_help#Context
 
 " to write file and jump to shell, with Ctrl-D to jump back. |:shell|
 :w|sh
@@ -15,9 +22,9 @@
 " Jump to tag under cursor. |Ctrl-]| |tag-regexp|
 " Current buffer must be saved.
 Ctrl-]
-" Jump back. |CTRL-T|
+" Jump to last tag. |CTRL-T|
 Ctrl-t
-" TODO Is there any way to jump forward, like Ctrl-I for tag stacks?
+" Note: Unlike Ctrl-O, Ctrl-I will not jump forward again.
 
 " Open tag in new window. |CTRL-W_]|
 Ctrl-W]
@@ -133,7 +140,9 @@ q/p
 :set ignorecase
 " or (for current search only) |/\c|
 /foo\c
-" TODO why can't I jump to the |/ignorecase| tag?
+" TODO Why does |/ignorecase| jump to |'ignorecase'| instead?
+" Is it a filetype thing?
+" |/atom| |/bar| |/\bar|
 
 " Change each 'foo' (case insensitive) to 'bar' starting from the top; ask for confirmation.
 :%s/foo/bar/gci
@@ -258,6 +267,9 @@ Ctrl-V Ctrl-I
 
 " Jump to help tags like |tag-commands|
 Ctrl-]
+
+" See which files vim looks for tags in. |'tags'| |E433|
+set tags
 
 " Word count of current file using external wc(1) command. |:!| |:_%| |c_%|
 :! wc %
@@ -525,7 +537,9 @@ Alt-o
 :%s/\s\+$//
 " Search for trailing whitespace,
 " ignoring a line that is only whitespace.
-/\w\s $
+/\S\s$
+" TODO How can you jump to the whitespace, not one character to the left?
+" TODO How can you turn this into a substitution command?
 
 " Jump to next space. |f|
 f<Space>
@@ -703,7 +717,7 @@ p`[
 V{motion}
 :s/..$//
 
-" Flip case of entire line, i.e. CAPS LOCK IS CRUISE CONTROL FOR COOL.
+" Flip case of entire line. |g~~|
 g~~
 
 " Run the q macro on each line of some visually selected text.
