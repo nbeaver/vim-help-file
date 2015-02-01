@@ -108,7 +108,7 @@ Ctrl-R			Enter contents of register. |i_CTRL-R|
 +			Paste yanked text. |quote+|
 
 q/p<Enter>		Search for yanked text. Breakdown:
-q/			Open |command-line-window|. 
+q/			Open |command-line-window|.
 p			Paste last yank.
 
 	http://vim.wikia.com/wiki/Search_and_replace_in_a_visual_selection#Searching_with_.2F_and_.3F
@@ -119,11 +119,16 @@ p			Paste last yank.
 #			Search backward for word under cursor. |#|
 
 			Re-open a recently closed tab.
-:ls			Get the buffer number, e.g. 11. |:ls|
-:tabnew +11buf		Open buffer 11 in a new tab. |:tabnew|
+:ls			Check if it's in the list of open buffers. |:ls|
+:tabnew#		Often, it will be the alternate file buffer, '#'. |:_#|  |alternate-file|
+:tabnew +11buf		Otherwise, open the appropriate buffer number (11 in this case).
+
+	https://stackoverflow.com/questions/571955/undo-close-tab-in-vim
 
 :browse oldfiles	Look at recently edited files,
 			with the option to open one of them. |:oldfiles| |more-prompt|
+
+	https://stackoverflow.com/questions/3171284/recent-file-history-in-vim
 
 :set			Show options that are different from the default value. |:set|
 
