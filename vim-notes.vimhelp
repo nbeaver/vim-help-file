@@ -2,147 +2,130 @@
 
 
 1. Vim help tag prefix conventions.	|tag-prefixes|
-2. Colon commands.			|my-colon-commands|
+2. Command list.			|my-command-list|
 
 ================================================================================
 1. Vim help tag prefix conventions.				*tag-prefixes*
 
-   Description                                  Example   Reference
+      Description                                  Example   Reference
 ----------------------------------------------------------------------------------
-   No prefix for keystrokes in normal mode.     |CTRL-R|    |Normal-mode| |command-mode|
-i_ Tag prefix for keystrokes in insert mode.    |i_CTRL-R|  |Insert-mode|
-:  Tag prefix for ex/colon/cmdline mode.        |:shell|    |:|
-:_ Tag prefix for characters in cmdline mode.   |:_!|       |Cmdline-mode|
-c_ Tag prefix for keystrokes in ex mode.        |c_CTRL-C|  |Cmdline-mode|
-v_ Tag prefix for keystrokes in visual mode.    |v_!|       |Visual-mode|
-/  Tag prefix for patterns.                     |/star|     |pattern-overview|
--  Tag prefix for arguments when invoking Vim.  |-+|        |vim-arguments|
+      No prefix for keystrokes in normal mode.     |CTRL-R|    |Normal-mode| |command-mode|
+i_    Tag prefix for keystrokes in insert mode.    |i_CTRL-R|  |Insert-mode|
+:     Tag prefix for ex/colon/cmdline mode.        |:shell|    |:|
+:_    Tag prefix for characters in cmdline mode.   |:_!|       |Cmdline-mode|
+c_    Tag prefix for keystrokes in ex mode.        |c_CTRL-C|  |Cmdline-mode|
+v_    Tag prefix for keystrokes in visual mode.    |v_!|       |Visual-mode|
+/     Tag prefix for patterns.                     |/star|     |pattern-overview|
+quote Tag prefix for registers.                    |quote-|    |registers|
+-     Tag prefix for arguments when invoking Vim.  |-+|        |vim-arguments|
 
 Vim |options| are in 'single' 'quotes'.                     |set-option|
 
 	http://vim.wikia.com/wiki/Learn_to_use_help#Context
 
 ==============================================================================
-2. Colon commands. *my-colon-commands*
+4. List of commands.		*my-command-list*
+
 :w|sh			Write file and jump to shell,
 			with Ctrl-D to jump back. |:shell|
 
-" Jump to tag under cursor. |Ctrl-]| |tag-regexp|
-" Current buffer must be saved.
-Ctrl-]
-" Jump to last tag. |CTRL-T|
-Ctrl-t
-" Note: Unlike Ctrl-O, Ctrl-I will not jump forward again.
+Ctrl-]			Jump to tag under cursor. |Ctrl-]| |tag-regexp|
+			Current buffer must be saved.
 
-" Open tag in new window. |CTRL-W_]|
-Ctrl-W]
-" http://vim.wikia.com/wiki/Follow_tag_in_new_window
+Ctrl-t			Jump to last tag. |CTRL-T|
+			Note: Unlike Ctrl-O, Ctrl-I will not jump forward again.
 
-" Begin visual selection. |characterwise-visual|
-v
-" End visual selection.
-v
-" TODO Train myself to do this instead of Esc.
+Ctrl-W]			Open tag in new window. |CTRL-W_]|
 
-" select a word, starting from the current cursor postion and ending at the
-" start of the next word.
-vw
+	http://vim.wikia.com/wiki/Follow_tag_in_new_window
 
-" select a word if you are at the beginning, end, or somewhere in the middle. |v_iw|
-viw
+v			Begin visual selection. |characterwise-visual|
 
-" Select inner sentence. |v_is|
-vis
+v			End visual selection. |v_v|
+			TODO Train myself to do this instead of Esc.
 
-" Select between quotes. |v_iquote|
-vi"
-" Inclusive select between quotes. |v_aquote|
-va"
+vw			Select a word, starting from the current cursor postion
+			and ending at the start of the next word.
 
-" Select parenthesis block. |v_ib|
-vib
-" Select curly braces block. |v_iB|
-viB
+viw			Select a word if you are at the beginning, end,
+			or somewhere in the middle. |v_iw|
 
-" When on a matched bracket, e.g. ([{}]), delete everything brackets and
-" everything in between. |d| |%|
-d%
+vis			Select the sentence the cursor is in. |v_is|
 
-" Delete until space.
-" Usually dW does the same thing and is faster.
-dt<Space>
+vi"			Select between quotes. |v_iquote|
 
-" Using blockwise visual mode to add # in front of several lines.
-" Useful for commenting out blocks of code. |blockwise-visual| |CTRL-V|
-Ctrl-v{motion}
-" Now move into insert mode at the beginning of each line. |v_b_I|
-I
-" Now type the comment character, e.g. #
-#
-" Now get out of insert mode. |i_esc|
-Esc
+va"			Inclusive select between quotes. |v_aquote|
 
-" Put contents of the last yank in front of multiple contiguous lines.
-" |i_CTRL-R|
-Ctrl-v{motion}
-I
-Ctrl-r "
-" Can use any register. |registers|
+vib			Select parenthesis block. |v_ib|
 
-" Add # in front of several lines, but using linewise visual mode
-" instead of block visual mode. |linewise-visual|
-V
-" Then use ex mode commands.
-:s/^/#/
-" It will actually look like this after typing:
-:'<,'>s/^/#/
+viB			Select curly braces block. |v_iB|
 
-" append "hi" to several lines:
-Ctrl-v " begin block visual mode.
-$      " move to end of each line.
-A      " enter insert mode after the cursor.
-hi     " type the desired text.
-<Esc>  " exit insert mode.
-" or use ex commands.
-:.,.+5s/$/hi
+d%			When on a bracket, e.g. ( [ { } ] ),
+			delete bracket, matching bracket, and everything in between. |d| |%| |inclusive|
 
-" Toggle previous cursor position. |''| |``|
-''
-``
+dt<Space>		Delete until space.
+			(Usually dW does the same thing and is faster.)
 
-" Run backwards through jump list. |CTRL-O|
-Ctrl-o
+			Add '#' in front of several lines.
+			Useful for commenting out blocks of code.
+Ctrl-v{motion}		Blockwise visual selection. |CTRL-V| |blockwise-visual|
+I			Now move into insert mode at the beginning of each line. |v_b_I|
+#			Now type the comment character, e.g. #
+Esc			Now get out of insert mode. |i_esc|
 
-" search for yanked text:
-/ Ctrl-R 0
-" alternately (faster)
-q/p
-<Enter>
+			Put contents of the last yank in front of multiple contiguous lines.
+I			Now move into insert mode at the beginning of each line. |v_b_I|
+Ctrl-r "		Paste the last yank. |i_CTRL-R|
+			Can use any register, not just |quote_quote|. |registers|
 
-" Search forward for word under cursor. |star|
-*
-" Search backward for word under cursor. |#|
-#
+			Add # in front of several lines, but using linewise visual mode
+			instead of block visual mode. |linewise-visual|
+V			Enter linewise visual mode. |V|
+:s/^/#/			Use the |:substitute| command to replace the |/^| pattern atom with '#'. |pattern-atoms|
+:'<,'>s/^/#/		(It will actually look like this while typing.)
 
-" search clipboard text:
-/ Ctrl-R +
+			Append "hi" to several lines using blockwise-visual mode.
+Ctrl-v{motion}		Blockwise visual selection. |CTRL-V| |blockwise-visual|
+$      			Move to end of each line. |v_$|
+A			Enter insert mode after the cursor. |A|
+hi			Type the desired text.
+<Esc>			Exit insert mode.
 
-" search for visual selection of text.
-v{motion}
-" Now yank:
-y
-" And search as above.
-q/p
-<Enter>
-" http://vim.wikia.com/wiki/Search_and_replace_in_a_visual_selection#Searching_with_.2F_and_.3F
-" http://vim.wikia.com/wiki/Search_for_visually_selected_text
+:.,.+5s/$/hi		Append "hi" to 5 lines using ex command. |:.| |:,| |:s|
 
-" re-open a recentlly closed tab.
-:ls " get the buffer number
-:tabnew +Nbuf " where N is the buffer number
+''			Toggle previous cursor position. |''| |``|
 
-" Show options that are different from the default value.
-:set
+Ctrl-o			Run backwards through |jumplist|. |CTRL-O|
+
+/ Ctrl-R 0		Search for yanked text. Breakdown:
+/			Begin search. |/|
+Ctrl-R			Enter contents of register. |i_CTRL-R|
+0			Paste yanked text. |quote0|
+
+/ Ctrl-R +		Search for clipboard text. Breakdown:
+/			Begin search. |/|
+Ctrl-R			Enter contents of register. |i_CTRL-R|
++			Paste yanked text. |quote+|
+
+q/p<Enter>		Search for yanked text. Breakdown:
+q/			Open |command-line-window|. 
+p			Paste last yank.
+
+	http://vim.wikia.com/wiki/Search_and_replace_in_a_visual_selection#Searching_with_.2F_and_.3F
+	http://vim.wikia.com/wiki/Search_for_visually_selected_text
+
+*			Search forward for word under cursor. |star|
+
+#			Search backward for word under cursor. |#|
+
+			Re-open a recently closed tab.
+:ls			Get the buffer number, e.g. 11. |:ls|
+:tabnew +11buf		Open buffer 11 in a new tab. |:tabnew|
+
+:browse oldfiles	Look at recently edited files,
+			with the option to open one of them. |:oldfiles| |more-prompt|
+
+:set			Show options that are different from the default value. |:set|
 
 " Case-insensitive search. |'ignorecase'|
 :set ignorecase
@@ -483,7 +466,7 @@ Ctrl-I
 " output as a PostScript file instead of printing.
 :hardcopy > %.ps
 
-" Quickly split a line.
+" Quickly split a line at a space.
 r<CR>
 " Much faster than
 i<Enter><Esc>
@@ -555,7 +538,6 @@ f<Space>
 " Change text till next space
 ct<Space>
 
-ascii
 " Search for decimal ascii value.
 " Useful for getting rid of control characters in a text file,
 " e.g. the control character U+008E <control> UTF-8: c2 8e  UTF-16BE: 008e  Decimal: &#142;
@@ -566,10 +548,9 @@ ascii
 :%s/\r\+$//e
 " https://en.wikipedia.org/wiki/Newline
 
-"  Moving by space-separated words, not just letters and underscores.
+" Moving by space-separated words, not letters and underscores.
 W
 E
-
 
 " Check spelling. |'spell'|
 :set spell
