@@ -16,15 +16,25 @@ i_    Tag prefix for keystrokes in insert mode.    |i_CTRL-R|   |i_<Up>|        
 c_    Usually same as the :_ prefix.               |c_%|        |c_CTRL-C|      |Cmdline-mode|
 v_    Tag prefix for keystrokes in visual mode.    |v_!|        |v_CTRL-C|      |Visual-mode|
 /     Tag prefix for patterns.                     |/star|      |/.|            |pattern-overview|
+s_    Tag prefix for substitution flags.           |:s_c|                     |:s_flags|
 quote Tag prefix for registers.                    |quote-|     |quote_alpha|   |registers|
 -     Tag prefix for arguments when invoking Vim.  |-+|         |-c|            |vim-arguments|
-
+t_    Tag prefix for termcap flags.                |t_k5|       |t_cm|          |terminal-options|
 Vim |options| are in 'single' 'quotes'.                                       |set-option|
 
 	http://vim.wikia.com/wiki/Learn_to_use_help#Context
 
+Formatting conventions:
+-- Make unindented text correspond to actual keystrokes,
+   so a search for e.g. "^I" will jump to the "I" keystroke in any mode.
+-- Make sure that external commands (e.g. wc(1)) can be followed with |K|,
+   e.g. wc(1) doesn't work, nor at the end of sentence ( wc. ), but wc (1) is
+   fine, as is /usr/bin/wc (with no period after).
+-- Indent URLs with <Tab>.
+-- TODO: How should output text be marked up, e.g. "137 myfile.txt"
+
 ==============================================================================
-4. List of commands.		*my-command-list*
+2. List of commands.		*my-command-list*
 
 :w|sh			Write file and jump to shell,
 			with Ctrl-D to jump back. |:shell|
@@ -65,6 +75,9 @@ d%			When on a bracket, e.g. ( [ { } ] ),
 
 dt<Space>		Delete until space.
 			(Usually dW does the same thing and is faster.)
+
+I	Enter insert mode at end of indentation on current line. |I|
+gI	Enter insert mode at beginning of line. |gI|
 
 			Add '#' in front of several lines.
 			Useful for commenting out blocks of code.
@@ -132,183 +145,156 @@ p			Paste last yank.
 
 :set			Show options that are different from the default value. |:set|
 
-" Case-insensitive search. |'ignorecase'|
-:set ignorecase
-" or (for current search only) |/\c|
-/foo\c
-" TODO Why does |/ignorecase| jump to |'ignorecase'| instead?
-" Is it a filetype thing?
-" |/atom| |/bar| |/\bar|
+:set ignorecase		Case-insensitive search. |'ignorecase'|
 
-" Change each 'foo' (case insensitive) to 'bar' starting from the top; ask for confirmation.
-:%s/foo/bar/gci
-" The % is short for 1,$ (the entire file). |:%| |:range|
-" Change each 'foo' (case insensitive) to 'bar' starting from current line; ask for confirmation.
-:.s/foo/bar/gci
-" The . is short for current line. |:.| |:range|
+/foo\c			Case-insesntive search (for current search only). |/\c|
 
-" Using a slash for the substitute command is not necessary. |E146|
-" You can use anything except an alphanumeric character, \, ", or |
-" For example, changing file paths without escaping all the / characters.
-:%s;/home/user1;/home/user2;gci
-:%s,/home/user1,/home/user2,gci
+			TODO Tagging issue: why does |/ignorecase| jump to |'ignorecase'| instead? |/atom| |/bar| |/\bar|
 
-" Count number of matches the pattern "blah".
-" There may be multiple matches per line. |count-items|
-:%s/blah//gn
-" Count number of lines starting with + sign.
-" Useful for counting number of added lines in a patch.
-:%s/^+//n
+:%s/foo/bar/gci		Change each 'foo' (case insensitive) to 'bar' starting from the top of the file; ask for confirmation.
+			The % is short for 1,$ (the entire file). |:%| |:range|
+			The /g is for global substitution (not just once per line). |:s_g|
+			The /c is for confirmation on each substitution. |:s_c|
+			The /i is for case-insensitivity. TODO: why no tags for this? |:s_i|
 
-" Change each 'foo' (case insensitive) to 'bar',
-" starting from the current line; ask for confirmation.
-:.,$s/foo/bar/gci
-" Shorter version. Note that . refers to the current line and can be assumed,
-" while $ refers to the last line in the file.
-:,$s/foo/bar/gci
+:.,$s/foo/bar/gci	Change each 'foo' (case insensitive) to 'bar' starting with current line.
+			The '.' means current line and the '$' means last line. |:.| |:$| |:range|
+:,$s/foo/bar/gci	Since starting from the current line is assumed,
+			it can also be omitted entirely.
 
-" Reload current file. |:edit|
-:edit
+:%s;/home/user1;/home/user2;gc		Subsitute file paths without escaping all the / characters.
+					Using a slash for the substitute command is not necessary. |E146|
+					You can use anything except an alphanumeric character, \, ", or |
 
-" Always view status bar. |status-line| |'laststatus'|
-:set laststatus=2
+:%s/blah//gn		Count number of matches the pattern "blah".
+			There may be multiple matches per line. |count-items|
 
-" To increment a number. |CTRL-A|
-Ctrl-a
-" To decrement a number. |CTRL-X|
-Ctrl-x
+:%s/^+//n		Count number of lines starting with + sign.
+			Useful for counting number of added lines in a patch.
 
-" Jump forward in history. |CTRL-I| |<Tab>|
-Ctrl-i
-" Jump backward in history. |CTRL-O|
-Ctrl-o
+:.,$s/foo/bar/gci	Change each 'foo' (case insensitive) to 'bar',
+			starting from the current line; ask for confirmation.
 
-" Replace all commas with newlines. |/\r|
-:%s/,/\r/g
+:%s/,/\r/g		Replace all commas with newlines. |/\r|
 
-" Set working directory to whatever file you're editing |'autochdir'|
-:set autochdir
+:edit			Reload current file. |:edit|
 
-" Find name of current file and other helpful information. |CTRL-G| |:file|
-Ctrl-g
+:set laststatus=2	Always view status bar. |status-line| |'laststatus'|
 
-" Count characters in file or visual selection. |g_CTRL-G| |word-count| |byte-count|
-g Ctrl-g
+Ctrl-a			Increment a number. |CTRL-A|
 
-" Find out the current working directory.
-:pwd
+Ctrl-x			Decrement a number. |CTRL-X|
 
-" Overwrite current line with directory vim was invoked in,
-" or path of buffer if autochdir is set.
-" |!!| |filter| |'autochdir'|
-!!pwd
-" looks like this when typed:
-:.!pwd
+Ctrl-i			Jump forward in history. |CTRL-I| |<Tab>|
 
-" Put/paste filename in insert mode. |:_%|
-" May include path, depending on how vim was invoked.
-Ctrl-R %
-" Put/paste filename in normal mode. |quote%|
-" May include path, depending on how vim was invoked.
-"%p
+Ctrl-o			Jump backward in history. |CTRL-O|
 
-" Yank filename to the unnamed register. |:_%| |expand()| |:let|
-:let @" = expand("%")
-" Yank full path to the unnamed register. |%:p| |expand()| |:let|
-:let @" = expand("%:p")
-" https://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
+:set autochdir		Set working directory to directory of current file. |'autochdir'|
 
-" Move up to next blank line. |{| |object-motions|
-{
-" Move down to next blank line. |}| |object-motions|
-}
+Ctrl-g			Find name of current file and other helpful information. |CTRL-G| |:file|
 
-" Move to a '{' in the first column. |[[| |]]| |object-motions|
-[[
+g Ctrl-g		Count characters in file or visual selection. |g_CTRL-G| |word-count| |byte-count|
+
+:pwd			Find out the current working directory.
+
+!!pwd			Overwrite current line with directory vim was invoked in,
+			or path of buffer if autochdir is set.  |!!| |filter| |'autochdir'|
+:.!pwd			Looks like this when typed.
+
+Ctrl-R %		Put/paste filename in insert mode. |:_%|
+
+			May include path, depending on how vim was invoked.
+
+"%p			Put/paste filename in normal mode. |quote%|
+			May include path, depending on how vim was invoked.
+
+:let @" = expand("%")	Yank filename to the unnamed register. |:_%| |expand()| |:let|
+
+:let @" = expand("%:p")	Yank full path to the unnamed register. |%:p| |expand()| |:let|
+
+	https://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
+
+{			Move up to next blank line. |{| |object-motions|
+
+}			Move down to next blank line. |}| |object-motions|
+
+[[			Move to a '{' in the first column. |[[| |]]| |object-motions|
+
 ]]
 
-" C-style comments
-:set comments=sl:/*,mb:**,elx
+:set comments=sl:/*,mb:**,elx			C-style multi-line comments
 
-" Delete everything before cursor on line. |d|
-d0
-" Delete everything after cursor on line. |D|
-D
+	http://tldp.org/HOWTO/C-editing-with-VIM-HOWTO/auto-format.html#AEN274
 
-" Set what |:make| does,
-" e.g. compile a C program without using a makefile.
-" |:make| |'makeprg'|
-:set makeprg=gcc\ test.c
-" Run gcc on current filename
-:set makeprg=gcc\ %
-" Make <F5> run make.
-:nnoremap <F5> :<C-U>make<CR>
+d0			Delete everything before cursor on line. |d|
 
-" Replace tabs with newlines.
-:%s/\t/\n/g
-" Insert tab character even if |'expandtab'| is set.
-" |i_CTRL-V|
-Ctrl-V Ctrl-I
+D			Delete everything after cursor on line. |D|
 
-" View whitespace and non-printing characters. |'list'|
-:set list
-" Stop viewing whitespace.
-:set nolist
-" Do this for all buffers. |:bufdo|
-:bufdo set list
-" Do this for all windows. |:windo|
-:windo set list
-" Do this for all tabs. |:tabdo|
-:tabdo set list
+:set makeprg=gcc\ test.c	Set |:make| command to run "gcc test.c". |'makeprg'|
+:set makeprg=gcc\ %		Set |:make| command to run gcc on current filename. |:_%|
 
-" Jump to help tags like |tag-commands|
-Ctrl-]
+:nnoremap <F5> :<C-U>make<CR>	Bind <F5> key run |:make|.
 
-" See which files vim looks for tags in. |'tags'| |E433|
-set tags
+:%s/\t/\n/g		Replace tabs with newlines.
 
-" Word count of current file using external wc(1) command. |:!| |:_%| |c_%|
-:! wc %
+Ctrl-V Ctrl-I		Insert tab character when |'expandtab'| is set. |i_CTRL-V|
 
-" Paste longest line length using external wc(1) command.
-:%yank
-:%!wc -L
-:put
+:set list		View whitespace and non-printing characters in current file. |'list'|
+:tabdo set list		Do this for all buffers. |:bufdo|
+:bufdo set list		Do this for all windows. |:windo|
+:windo set list		Do this for all tabs. |:tabdo|
+:set nolist		Stop viewing whitespace in current file.
 
-" Auto-complete filenames while in insert mode.
-" |i_CTRL-X_CTRL-F| |compl-filename|
-" |i_CTRL-X| |insert_expand|
-Ctrl-X Ctrl-F
+Ctrl-]			Jump to help tags like |tag-commands|
 
-" Dump wikipedia page into new buffer. |:r| |:!|
-:r ! w3m http://en.wikipedia.org/wiki/Vi -dump
-" From the docs: |file-read|
-" An example on how to use ":r !": >
-:r !uuencode binfile binfile
-" This command reads "binfile", uuencodes it and reads it into the current
-" buffer.  Useful when you are editing e-mail and want to include a binary
-" file.
+set tags		See which files vim looks for tags in. |'tags'| |E433|
 
-" Run the current line as a shell command
-V          " Select block
-:w !sh     " Type this.
-'<,'>w !sh " Looks like this when typed.
-" Run the current line in bash
-:w !bash
+:! wc %			Word count of current file using external /usr/bin/wc shell command. |:!| |:_%| |c_%|
+
+			Jump to the longest line in the current file.
+			Uses the external /usr/bin/wc command.
+:r !wc -L %		Get the length of the longest line, e.g.
+137 myfile.txt 
+/\%137c			Jump to column #137. |/\%c|
+			Note: this is kind of a hack.
+			Emacs would be better for this kind of thing.
+
+	https://stackoverflow.com/questions/2075276/longest-line-in-vim
+	https://superuser.com/questions/255368/how-to-find-the-line-with-the-maximum-number-of-columns-characters-in-vim-gvim
+	http://of-vim-and-vigor.blogspot.com/2012/02/jump-to-longest-line.html
+
+Ctrl-X Ctrl-F			Auto-complete filenames while in insert mode.
+				|i_CTRL-X_CTRL-F|		|compl-filename|
+				|i_CTRL-X|		|insert_expand|
+
+:tabnew | r !w3m http://en.wikipedia.org/wiki/Vi -dump	Dump wikipedia page into new tab |:r| |:!|
+							Requires external /usr/bin/w3m browser.
+	http://sourceforge.net/projects/w3m/
+	http://manoftoday.wikidot.com/vim#toc19
+	http://www.linux.com/learn/tutorials/442419-vim-tips-working-with-external-commands
+
+
+		Run the current line as a shell command
+V		Select current line. |V|
+:w !sh		Execute the selected text with /bin/sh (default shell).
+		Looks like this when typed: '<,'>w !sh	
+:w !bash 	Can also use e.g. bash shell.
 
 " Running shell commands
 :! my-shell-command
 
-" Inserting/pasting registers in command mode. |c_CTRL-R|
-Ctrl-R "
+u		Undo. |u|
+Ctrl-r		Redo. |CTRL-R|
 
-" Scroll window without moving cursor. |CTRL-Y| |CTRL-E|
-Ctrl-y
-Ctrl-e
+Ctrl-r "	Inserting/pasting registers in command mode. |c_CTRL-R|
 
-" Put the time in insert mode.
-" Best to make a macro out of this.
-<C-R>=strftime("%c")<CR><Esc>
+Ctrl-y		Scroll window up without moving cursor. |CTRL-Y|
+Ctrl-e		Scroll window down without moving cursor. |CTRL-E|
+			
+		Insert the current time in insert mode.
+<C-R>=		Bring up expression register. |i_CTRL-R_=|
+strftime("%c")	Get time. |strftime()|
+<CR>		End expression and go back to insert mode.
 
 " map k to gk and j to gj
 :noremap k gk
@@ -378,8 +364,6 @@ gf
 v{motion}
 gf
 
-~
-
 " Open filename under cursor in new window.
 " |CTRL-W_f| |CTRL-W_CTRL-F|
 Ctrl-W Ctrl-F
@@ -389,9 +373,9 @@ Ctrl-W Ctrl-F
 " http://vim.wikia.com/wiki/Resize_splits_more_quickly
 
 " Inspect character for decimal, hex, or octal representation.
-" Useful combined with unicode(1) command. |ga| |:ascii|
+" Useful combined with /usr/bin/unicode command. |ga| |:ascii|
 ga
-" Inspect utf-8. Not useful for searching with unicode(1).
+" Inspect utf-8. Not useful for searching with /usr/bin/unicode command.
 g8
 
 " Examples of entering digraphs in insert modek. |i_CTRL-K|
