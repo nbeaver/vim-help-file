@@ -4,7 +4,7 @@ all: vim-notes.html
 
 vim-notes.html: tags vim-notes.vimhelp Makefile
 	# The perl script adds more color, but it doesn't convert links.
-	./vim2html.pl tags vim-notes.vimhelp
+	./vim2html.pl TAGS vim-notes.vimhelp
 	# The awk script assumes all the files are in the same directory.
 	gawk -f makehtml.awk vim-notes.vimhelp > vim-notes.awk.html
 	# Change links in generated html so they point to the HTML files.

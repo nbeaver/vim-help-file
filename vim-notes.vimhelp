@@ -7,19 +7,19 @@
 ================================================================================
 1. Vim help tag prefix conventions.				*tag-prefixes*
 
-      Description                                  Example   Reference
-----------------------------------------------------------------------------------
-      No prefix for keystrokes in normal mode.     |CTRL-R|    |Normal-mode| |command-mode|
-i_    Tag prefix for keystrokes in insert mode.    |i_CTRL-R|  |Insert-mode|
-:     Tag prefix for ex/colon/cmdline mode.        |:shell|    |:|
-:_    Tag prefix for characters in cmdline mode.   |:_!|       |Cmdline-mode|
-c_    Tag prefix for keystrokes in ex mode.        |c_CTRL-C|  |Cmdline-mode|
-v_    Tag prefix for keystrokes in visual mode.    |v_!|       |Visual-mode|
-/     Tag prefix for patterns.                     |/star|     |pattern-overview|
-quote Tag prefix for registers.                    |quote-|    |registers|
--     Tag prefix for arguments when invoking Vim.  |-+|        |vim-arguments|
+      Description                                  Example#1  Example#2     Reference
+----------------------------------------------------------------------------------------------------
+      No prefix for keystrokes in normal mode.     |CTRL-R|     |<Up>|          |Normal-mode| |command-mode|
+i_    Tag prefix for keystrokes in insert mode.    |i_CTRL-R|   |i_<Up>|        |Insert-mode|
+:     Tag prefix for ranges and ex commands.       |:%|         |:shell|        |:|
+:_    Tag prefix for characters in cmdline mode.   |:_%|        |:_!|           |Cmdline-mode|
+c_    Usually same as the :_ prefix.               |c_%|        |c_CTRL-C|      |Cmdline-mode|
+v_    Tag prefix for keystrokes in visual mode.    |v_!|        |v_CTRL-C|      |Visual-mode|
+/     Tag prefix for patterns.                     |/star|      |/.|            |pattern-overview|
+quote Tag prefix for registers.                    |quote-|     |quote_alpha|   |registers|
+-     Tag prefix for arguments when invoking Vim.  |-+|         |-c|            |vim-arguments|
 
-Vim |options| are in 'single' 'quotes'.                     |set-option|
+Vim |options| are in 'single' 'quotes'.                                       |set-option|
 
 	http://vim.wikia.com/wiki/Learn_to_use_help#Context
 
