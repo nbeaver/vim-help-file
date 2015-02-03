@@ -31,7 +31,9 @@ Formatting conventions:
    e.g. wc(1) doesn't work, nor at the end of sentence ( wc. ), but wc (1) is
    fine, as is /usr/bin/wc (with no period after).
 -- Indent URLs with <Tab>.
--- TODO: How should output text be marked up, e.g. "137 myfile.txt"
+-- Mark up output text as examples: >
+	This is some output text.
+<  Like so.
 
 ==============================================================================
 2. List of commands.		*my-command-list*
@@ -76,8 +78,8 @@ d%			When on a bracket, e.g. ( [ { } ] ),
 dt<Space>		Delete until space.
 			(Usually dW does the same thing and is faster.)
 
-I	Enter insert mode at end of indentation on current line. |I|
-gI	Enter insert mode at beginning of line. |gI|
+I			Enter insert mode at end of indentation on current line. |I|
+gI			Enter insert mode at beginning of line. |gI|
 
 			Add '#' in front of several lines.
 			Useful for commenting out blocks of code.
@@ -95,7 +97,8 @@ Ctrl-r "		Paste the last yank. |i_CTRL-R|
 			instead of block visual mode. |linewise-visual|
 V			Enter linewise visual mode. |V|
 :s/^/#/			Use the |:substitute| command to replace the |/^| pattern atom with '#'. |pattern-atoms|
-:'<,'>s/^/#/		(It will actually look like this while typing.)
+			It will look like this while typing: >
+	:'<,'>s/^/#/
 
 			Append "hi" to several lines using blockwise-visual mode.
 Ctrl-v{motion}		Blockwise visual selection. |CTRL-V| |blockwise-visual|
@@ -108,7 +111,6 @@ hi			Type the desired text.
 
 ''			Toggle previous cursor position. |''| |``|
 
-Ctrl-o			Run backwards through |jumplist|. |CTRL-O|
 
 / Ctrl-R 0		Search for yanked text. Breakdown:
 /			Begin search. |/|
@@ -185,9 +187,11 @@ Ctrl-a			Increment a number. |CTRL-A|
 
 Ctrl-x			Decrement a number. |CTRL-X|
 
-Ctrl-i			Jump forward in history. |CTRL-I| |<Tab>|
+Ctrl-i			Jump forward through jumplist. |CTRL-I| |<Tab>|
 
-Ctrl-o			Jump backward in history. |CTRL-O|
+Ctrl-o			Jump backward through jumplist. |CTRL-O|
+
+:ju			See all jumps in the jumplist. |:jumps|
 
 :set autochdir		Set working directory to directory of current file. |'autochdir'|
 
@@ -199,7 +203,8 @@ g Ctrl-g		Count characters in file or visual selection. |g_CTRL-G| |word-count| 
 
 !!pwd			Overwrite current line with directory vim was invoked in,
 			or path of buffer if autochdir is set.  |!!| |filter| |'autochdir'|
-:.!pwd			Looks like this when typed.
+			Looks like this when typed: >
+	:.!pwd
 
 Ctrl-R %		Put/paste filename in insert mode. |:_%|
 
@@ -218,11 +223,11 @@ Ctrl-R %		Put/paste filename in insert mode. |:_%|
 
 }			Move down to next blank line. |}| |object-motions|
 
-[[			Move to a '{' in the first column. |[[| |]]| |object-motions|
+]]			Move to next '{' in the first column. |]]| |object-motions|
 
-]]
+[[			Move to previous '}' in the first column. |[[| |object-motions|
 
-:set comments=sl:/*,mb:**,elx			C-style multi-line comments
+:set comments=sl:/*,mb:**,elx	C-style multi-line comments
 
 	http://tldp.org/HOWTO/C-editing-with-VIM-HOWTO/auto-format.html#AEN274
 
@@ -253,8 +258,8 @@ set tags		See which files vim looks for tags in. |'tags'| |E433|
 
 			Jump to the longest line in the current file.
 			Uses the external /usr/bin/wc command.
-:r !wc -L %		Get the length of the longest line, e.g.
-137 myfile.txt 
+:r !wc -L %		Get the length of the longest line, e.g. >
+	137 myfile.txt 
 /\%137c			Jump to column #137. |/\%c|
 			Note: this is kind of a hack.
 			Emacs would be better for this kind of thing.
@@ -274,224 +279,196 @@ Ctrl-X Ctrl-F			Auto-complete filenames while in insert mode.
 	http://www.linux.com/learn/tutorials/442419-vim-tips-working-with-external-commands
 
 
-		Run the current line as a shell command
-V		Select current line. |V|
-:w !sh		Execute the selected text with /bin/sh (default shell).
-		Looks like this when typed: '<,'>w !sh	
-:w !bash 	Can also use e.g. bash shell.
+			Run the current line as a shell command
+V			Select current line. |V|
+:w !sh			Execute the selected text with /bin/sh (default shell).
+			Looks like this when typed: '<,'>w !sh	
+:w !bash	 	Can also use e.g. bash shell.
 
-" Running shell commands
-:! my-shell-command
+:! my-shell-command	Running shell commands
 
-u		Undo. |u|
-Ctrl-r		Redo. |CTRL-R|
+u			Undo. |u|
+Ctrl-r			Redo. |CTRL-R|
 
-Ctrl-r "	Inserting/pasting registers in command mode. |c_CTRL-R|
+Ctrl-r "		Inserting/pasting registers in command mode. |c_CTRL-R|
 
-Ctrl-y		Scroll window up without moving cursor. |CTRL-Y|
-Ctrl-e		Scroll window down without moving cursor. |CTRL-E|
+Ctrl-y			Scroll window up without moving cursor. |CTRL-Y|
+Ctrl-e			Scroll window down without moving cursor. |CTRL-E|
 			
-		Insert the current time in insert mode.
-<C-R>=		Bring up expression register. |i_CTRL-R_=|
-strftime("%c")	Get time. |strftime()|
-<CR>		End expression and go back to insert mode.
+			Insert the current time in insert mode.
+<C-R>=			Bring up expression register. |i_CTRL-R_=|
+strftime("%c")		Get time. |strftime()|
+<CR>			End expression and go back to insert mode.
 
-" map k to gk and j to gj
-:noremap k gk
-:noremap j gj
-" undo the mapping
-:unmap k
-:unmap j
+			Remap keys so that moving over long lines is easier. |:noremap|
+:noremap k gk		Map |k| to |gk| in normal mode, visual mode, and operator-pending mode.
+:noremap j gj		Map |j| to |gj|.
 
-" Yank a line, delete another, put the first line
-yy
-" (move)
-dd
-"0p
-" Since the 0 register contains the last yank,
-" even if the default register " changed.
+			Undo the mapping. |:unmap|
+:unmap k		These must be done one at a time. |E31|
+:unmap j		Otherwise it's not clear what the mapping is.
 
-" Yank current line into register a
-"ayy
-" Yank visual selection into register a
-"ay
-" Put register a
-"ap
+			Deleting (e.g. |d| and |x|) affects |quotequote| and |p|,
+			so how do we overwrite text? One fairly easy way:
+yy			Yank current line. |yy|
+{motion}		Move to desired line to replace.
+dd			Delete the line. |dd|
+"0p			Paste the first line. |quote0| |p|
+	http://vim.wikia.com/wiki/Replace_a_word_with_yanked_text
+	https://serebrov.github.io/html/2012-04-03-vim-replace-word-with-yanked-text.html
+	http://osquestions.com/unix-linux/26654/how-can-i-paste-overwriting-with-vim
+	https://superuser.com/questions/321547/how-do-i-replace-paste-yanked-text-in-vim-without-yanking-the-deleted-lines
 
-" Paste primary selection (same as middle click)
-"*p
+			Another way to overwrite text easily using registers. |quote_a|
+"ayy			Yank current line into register a. |yy|
+"ay			Yank visual selection into register a. |y|
+"ap			Paste register a. |p|
 
-" Paste clipboard (same as Ctrl-V in other programs)
-"+p
-" If you want to paste in a web address,
-" this is much better than using your terminal to paste (e.g. with Ctrl-Shift-V).
-" If you aren't in insert mode and use Ctrl-Shift-V,
-" it will interpret the ':' in 'http:' as entering command mode.
-" Also, for large amounts of text Ctrl-Shift-V tends to be much slower.
+"*p			Paste primary selection (same as middle click). |quotestar|
 
-" Yank into primary selection (cut)
-"*x
-" Yank into primary selection (copy)
-"*y
-" Yank into clibpoard (copy)
-"+y
+"+p			Paste clipboard (same as Ctrl-V in other programs). |quote_+|
+			If you want to paste in a web address,
+			this is much better than using your terminal to paste (e.g. with Ctrl-Shift-V).
+			If you aren't in insert mode and use Ctrl-Shift-V,
+			it will interpret the ':' in 'http:' as entering command mode.
+			Also, for large amounts of text Ctrl-Shift-V tends to be much slower.
 
-" Before pasting into vim,
-" turn off autowrap and such.
-:set paste
-" then turn it all back on.
-:set nopaste
-" |'paste'|
+"*x			Yank into primary selection (cut).
 
-" Wrap long lines.
-:set wrap
-" Don't wrap long lines.
-:set nowrap
-" :set unwrap might make more sense.
+"*y			Yank into primary selection (copy)
 
-" Help on command in insert mode
-:help i_<command>
+"+y			Yank into clibpoard (copy)
+
+			Before pasting into vim,
+:set nopaste		turn off autowrap and such. |'paste'|
+:set paste		Then turn it all back on.
+
+:set wrap		Wrap long lines.
+:set nowrap		Don't wrap long lines.
+			Admittedly, a command like >
+				:set unwrap
+<			would make more sense,
+			but this is consistent with other options.
+
+:help i_<command>	Help on command in insert mode
 
 |i_CTRL-X_CTRL-L|
 
-" Open filename or path under cursor. |gf|
-" Must save current file first. |E37|
-" Path must not contain spaces. |'isfname'|
-gf
+gf			Open filename or path under cursor. |gf|
+			Must save current file first. |E37|
+			(Use |CTRL-W_f| if you don't want to |abandon| the file.)
+			Path must not contain spaces. |'isfname'| |E447|
 
-" Open selected file or path containing spaces,
-" even if |'isfname'| does not contain a space.
+			Open selected file or path containing spaces,
+			even if |'isfname'| does not contain a space.
 v{motion}
 gf
 
-" Open filename under cursor in new window.
-" |CTRL-W_f| |CTRL-W_CTRL-F|
-Ctrl-W Ctrl-F
+Ctrl-W Ctrl-F		Open filename under cursor in new window. |CTRL-W_f| |CTRL-W_CTRL-F|
 
-" Resize window to 90 lines. |:resize|
-:resize 90
-" http://vim.wikia.com/wiki/Resize_splits_more_quickly
+:resize 90		Resize window to 90 lines. |:resize|
 
-" Inspect character for decimal, hex, or octal representation.
-" Useful combined with /usr/bin/unicode command. |ga| |:ascii|
-ga
-" Inspect utf-8. Not useful for searching with /usr/bin/unicode command.
-g8
+	http://vim.wikia.com/wiki/Resize_splits_more_quickly
 
-" Examples of entering digraphs in insert modek. |i_CTRL-K|
-" Enter an ñ (enye).
-Ctrl-K n?
-" Enter the degree symbol, °
-Ctrl-K DG
-" Enter the section sign, §
-Ctrl-K DE
-" See all available digraphs. |:digraphs|
-:digraphs
+ga			Inspect character for decimal, hex, or octal representation, e.g.  >
+	<ñ> 241, Hex 00f1, Octal 361
+<			Useful combined with /usr/bin/unicode command. |ga| |:ascii|
 
-" Put line numbers into file using unix nl command:
-:%!nl
-" Number a visual selection
-" Make visual selectoin, then:
-:!nl
-" Will show up as
-:'<,'>!nl
+g8			Inspect hex bytes of UTF-8. |g8|
+			(Not useful for searching with /usr/bin/unicode command.)
 
-" Reverse order of lines
-:%!tac
-" Sort lines 4-7
-:!4,7!sort -u
-" Sort lines 4 to end of document
-:4,$ !sort -u
-" Sort visual selection
-:!sort -u
-" Sort entire document alphabetically. |:sort|
-:sort
-" Sort in reverse order.
-:sort!
-" Sort removing duplicates (unique).
-:sort u
-" Sort numerically instead of alphabetically.
-:sort n
-" Sort visual selection based on 52nd character.
-:sort /.*\%52v/
-" Looks like this when typed:
-:'<,'>sort /.*\%52v/
+			Examples of entering digraphs in insert modek. |i_CTRL-K|
+Ctrl-K n?		Enter an ñ (enye).
+Ctrl-K DG		Enter the degree symbol, °
+Ctrl-K DE		Enter the section sign, §
 
-" Execute current line in shell
-yy:!<C-R>"<ENTER>
+:digraphs		See all available digraphs. |:digraphs|
 
-" Replace current line with the output results
-:.!sh
+:%!nl			Put line numbers into file using external /usr/bin/nl command.
 
-" Load man page for current word or visual selection. |K| |'keywordprg'|
-K
-" Load section 4 of a man page, e.g. urandom (4) or console (4)
-4K
-" Open, e.g. 'sort' command manpage as new tab
-:tabnew|read !man sort
-" Some people think you need to use ul to get the 'underline and bold escape codes into readable format,' but I haven't had any problems.
-:tabnew|read !man sort | ul -i
+			Number a visual selection.
+V{motion}		Make visual selection.
+:!nl			Run through external command.
+			Looks like this: >
+	:'<,'>!nl
+<
+:%!tac			Reverse order of lines using external /usr/bin/tac command.
 
-" Insert a new line with the date from the date(1) command. |:read|
-:read !date
-" Same, but with day only date in ISO format, e.g. 2014-07-22
-:read !date -I
-" Less typing.
-:r !date -I
-" Even less typing, but will overwrite current line.
-!!date -I
-" http://stackoverflow.com/questions/56052/best-way-to-insert-timestamp-in-vim
-" http://stackoverflow.com/a/7681121
+			Sorting with external /usr/bin/sort command.
+:!4,7!sort		Sort lines 4-7.
+:4,$ !sort		Sort lines 4 to end of document.
+V{motion}		Sort visual selection.
+:!sort
 
-" Yank the date into the unnamed register.
-:let @" = system("date")
+			Sorting with internal Vim command, |:sort|.
+:sort			Sort alphabetically.
+:sort!			Sort alphabetically in reverse order.
+:sort u			Sort alphabetically, removing duplicates (unique).
+:sort n			Sort numerically instead of alphabetically.
+:sort /.*\%52v/		Sort visual selection based on 52nd character.
+			Looks like this when typed: >
+	:'<,'>sort /.*\%52v/
+<
+			Execute current line in shell.
+yy			Yank line.
+:!<C-R>"<ENTER>		Paste line after ! to run as command.
+:.!sh			Now replace current line with the output results
 
-" Backwards/forwards in the jump list (older/newer cursor position)
-Ctrl-O
-Ctrl-I
-" see all jumps in the jumplist.
-:ju
-
-" output as a PostScript file instead of printing.
-:hardcopy > %.ps
-
-" Quickly split a line at a space.
-r<CR>
-" Much faster than
-i<Enter><Esc>
-
-" View line numbers
-:set number
-" View relative line numbers
-:set relativenumber
+K			Load man page for current word or visual selection. |K| |'keywordprg'|
+3K			Load section 3 of a man page, e.g. printf (3) instead of printf (1).
+4K			Load section 4 of a man page, e.g. urandom (4) or console (4).
 
 
-" Delete current sentence.
-das
-dis
+:r !uname -r		Dump content of command into current buffer. |:read|
+:%!uname -r		Make current buffer match content of command. |:%|
 
-" Dump content of command into current buffer:
-:r !uname -r
-" Make current buffer match content of command:
-:%!uname -r
+:tabnew|read !man vim	Open, e.g. 'vim' command manpage as new tab.
 
-" Center screen on cursor. |z.|
-z.
+:tabnew|read !man vim | ul -i		Some sources use /usr/bin/ul to fix the nroff formatting,
+					but I haven't had any problems.
 
-" Moving vertically (http://vimuniversity.com/samples/jumping-long-distances)
-5G - jump to line 5 ("line 5, Go")
-" or
-:5
-C-o - jump backwards ("out")
-C-i - jump forwards ("in")
-L - jump to bottom of screen ("low")
-M - jump to middle of screen ("middle")
-H - jump to top of screen ("high")
-zt - put this line at the 't'op of the screen
-zb - put this line at the 'b'ottom of the screen
-zz - put this line at the middle of the screen
-" Go to a percentage of the file (about)
-50%
+	http://www.unixcl.com/2007/05/opening-man-page-in-vim-linux.html
+
+:read !date		Insert a new line with the date from the /bin/date command. |:read|
+:read !date -I		Same, but with day only date in ISO format, e.g. 2014-07-22.
+:r !date -I		Less typing.
+!!date -I		Even less typing, but will overwrite current line. |:.| Looks like this: >
+	:.!date -I
+
+	http://stackoverflow.com/questions/56052/best-way-to-insert-timestamp-in-vim
+	http://stackoverflow.com/a/7681121
+
+:let @" = system("date")	Yank the date into the unnamed register for easy pasting.
+
+
+:ha > %.ps		Write a PostScript file instead of printing. |:hardcopy| |:_%|
+
+r<CR>			Quickly split a line at a space without entering insert mode.
+			Much faster than: >
+	i<Enter><Esc>
+<
+
+:set nu			View line numbers. |'number'|
+
+:set relativenumber	View relative line numbers. |'relativenumber'|
+
+das			Delete a sentence (leaves no spaces behind). |das|
+dis			Delete inner sentence (leaves a space behind). |dis|
+
+z.			Center screen on cursor. |z.|
+
+			Moving vertically.
+5G			Jump to line 5 ("line 5, Go"). |G|
+:5			Jump to line 5. |:range|
+L			Jump to bottom of screen ("low"). |L|
+M			Jump to middle of screen ("middle"). |M|
+H			Jump to top of screen ("high"). |H|
+zt			Put this line at the 't'op of the screen. |zt|
+zb			Put this line at the 'b'ottom of the screen. |zb|
+zz			Put this line at the middle of the screen. |zz|
+50%			Go to a percentage of the file. |N%|
+
+	http://vimuniversity.com/samples/jumping-long-distances
 
 " The Vim documentation format. |help-writing|
 :help help-writing
@@ -775,42 +752,41 @@ set filetype " Shows the current language used
 :syntax off
 " /usr/share/vim/vimcurrent/doc/filetype.txt
 
-" Filetype plugins are in e.g.
-/usr/share/vim/vimcurrent/ftplugin/python.vim
-/usr/share/vim/vimcurrent/indent/python.vim
-/usr/share/vim/vimcurrent/syntax/python.vim
+Filetype plugins are in e.g.
+	/usr/share/vim/vimcurrent/ftplugin/python.vim
+	/usr/share/vim/vimcurrent/indent/python.vim
+	/usr/share/vim/vimcurrent/syntax/python.vim
 
-/usr/share/vim/vimcurrent/ftplugin/sh.vim
-/usr/share/vim/vimcurrent/indent/sh.vim
-/usr/share/vim/vimcurrent/syntax/sh.vim
+	/usr/share/vim/vimcurrent/ftplugin/sh.vim
+	/usr/share/vim/vimcurrent/indent/sh.vim
+	/usr/share/vim/vimcurrent/syntax/sh.vim
 
-" Force syntax highlight if e.g. file extension is wrong.
+			Force syntax highlight if e.g. file extension is wrong.
 :set syntax=python
 :set syntax=rst
 :set syntax=markdown
 :set syntax=vim
 
-" Force filetype (also afffects syntax highlighting).
-:set filetype=help
+:set filetype=help	Force filetype (also afffects syntax highlighting).  |help|
 
-" Could use modelines to enable syntax highlighting and so on,
-" but mostly modeline is disabled by default for security reasons.
-" See if modeline is enabled:
-:verbose set modeline?
-" Modelines are useful for e.g. setting the filetype even if the file
-" extension is misleading. For example:
-# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
-" in a python file will make the spacing come out right.
-" Or this in a javascript file:
-// vim: set ft=javascript:
+:verbose set modeline?	See if modeline is enabled and why. |:verbose| |'modeline'| |E518|
 
-" http://vim.wikia.com/wiki/Modeline_magic
-" https://wiki.python.org/moin/Vim
+	Could use modelines to enable syntax highlighting and so on,
+	but mostly modeline is disabled by default for security reasons.
+	Modelines are useful for e.g. setting the filetype even if the file
+	extension is misleading. For example: >
+		# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+<	in a python file will make the spacing come out right.
+	Or this in a javascript file: >
+		// vim: set ft=javascript:
+<
+	http://vim.wikia.com/wiki/Modeline_magic
+	https://wiki.python.org/moin/Vim
 
 " Getting help for different modes.
-:help ctrl-f   " ctrl-f in normal mode
-:help i_ctrl-f " ctrl-f in insert mode
-:help c_ctrl-f " ctrl-f in ex mode (after typing : or Q)
+:help ctrl-f		ctrl-f in normal mode
+:help i_ctrl-f		ctrl-f in insert mode
+:help c_ctrl-f		ctrl-f in ex mode (after typing : or Q)
 " Use tab to cycle through the various options.
 
 " Go to local variable definition. |gd|
