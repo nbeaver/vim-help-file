@@ -65,7 +65,7 @@ v			Begin visual selection. |characterwise-visual|
 v			End visual selection. |v_v|
 			TODO Train myself to do this instead of Esc.
 
-vw			Select a word, starting from the current cursor postion
+vw			Select a word, starting from the current cursor position
 			and ending at the start of the next word.
 
 viw			Select a word if you are at the beginning, end,
@@ -161,7 +161,7 @@ p			Paste last yank.
 
 :set ic			Case-insensitive search. |'ignorecase'|
 
-/foo\c			Case-insesntive search (for current search only). |/\c|
+/foo\c			Case-insensitive search (for current search only). |/\c|
 
 			TODO Tagging issue: why does |/ignorecase| jump to |'ignorecase'| instead? |/atom| |/bar| |/\bar|
 
@@ -284,7 +284,7 @@ Ctrl-X Ctrl-F			Auto-complete filenames while in insert mode.
 				|i_CTRL-X_CTRL-F|		|compl-filename|
 				|i_CTRL-X|		|insert_expand|
 
-:tabnew | r !w3m http://en.wikipedia.org/wiki/Vi -dump	Dump wikipedia page into new tab |:r| |:!|
+:tabnew | r !w3m http://en.wikipedia.org/wiki/Vi -dump	Dump Wikipedia page into new tab |:r| |:!|
 							Requires external /usr/bin/w3m browser.
 	http://sourceforge.net/projects/w3m/
 	http://manoftoday.wikidot.com/vim#toc19
@@ -320,7 +320,7 @@ strftime("%c")		Get time. |strftime()|
 :unmap k		These must be done one at a time. |E31|
 :unmap j		Otherwise it's not clear what the mapping is.
 
-			Deleting (e.g. |d| and |x|) affects |quotequote| and |p|,
+			Deleting (e.g. |d| and |x|) affects unnamed register (|quotequote|) and therefore |p|,
 			so how do we overwrite text? One fairly easy way:
 yy			Yank current line. |yy|
 {motion}		Move to desired line to replace.
@@ -332,8 +332,7 @@ dd			Delete the line. |dd|
 	https://superuser.com/questions/321547/how-do-i-replace-paste-yanked-text-in-vim-without-yanking-the-deleted-lines
 
 			Another way to overwrite text easily using registers. |quote_a|
-"ayy			Yank current line into register a. |yy|
-"ay			Yank visual selection into register a. |y|
+{Visual}"ay		Yank visual selection into register a. |{Visual}| |y|
 "ap			Paste register a. |p|
 
 "*p			Paste primary selection (same as middle click). |quotestar|
@@ -345,11 +344,15 @@ dd			Delete the line. |dd|
 			it will interpret the ':' in 'http:' as entering command mode.
 			Also, for large amounts of text Ctrl-Shift-V tends to be much slower.
 
-"*x			Yank into primary selection (cut).
+"+y			Copy current line to clipboard. |quote+|
+{Visual}"+y		Copy visual selection to clipboard. |quote+|
+			(Behaves like Ctrl-C in other text editors.)
 
-"*y			Yank into primary selection (copy)
+{Visual}"*y		Copy visual selection into primary clipboard selection.
+			(Behaves like middle mouse button selection.)
 
-"+y			Yank into clibpoard (copy)
+{Visual}"*x		Cut visual selection into primary clipboard selection. |quotestar|
+			Paste it with middle mouse button.
 
 			Before pasting into vim,
 :set nopaste		turn off autowrap and such. |'paste'|
@@ -449,7 +452,8 @@ K			Load man page for current word or visual selection. |K| |'keywordprg'|
 	http://stackoverflow.com/questions/56052/best-way-to-insert-timestamp-in-vim
 	http://stackoverflow.com/a/7681121
 
-:let @" = system("date")	Yank the date into the unnamed register for easy pasting.
+:let @" = system("date")
+			Yank the date into the unnamed register for easy pasting.
 
 
 :ha > %.ps		Write a PostScript file instead of printing. |:hardcopy| |:_%|
