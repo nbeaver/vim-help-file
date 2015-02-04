@@ -30,8 +30,6 @@ Character class expressions are in [: :].           |[:alpha:]|  |[:cntrl:]|    
 
 	http://vim.wikia.com/wiki/Learn_to_use_help#Context
 
-	*Todo	the ":tag /." command still jumps to *.* instead of */.*.
-
 Formatting conventions:
 -- Make unindented text correspond to actual keystrokes,
    so a search for e.g. "^I" will jump to the "I" keystroke in any mode.
@@ -63,7 +61,7 @@ Ctrl-w Ctrl-]		Open tag in new window. |CTRL-W_]|
 v			Begin visual selection. |characterwise-visual|
 
 v			End visual selection. |v_v|
-			TODO Train myself to do this instead of Esc.
+			*Todo	train myself to do this instead of Esc.
 
 vw			Select a word, starting from the current cursor position
 			and ending at the start of the next word.
@@ -163,22 +161,21 @@ p			Paste last yank.
 
 /foo\c			Case-insensitive search (for current search only). |/\c|
 
-			TODO Tagging issue: why does |/ignorecase| jump to |'ignorecase'| instead? |/atom| |/bar| |/\bar|
-
 :%s/foo/bar/gci		Change each 'foo' (case insensitive) to 'bar' starting from the top of the file; ask for confirmation.
 			The % is short for 1,$ (the entire file). |:%| |:range|
-			The /g is for global substitution (not just once per line). |:s_g|
+			The /g is for global substitution (not just once per line). |:s_flags|
 			The /c is for confirmation on each substitution. |:s_c|
-			The /i is for case-insensitivity. TODO: why no tags for this? |:s_i|
+			The /i is for case-insensitivity. |:s_flags|
 
 :.,$s/foo/bar/gci	Change each 'foo' (case insensitive) to 'bar' starting with current line.
 			The '.' means current line and the '$' means last line. |:.| |:$| |:range|
 :,$s/foo/bar/gci	Since starting from the current line is assumed,
 			it can also be omitted entirely.
 
-:%s;/home/user1;/home/user2;gc		Subsitute file paths without escaping all the / characters.
-					Using a slash for the substitute command is not necessary. |E146|
-					You can use anything except an alphanumeric character, \, ", or |
+:%s;/home/user1;/home/user2;gc
+			Subsitute file paths without escaping all the / characters.
+			Using a slash for the substitute command is not necessary. |E146|
+			You can use anything except an alphanumeric character, \, ", or |
 
 :%s/blah//gn		Count number of matches the pattern "blah".
 			There may be multiple matches per line. |count-items|
@@ -211,7 +208,7 @@ Ctrl-g			Find name of current file and other helpful information. |CTRL-G| |:fil
 
 g Ctrl-g		Count characters in file or visual selection. |g_CTRL-G| |word-count| |byte-count|
 
-:pwd			Find out the current working directory.
+:pwd			Find out the current working directory. |:pwd|
 
 !!pwd			Overwrite current line with directory vim was invoked in,
 			or path of buffer if autochdir is set.  |!!| |filter| |'autochdir'|
@@ -219,7 +216,6 @@ g Ctrl-g		Count characters in file or visual selection. |g_CTRL-G| |word-count| 
 	:.!pwd
 
 Ctrl-R %		Put/paste filename in insert mode. |:_%|
-
 			May include path, depending on how vim was invoked.
 
 "%p			Put/paste filename in normal mode. |quote%|
@@ -239,7 +235,9 @@ Ctrl-R %		Put/paste filename in insert mode. |:_%|
 
 [[			Move to previous '}' in the first column. |[[| |object-motions|
 
-:set comments=sl:/*,mb:**,elx	C-style multi-line comments
+:set comments=sl:/*,mb:**,elx
+			C-style multi-line comments. |'comments'| |format-comments|
+			Start left aligned with /*, continue with ** followed by a blank, end by typing the last character.
 
 	http://tldp.org/HOWTO/C-editing-with-VIM-HOWTO/auto-format.html#AEN274
 
@@ -247,10 +245,15 @@ d0			Delete everything before cursor on line. |d|
 
 D			Delete everything after cursor on line. |D|
 
-:set makeprg=gcc\ test.c	Set |:make| command to run "gcc test.c". |'makeprg'|
-:set makeprg=gcc\ %		Set |:make| command to run gcc on current filename. |:_%|
+:set makeprg=gcc\ test.c
+			Set |:make| command to run "gcc test.c". |'makeprg'|
 
-:nnoremap <F5> :<C-U>make<CR>	Bind <F5> key run |:make|.
+:set makeprg=gcc\ %
+			Set |:make| command to run gcc on current filename. |:_%|
+
+:nnoremap <F5> :<C-U>make<CR>
+			Bind <F5> key run |:make|.
+			The |c_CTRL-U| is there to clear the line of any previous commands.
 
 :%s/\t/\n/g		Replace tabs with newlines.
 
@@ -281,7 +284,7 @@ set tags		See which files vim looks for tags in. |'tags'| |E433|
 	http://of-vim-and-vigor.blogspot.com/2012/02/jump-to-longest-line.html
 
 Ctrl-X Ctrl-F			Auto-complete filenames while in insert mode.
-				|i_CTRL-X_CTRL-F|		|compl-filename|
+				|i_CTRL-X_CTRL-F|	|compl-filename|
 				|i_CTRL-X|		|insert_expand|
 
 :tabnew | r !w3m http://en.wikipedia.org/wiki/Vi -dump	Dump Wikipedia page into new tab |:r| |:!|
@@ -294,7 +297,8 @@ Ctrl-X Ctrl-F			Auto-complete filenames while in insert mode.
 			Run the current line as a shell command
 V			Select current line. |V|
 :w !sh			Execute the selected text with /bin/sh (default shell).
-			Looks like this when typed: '<,'>w !sh	
+			Looks like this when typed: >
+				'<,'>w !sh	
 :w !bash	 	Can also use e.g. bash shell.
 
 :! my-shell-command	Running shell commands
@@ -385,8 +389,17 @@ Ctrl-W Ctrl-F		Open filename under cursor in new window. |CTRL-W_f| |CTRL-W_CTRL
 	http://vim.wikia.com/wiki/Resize_splits_more_quickly
 
 ga			Inspect character for decimal, hex, or octal representation, e.g.  >
-	<ñ> 241, Hex 00f1, Octal 361
-<			Useful combined with /usr/bin/unicode command. |ga| |:ascii|
+				<ñ> 241, Hex 00f1, Octal 361
+<			Useful combined with /usr/bin/unicode command. |ga| |:ascii| >
+				$ unicode 00f1
+				U+00F1 LATIN SMALL LETTER N WITH TILDE
+				UTF-8: c3 b1  UTF-16BE: 00f1  Decimal: &#241;
+				ñ (Ñ)
+				Uppercase: U+00D1
+				Category: Ll (Letter, Lowercase)
+				Bidi: L (Left-to-Right)
+				Decomposition: 006E 0303
+<
 
 g8			Inspect hex bytes of UTF-8. |g8|
 			(Not useful for searching with /usr/bin/unicode command.)
@@ -446,15 +459,15 @@ K			Load man page for current word or visual selection. |K| |'keywordprg'|
 :read !date		Insert a new line with the date from the /bin/date command. |:read|
 :read !date -I		Same, but with day only date in ISO format, e.g. 2014-07-22.
 :r !date -I		Less typing.
-!!date -I		Even less typing, but will overwrite current line. |:.| Looks like this: >
-	:.!date -I
+!!date -I		Even less typing, but will overwrite current line. |:.|
+			Looks like this: >
+				:.!date -I
 
 	http://stackoverflow.com/questions/56052/best-way-to-insert-timestamp-in-vim
 	http://stackoverflow.com/a/7681121
 
 :let @" = system("date")
 			Yank the date into the unnamed register for easy pasting.
-
 
 :ha > %.ps		Write a PostScript file instead of printing. |:hardcopy| |:_%|
 
@@ -491,21 +504,16 @@ $ vim + myfile.txt	Start editing at the end of a file/bottom of document/last li
 
 g;			Jump to last edited spot
 g,			Jump to next edited spot
-" Jump to last visual selection
+gv			Jump to last visual selection
 
-" Open new line while in insert mode.
-" Only works in a terminal with Alt-sends-Escape,
-" not in e.g. gVim.
-Alt-o
+Alt-o			Open new line while in insert mode.
+			Only works in a terminal with Alt-sends-Escape,
+			not in e.g. gVim.
 
-" Return to 10 seconds earlier. |:earlier|
-:earlier 10s
+:earlier 10s		Return to 10 seconds earlier. |:earlier|
 
-" Delete all trailing whitespace.
-:%s/\s\+$//
-" Search for trailing whitespace,
-" ignoring a line that is only whitespace.
-/\S\s$
+:%s/\s\+$//		Delete all trailing whitespace.
+/\S\s$			Search for trailing whitespace, ignoring a line that is only whitespace.
 
 	*Todo	how can you jump to the whitespace, not one character to the left?
 	*Todo	how can you turn this into a substitution command?
@@ -542,10 +550,10 @@ If you want to move by e.g. /, use |f| or |t|.
 
 [s			Move back to previous misspelled word. |[s|
 
-zg			Mark a word as spelled correctly (add a word to vim's dictionary). Mnemonic: good |zg|
+zg			Mark a word as spelled correctly (add a word to vim's dictionary). Mnemonic: good |zg| |spellfile|
+			Note: Vim's personal dictionary is $HOME/.vim/spell/en.utf-8.add by default.
 
 zw			Mark a word as misspelled (remove from vim's dictionary). Mnemonic: wrong. |zw|
-			Note: Vim's personal dictionary is $HOME/.vim/spell/en.utf-8.add by default.
 
 :w !sudo tee > /dev/null %
 			When you try to save and find you're editing a file without the needed permissions.
@@ -589,15 +597,17 @@ g<			Get back to the last page of command output. |g<|
 :redir			Capture output of ex command. |:redir|
 
 			Example: 
-			Useful with the |q:| command,
+
+			Useful with the |q:| command.
 
 			Example: capture open buffers into unnamed register. |ls|
-:redir @" | silent ls | redir END
-:redir @"> | silent ls
+:redir @" | silent ls
+	*Todo	why is redir END not necessary in this case?
 			Example: store all digraphs to file.
 :redir > digraphs.txt | silent digraphs | redir END
 	http://vim.wikia.com/wiki/Capture_ex_command_output
 	https://stackoverflow.com/questions/2573021/how-to-redirect-ex-command-output-into-current-buffer-or-file
+
 			Example: append register contents to end of current file.
 :redir >> % | silent registers | redir END | edit
 
@@ -924,8 +934,8 @@ $ vim -r myfile.txt	Recovering swap files. |E325|
 			in which case the leading colons are not necessary. |vimrc|
 :nnoremap <up> <nop>	|<Up>| |<Nop>|
 :nnoremap <down> <nop>	|<Down>|
-:nnoremap <left> <nop>
-:nnoremap <right> <nop>
+:nnoremap <left> <nop>  |<Left>|
+:nnoremap <right> <nop> |<Right>|
 	https://stackoverflow.com/questions/23548932/how-do-i-disable-the-arrow-keys-in-insert-mode
 
 :mksession! /tmp/current.ses
