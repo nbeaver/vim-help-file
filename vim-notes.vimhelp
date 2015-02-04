@@ -41,12 +41,21 @@ Formatting conventions:
 	This is some output text.
 <  Like so.
 	*Todo	should the commands include shortened version, or long versions to find more easily?
+	*Todo	decide between e.g.
+>
+		v{motion}
+		gf
+<	and >
+		{Visual}gf
+	Tradeoffs: searchability vs. accuracy, reduced redundancy, and consistency.
+<
+
 
 ==============================================================================
 2. List of commands.		*my-command-list*
 
-:w|sh			Write file and jump to shell,
-			with Ctrl-D to jump back. |:shell|
+:w | sh			Write file and jump to shell,
+			with Ctrl-D to jump back. |:write| |:shell|
 
 Ctrl-]			Jump to tag under cursor. |Ctrl-]| |tag-regexp|
 			Current buffer must be saved.
@@ -86,6 +95,7 @@ dt<Space>		Delete until space.
 			(Usually dW does the same thing and is faster.)
 
 I			Enter insert mode at end of indentation on current line. |I|
+
 gI			Enter insert mode at beginning of line. |gI|
 
 			Add '#' in front of several lines.
@@ -283,12 +293,13 @@ set tags		See which files vim looks for tags in. |'tags'| |E433|
 	https://superuser.com/questions/255368/how-to-find-the-line-with-the-maximum-number-of-columns-characters-in-vim-gvim
 	http://of-vim-and-vigor.blogspot.com/2012/02/jump-to-longest-line.html
 
-Ctrl-X Ctrl-F			Auto-complete filenames while in insert mode.
-				|i_CTRL-X_CTRL-F|	|compl-filename|
-				|i_CTRL-X|		|insert_expand|
+Ctrl-X Ctrl-F		Auto-complete filenames while in insert mode.
+			|i_CTRL-X_CTRL-F|	|compl-filename|
+			|i_CTRL-X|		|insert_expand|
 
-:tabnew | r !w3m http://en.wikipedia.org/wiki/Vi -dump	Dump Wikipedia page into new tab |:r| |:!|
-							Requires external /usr/bin/w3m browser.
+:tabnew | r !w3m http://en.wikipedia.org/wiki/Vi -dump
+			Dump Wikipedia page into new tab. |:r| |:!|
+			Requires external /usr/bin/w3m browser.
 	http://sourceforge.net/projects/w3m/
 	http://manoftoday.wikidot.com/vim#toc19
 	http://www.linux.com/learn/tutorials/442419-vim-tips-working-with-external-commands
@@ -335,13 +346,13 @@ dd			Delete the line. |dd|
 	http://osquestions.com/unix-linux/26654/how-can-i-paste-overwriting-with-vim
 	https://superuser.com/questions/321547/how-do-i-replace-paste-yanked-text-in-vim-without-yanking-the-deleted-lines
 
-			Another way to overwrite text easily using registers. |quote_a|
+			Another way to overwrite text easily using registers. |quote_alpha|
 {Visual}"ay		Yank visual selection into register a. |{Visual}| |y|
 "ap			Paste register a. |p|
 
 "*p			Paste primary selection (same as middle click). |quotestar|
 
-"+p			Paste clipboard (same as Ctrl-V in other programs). |quote_+|
+"+p			Paste clipboard (same as Ctrl-V in other programs). |quote+|
 			If you want to paste in a web address,
 			this is much better than using your terminal to paste (e.g. with Ctrl-Shift-V).
 			If you aren't in insert mode and use Ctrl-Shift-V,
@@ -377,14 +388,16 @@ gf			Open filename or path under cursor. |gf|
 			(Use |CTRL-W_f| if you don't want to |abandon| the file.)
 			Path must not contain spaces. |'isfname'| |E447|
 
-			Open selected file or path containing spaces,
-			even if |'isfname'| does not contain a space.
-v{motion}
-gf
+			Open selected file or path, regardless of |'isfname'|.
+v{motion}		Select path, including spaces.
+gf			Jump to file. |v_gf|
+			Useful for e.g. opening paths containing spaces.
 
 Ctrl-W Ctrl-F		Open filename under cursor in new window. |CTRL-W_f| |CTRL-W_CTRL-F|
 
-:resize 90		Resize window to 90 lines. |:resize|
+Ctrl-W Ctrl-=		Make each window about the same height. |CTRL-W_=|
+
+:resize 90		Resize window height to 90 lines. |:resize|
 
 	http://vim.wikia.com/wiki/Resize_splits_more_quickly
 
@@ -441,19 +454,21 @@ yy			Yank line.
 :!<C-R>"<ENTER>		Paste line after ! to run as command.
 :.!sh			Now replace current line with the output results
 
-K			Load man page for current word or visual selection. |K| |'keywordprg'|
+K			Load man page for current word using /usr/bin/man by default.|K| |'keywordprg'|
+{Visual}K		Load man page for visual selection. |v_K|
 3K			Load section 3 of a man page, e.g. printf (3) instead of printf (1).
 4K			Load section 4 of a man page, e.g. urandom (4) or console (4).
-
+			Use 'q' to exit man, then press enter when it says >
+				Press ENTER or type command to continue
+<
 
 :r !uname -r		Dump content of command into current buffer. |:read|
 :%!uname -r		Make current buffer match content of command. |:%|
 
-:tabnew|read !man vim	Open, e.g. 'vim' command manpage as new tab.
-
-:tabnew|read !man vim | ul -i		Some sources use /usr/bin/ul to fix the nroff formatting,
-					but I haven't had any problems.
-
+:tabnew|read !man ascii
+			Open text of ascii (1) manpage as new tab.
+			Note: older version of Vim might not format the text correctly.
+	https://unix.stackexchange.com/questions/7672/man-ascii-is-misaligned-when-using-vim-as-a-pager
 	http://www.unixcl.com/2007/05/opening-man-page-in-vim-linux.html
 
 :read !date		Insert a new line with the date from the /bin/date command. |:read|
@@ -558,9 +573,9 @@ zw			Mark a word as misspelled (remove from vim's dictionary). Mnemonic: wrong. 
 :w !sudo tee > /dev/null %
 			When you try to save and find you're editing a file without the needed permissions.
 
-			https://stackoverflow.com/questions/1005/getting-root-permissions-on-a-file-inside-of-vi
-			http://www.commandlinefu.com/commands/view/1204/save-a-file-you-edited-in-vim-without-the-needed-permissions
-			https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
+	https://stackoverflow.com/questions/1005/getting-root-permissions-on-a-file-inside-of-vi
+	http://www.commandlinefu.com/commands/view/1204/save-a-file-you-edited-in-vim-without-the-needed-permissions
+	https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
 
 Ctrl-W			Delete previous word in insert mode. |i_CTRL-W|
 
@@ -579,6 +594,7 @@ $ vim file1 file2 file3
 			(Windows and tabs are buffers, too.)
 			Note: it would be nice if this gave you the option to select a buffer to move to,
 			but unfortunately it does not; you just get Vim's built-in |pager|.
+			*Todo	it is possible to search in Vim's |pager|?
 
 From the Vim documentation: >
 		u	an unlisted buffer (only displayed when [!] is used) |unlisted-buffer|
@@ -597,8 +613,10 @@ g<			Get back to the last page of command output. |g<|
 :redir			Capture output of ex command. |:redir|
 
 			Example: 
-
+	*Todo	expand this example. Maybe with e.g. copying from :set iskeyword?
 			Useful with the |q:| command.
+
+	*Todo	see what happens when you capture :highlight.
 
 			Example: capture open buffers into unnamed register. |ls|
 :redir @" | silent ls
@@ -845,35 +863,35 @@ gD		Go to global variable definition. |gD|
 :setlocal autoread
 		Keep only the current buffer up to date.
 
-/\#\a			Search for # followed by an alphabetic character. |/\a| 
+/\#\a		Search for # followed by an alphabetic character. |/\a| 
 
 		Vim regular expressions for searching. |/character-classes| |/ordinary-atom|
-	.  any character except new line |whitespace|
-	\s whitespace character          |/\s|
-	\S non-whitespace character      etc.
-	\d digit
-	\D non-digit
-	\x hex digit
-	\X non-hex digit
-	\o octal digit
-	\O non-octal digit
-	\h head of word character (a,b,c...z,A,B,C...Z and _)
-	\H non-head of word character
-	\p printable character
-	\P like \p, but excluding digits
-	\w word character
-	\W non-word character
-	\a alphabetic character
-	\A non-alphabetic character
-	\l lowercase character
-	\L non-lowercase character
-	\u uppercase character
-	\U non-uppercase character
-		http://vimregex.com/#metacharacters
+		.  any character except new line |whitespace|
+		\s whitespace character          |/\s|
+		\S non-whitespace character      etc.
+		\d digit
+		\D non-digit
+		\x hex digit
+		\X non-hex digit
+		\o octal digit
+		\O non-octal digit
+		\h head of word character (a,b,c...z,A,B,C...Z and _)
+		\H non-head of word character
+		\p printable character
+		\P like \p, but excluding digits
+		\w word character
+		\W non-word character
+		\a alphabetic character
+		\A non-alphabetic character
+		\l lowercase character
+		\L non-lowercase character
+		\u uppercase character
+		\U non-uppercase character
+	http://vimregex.com/#metacharacters
 	
 
 :set softtabstop=4 shiftwidth=4 expandtab smartindent
-			Basic vim indentation for e.g. python.
+			Basic vim indentation for e.g. python. |ft-python-indent|
 			softtabstop is how many columns vim moves when you press tab. |'softtabstop'|
 			shiftwidth controls >> << and cindent                         |'shiftwidth'|
 			expandtab produces spaces when the tab key is pressed         |'expandtab'|
@@ -938,8 +956,8 @@ $ vim -r myfile.txt	Recovering swap files. |E325|
 :nnoremap <right> <nop> |<Right>|
 	https://stackoverflow.com/questions/23548932/how-do-i-disable-the-arrow-keys-in-insert-mode
 
-:mksession! /tmp/current.ses
-			Saving a vim session.
+:mks! /tmp/current.ses
+			Saving a vim session, overwriting old sessions. |:mksession|
 			Note that this does not preserve history.
 			(For that, you will need |viminfo|.)
 
@@ -968,3 +986,5 @@ gq			Reflow/wrap/format the selected text. |gq|
 gqq			Reflow/wrap/format only the line under the cursor. |gqq|
 			Note: easily mistyped with |gQ|, which means go into |Ex-mode|.
 
+==============================================================================
+ vim:ft=help:norl:
