@@ -20,7 +20,9 @@ s_    Tag prefix for substitution flags.           |:s_c|                     |:
 quote Tag prefix for registers.                    |quote-|     |quote_alpha|   |registers|
 -     Tag prefix for arguments when invoking Vim.  |-+|         |-c|            |vim-arguments|
 t_    Tag prefix for termcap flags.                |t_k5|       |t_cm|          |terminal-options|
-Vim |options| are in 'single' 'quotes'.                                       |set-option|
++     Tag prefix for features.                     |+visual|    |+syntax|       |+feature-list|
+Vim |options| are in single quotes.                  |'ic'|       |'noic'|        |set-option|
+Vim error numbers start with E.                    |E10|        |E849|          |error-messages|
 
 	http://vim.wikia.com/wiki/Learn_to_use_help#Context
 
@@ -147,7 +149,7 @@ p			Paste last yank.
 
 :set			Show options that are different from the default value. |:set|
 
-:set ignorecase		Case-insensitive search. |'ignorecase'|
+:set ic			Case-insensitive search. |'ignorecase'|
 
 /foo\c			Case-insesntive search (for current search only). |/\c|
 
@@ -470,8 +472,7 @@ zz			Put this line at the middle of the screen. |zz|
 
 	http://vimuniversity.com/samples/jumping-long-distances
 
-" The Vim documentation format. |help-writing|
-:help help-writing
+:help help-writing	The Vim documentation format. |help-writing|
 
 " Start editing at the end of a file/bottom of document/last line
 vim + myfile.txt
@@ -495,281 +496,286 @@ Alt-o
 " Search for trailing whitespace,
 " ignoring a line that is only whitespace.
 /\S\s$
-" TODO How can you jump to the whitespace, not one character to the left?
-" TODO How can you turn this into a substitution command?
 
-" Jump to next space. |f|
-f<Space>
+	*Todo	how can you jump to the whitespace, not one character to the left?
+	*Todo	how can you turn this into a substitution command?
 
-" Change text till next space
-ct<Space>
+f<Space>			Jump to next space. |f|
 
-" Search for decimal ascii value.
-" Useful for getting rid of control characters in a text file,
-" e.g. the control character U+008E <control> UTF-8: c2 8e  UTF-16BE: 008e  Decimal: &#142;
-" http://en.wikipedia.org/wiki/%C2%8E
-/^V142
+ct<Space>			Change text till next space
 
-" Remove DOS line feeds (\r\n).
-:%s/\r\+$//e
-" https://en.wikipedia.org/wiki/Newline
+/^V142			Search for decimal ascii value #142.
+			Useful for getting rid of control characters in a text file,
+			e.g. the control character U+008E <control> UTF-8: c2 8e  UTF-16BE: 008e  Decimal: &#142;
+	http://en.wikipedia.org/wiki/%C2%8E
 
-" Moving by space-separated words, not letters and underscores.
-W
-E
+/CTRL-V CTRL-M			Search for DOS line feed (\r\n or <CR><NL>). |i_CTRL-V|
 
-" Check spelling. |'spell'|
-:set spell
-" Move to next misspelled word. |]s|
-]s
-" Move back to previous misspelled word
-[s
-" Mark a word as spelled correctly (add a word to vim's dictionary). |zg|
-" Mnemonic: good
-zg
-" Mark a word as misspelled (remove from vim's dictionary). |zw|
-" Mnemonic: wrong.
-zw
-" Vim personal dictionary is by default in ~/.vim/spell/en.utf-8.add
+:%s/\r\+$//g			Remove DOS line feeds (\r\n). |/\r| |'fileformat'|
+	*Todo	why does :help \\r also work?
+	https://stackoverflow.com/questions/811193/how-to-convert-the-m-linebreak-to-normal-linebreak-in-a-file-opened-in-vim
+	https://en.wikipedia.org/wiki/Newline
 
-" When you find you're editing a file without the needed permissions (not root)
-:w !sudo tee > /dev/null %
-" https://stackoverflow.com/questions/1005/getting-root-permissions-on-a-file-inside-of-vi
-" http://www.commandlinefu.com/commands/view/1204/save-a-file-you-edited-in-vim-without-the-needed-permissions
-" https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
+			Move by |word|s separated by spaces, punctuation, etc.
+w			|w|
+e			|e|
 
-" Delete previous word in insert mode. |i_CTRL-W|
-Ctrl-W
+			Moving by space-separated |WORD|s, not letters and underscores.
+W			Forward to start of next word. |W|
+E			Forward to end of current word. |E|
 
-" Access normal mode for one command, then go back to insert mode. |i_CTRL-O|
-Ctrl-O
+If you want to move by e.g. /, use |f| or |t|.
 
-" Start new change in insert mode. |i_CTRL-G_u|
-" This way, |u| (undo) doesn't delete everything.
-Ctrl-G u
+:set spell			Check spelling. |'spell'|
 
-" Access shell aliases from vim.
+]s			Move to next misspelled word. |]s|
+
+[s			Move back to previous misspelled word
+
+zg			Mark a word as spelled correctly (add a word to vim's dictionary). Mnemonic: good |zg|
+
+
+" Mark a word as misspelled (remove from vim's dictionary). Mnemonic: wrong. |zw|
+
+zw			Vim personal dictionary is by default in ~/.vim/spell/en.utf-8.add
+
+:w !sudo tee > /dev/null %			When you try to save and find you're editing a file without the needed permissions.
+
+			https://stackoverflow.com/questions/1005/getting-root-permissions-on-a-file-inside-of-vi
+			http://www.commandlinefu.com/commands/view/1204/save-a-file-you-edited-in-vim-without-the-needed-permissions
+			https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
+
+Ctrl-W			Delete previous word in insert mode. |i_CTRL-W|
+
+Ctrl-O			Access normal mode for one command, then go back to insert mode. |i_CTRL-O|
+
+Ctrl-G u		Start new change in insert mode. |i_CTRL-G_u|
+			This way, |u| (undo) doesn't delete everything.
+
 :set shellcmdflag=-ic
+			Access shell aliases from vim.
 
-" Opening multiple buffers with vim (not tabs)
 vim file1 file2 file3
-" See open buffers, one on each line. |:ls|
-" (Also shows windows tabs.)
-:ls
-" From vim docs:
-" u	an unlisted buffer (only displayed when [!] is used) |unlisted-buffer|
-" %	the buffer in the current window
-" #	the alternate buffer for ":e #" and CTRL-^
-" a	an active buffer: it is loaded and visible
-" h	a hidden buffer: It is loaded, but currently not displayed in a window |hidden-buffer|
-" -	a buffer with 'modifiable' off
-" =	a readonly buffer
-" +	a modified buffer
-" x	a buffer with read errors
+			Opening multiple buffers with vim (not tabs)
 
-"
-" List arguments to vim when it was invoked.
-" Will not include e.g. buffers opened with |:badd| or |:tabnew|.
-:args
-" Switch to a buffer using tab completion.
-:b <Tab>
-" Open a new empty, blank buffer.
-:new
-" Add a buffer from e.g. a different file.
-:badd
-" Jump to last buffer.
-:b#
-" Repeat last colon command.
-@:
-" Jump to the alternate buffer. |CTRL-6|
-Ctrl-6
+:ls			See open buffers, one on each line. |:ls|
+			(Windows and tabs are buffers, too.)
+			Note: it would be nice if this gave you the option to select a buffer to move to,
+			but unfortunately it does not; you just get Vim's built-in |pager|.
 
-" Select a folder or directory to enter rather than cycling through them.
-" |c_End| |c_CTRL-E|
-End
-" or
+From vim docs: >
+		u	an unlisted buffer (only displayed when [!] is used) |unlisted-buffer|
+		%	the buffer in the current window
+		#	the alternate buffer for ":e #" and CTRL-^
+		a	an active buffer: it is loaded and visible
+		h	a hidden buffer: It is loaded, but currently not displayed in a window |hidden-buffer|
+		-	a buffer with 'modifiable' off
+		=	a readonly buffer
+		+	a modified buffer
+		x	a buffer with read errors
+<
+g<			Get back to the last page of command output. |g<|
+			Useful if you accidentally hit <Enter> or <Space> too many times at the |more-prompt|.
+
+:args			List arguments to vim when it was invoked.
+			Will not include e.g. buffers opened with |:badd| or |:tabnew|.
+
+:b <Tab>		Switch to a buffer using tab completion.
+
+:new			Open a new empty, blank buffer.
+
+:badd			Add a buffer from e.g. a different file.
+
+:b#			Jump to last buffer.
+
+@:			Repeat last colon command.
+
+Ctrl-6			Jump to the alternate buffer. |CTRL-6|
+
+			Select a folder or directory to enter rather than cycling through them. |c_End| |c_CTRL-E|
+End			Or,
 Ctrl-E
-" Show the options for the next completion (better than Ctrl-E)
-Ctrl-D
-
-" Add tab-completion to new buffer
-:set wildmenu
-" Close a buffer
-:bd
-" Wipe out a buffer.
-:bw
 
 
-" Save/rename a file and start editing it instead of the current file
-:saveas
+Ctrl-D			Show the options for the next completion (better than Ctrl-E). |c_CTRL-D|
 
-" Run :set list as soon as it's loaded.
+:set wildmenu		Add tab-completion to new buffer |'wildmenu'|
+
+:bd			Close a buffer. |:bd|
+
+:bw			Wipe out a buffer. |:bw|
+
+
+:sav file2.txt		Save/rename a file and start editing it instead of the current file. |:saveas|
+
 vim -c "set list" file.txt
+			Run :set list as soon as file.txt is loaded. |-c| |'list'|
 
-" Set vim so that it will write a file in place rather than making a temp or backup file (.swp)
 vim -c "set backupcopy=yes|set noswapfile" myfile
+			Set vim so that it will write a file in place rather than making a temp or backup file (.swp). |'backupcopy'| |'noswapfile'|
 
-" Move current line down 4 lines
-:m +4
+:m +4			Move current line down 4 lines. |:move|
 
-" Search for 'for' and 'done' in the same line
-/for.*done
+/for.*done		Search for "for" and "done" in the same line. |/\.|
+/computer.*fun		Search for computer and fun on the same line.
 
-" See the current directory
-:vs.
+:vs.			Open a split window of current directory.
 
-" Jump to the 100th byte
-100go
-:goto 100
+100go			Jump to the 100th byte. |go|
+:goto 100		Same command in ex mode. |:goto|
 
-" http://vim.wikia.com/wiki/Delete_all_lines_containing_a_pattern
-" Remove blank lines
-:g/^$/d
-" Remove lines starting with #
-:g/^#/d
-" Longer version
-:global/^#/d
+:g/^$/d			Remove blank lines. |:global| |/^| |:d|
+:g/^#/d			Remove lines starting with #.
 
-" Macros and registers
-" Start recording macro y
-qy
-" Stop recording macro y
-q
+			http://vim.wikia.com/wiki/Delete_all_lines_containing_a_pattern
 
-:reg " see registers, including macros. Press enter to see more and q when finished.
-@y "run macro
-"yp " Paste macro onto current line
-"yy " Yank the current selection into the y register
+			Macros and registers
+qy			Start recording macro y
+q			Stop recording macro y
+
+:reg			See registers, including macros. Press <Enter> to see more and <Q> when finished.
+@y			Run macro.
+"yp			Paste macro onto current line.
+"yy			Yank the current selection into the y register.
 
 
-" Replace non-printing characters (high ascii), e.g. 0x85 with \r
-:%s/\%x85/\r/gc
+:%s/\%x85/\r/gc		Replace non-printing characters (high ascii), e.g. 0x85 with \r.
 
-" Get filename without extension
-%:r
-" Use it in a script
+%:r			Get filename without extension. |%:r|
 :!markdown % > %:r.html
-" Run multiple commands with pipe (|), so we can write out and convert to html, excluding the .markdown extension
+			Use it in a script. |:!|
 :w|!markdown % > %:r.html
+			Run multiple commands with pipe (|),
+			so we can write out and convert to html,
+			excluding the .markdown extension.
 
-" Paste without moving cursor
-" http://stackoverflow.com/questions/1587178/paste-in-vim-without-moving-the-cursor
-p`[
+p'[			Paste without moving cursor. |p| |'[|
+			http://stackoverflow.com/questions/1587178/paste-in-vim-without-moving-the-cursor
 
-" See all lines that don't contain the @ symbol
-:v/@/p
-" What this does is do a global search (equivalent to :g!) and excute the :p command for each matching line
+:v/@/p			See all lines that don't contain the @ symbol.
+			What this does is do a global search (equivalent to :g!)
+			and execute the :p command for each matching line.
 
-" Delete all lines that don't have the @ symbol. |:v|
-:v/@/d
-" or
-:vglobal/@/d
+:v/@/d			Delete all lines that don't have the @ symbol. |:vglobal| |:d|
 
-" Update the diffs for vimdiff. |:diffupdate|
-:diffu
+:diffu			Update the diffs for vimdiff. |:diffupdate|
 
-" Delete last two chars of contiguous lines.
+			Delete last two chars of contiguous lines.
 V{motion}
 :s/..$//
 
-" Flip case of entire line. |g~~|
-g~~
+g~~			Flip case of entire line. |g~~|
 
-" Run the q macro on each line of some visually selected text.
-:normal @q
-" Run the q macros on lines matching the 'vim' pattern http://blog.sanctum.geek.nz/advanced-vim-macros/
-:g/vim/ normal @q
+:normal @q		Run the q macro on each line of some visually selected text.
+:g/vim/ normal @q	Run the q macros on lines matching the 'vim' pattern
+	http://blog.sanctum.geek.nz/advanced-vim-macros/
 
-" Format it by using columns program
-:%!column -t
+:%!column -t		Format current file using external /usr/bin/column program.
 
-" Remove all spaces on a line
-:s/\s//g
+:s/\s//g		Remove all spaces on a line.
 
-" Jumping to spaces
-F<space>
-T<space>
+			Jumping to spaces.
+F<space>		|F|
+T<space>		|T|
 
-" Overwriting a word with yanked text
-y<motion>
-<move to text>
-ve " Visually select to end of word
-p  " Overwrite word without clobbering the " register
+			Overwriting a word with yanked text.
+y<motion>		Yank word and move to word to replace.
+ve			Visually Visually  to end of word.
+p			Overwrite word. Clobbers the " register.
 
-" Edit a macro in the 'a' register.
-:let @a='
-Ctrl-R Ctrl-R a
-" Modify as desired, then add a closing '''. Use double '' for literal ' inside, not \'
-'
-" Press enter, and you're done. If it ends with <CR> or <NL>, though, you are in for trouble.
+			Edit a macro in the 'a' register.
+"ap			Paste contents of the macro into the current buffer and edit away.
+"add			When finished, delete the line back into the "a register.
+			If it runs over multiple lines, use a visual selection.
 
-" Another way to edit a named macro; 'a' in this case.
-"ap
-" Edit macro.
-" When finished, delete the line back into the "a register.
-"add
+:let @a='		Another way to edit a named macro; somewhat less convenient than the other way. |:let|
+Ctrl-R Ctrl-R a		Modify as desired, then add a closing '''. Use double '' for literal ' inside, not \' |c_CTRL-R|
+'			Press enter, and you're done. If it ends with <CR> or <NL>, though, you are in for trouble.
 
-" Abandon a buffer so it won't complain if you make changes and then leave without saving.
-:set hidden
+:set hidden		Abandon a buffer so it won't complain if you make changes and then leave without saving. |'hidden'|
 
-" Replace current line with filename
-!!echo %
+!!echo %		Replace current line with filename.
+			Looks like this: >
+	:.!echo %
+<
+			Evaluate math expression on current line using external /usr/bin/bc command,
+			replacing current line with the result.
+1 + 1			Enter math expression.
+!!bc			Evaluate with bc (integers only). Looks like this: >
+	:.!bc
+2			Get back result.
+4195835 / 3145727	Enter a different math expression on a different line.
+!!bc -l			Do 20 digits of floating point precision and load math library. Looks like this: >
+	:.!bc
+1.33382044913624100247	Get back result.
+			You can also do calculations on multiple lines with a visual selection.
+			Looks like this: >
+	:'<,'>!bc -l
 
-" Replace current line with math calculations from bc (integers only)
-!!bc
-" Replace current line with math calculations from bc (do 20 digits of floating point precision and load math library)
-!bc -l
-" Replace several lines with math calculations from bc (i.e. do a calculation for each line)
-<make visual selection>
+g?		ROT13 a visual selection. |g?|
 
-" ROT13 a visual selection. |g?|
-g?
-" ROT13 (Caesar cipher) with external program.
-" First, select linewise with V. Then:
-!rot13
-" Look like this when typed:
-:'<,'>!rot13
+		ROT13 (Caesar cipher) with external rot13 command (in bsdgames package).
+V{motion}	Select linewise with V.
+!rot13		Send text to external command.
+		Look like this when typed: >
+	:'<,'>!rot13
+>
 
+Ctrl-l			Redraw screen. |CTRL-L|
 
-" Variable length search
-/computer.*fun
-
-" Redraw screen. |CTRL-L|
-Ctrl-l
-
-" Convert visual selection to LaTeX syntax by running it through pandoc
-" For example, this will escape &, %, and # to \&, \%, and \#.
 !pandoc -t latex
+		Convert visual selection to LaTeX syntax by running it through the /usr/bin/pandoc command.
+		For example, this will escape &, %, and # to \&, \%, and \#.
 
-" Choose vim's syntax highlighting
-:setf c
-:setf php
-:setf messages " e.g. /var/log/syslog
-" or
-set filetype=c
-set filetype " Shows the current language used
-" Turn off syntax highlighting
-:syntax off
-" /usr/share/vim/vimcurrent/doc/filetype.txt
 
-Filetype plugins are in e.g.
+:set ft?	See what Vim reads the current filetype as. |'filetype'|
+		Not to be confused with |'fileformat'|
+		which sets DOS or Unix line endings.
+
+			Choose vim's filetype. |:setfiletype| |filetypes|
+:setf c			Set filetype for C or C++ source code. |c.vim| |ft-c-syntax|
+:setf php		Set filetype for PHP source code. |php.vim|
+:setf messages		Set filetype to messages, e.g. /var/log/syslog.
+:set filetype=help	Force filetype to be a Vim help file. (also afffects syntax highlighting).  |help|
+
+Example filetype plugins locations: >
+	/usr/share/vim/vimcurrent/ftplugin/
+	/usr/share/vim/vimcurrent/ftplugin/c.vim
+	/usr/share/vim/vimcurrent/ftplugin/lisp.vim
 	/usr/share/vim/vimcurrent/ftplugin/python.vim
-	/usr/share/vim/vimcurrent/indent/python.vim
-	/usr/share/vim/vimcurrent/syntax/python.vim
-
 	/usr/share/vim/vimcurrent/ftplugin/sh.vim
-	/usr/share/vim/vimcurrent/indent/sh.vim
-	/usr/share/vim/vimcurrent/syntax/sh.vim
+	/usr/share/vim/vimcurrent/ftplugin/tex.vim
+<
+Note that this is not all possible filetypes,
+e.g. crontab does not have its own filetype plugin.
+
+
+:set syntax?	See what syntax highlighting Vim is using,
+		even if syntax highlighting is off.
+		This should be set by filetype. |'syntax'|
+
+:syntax off	Turn off syntax highlighting. |:syntax|
 
 			Force syntax highlight if e.g. file extension is wrong.
-:set syntax=python
-:set syntax=rst
-:set syntax=markdown
-:set syntax=vim
+:set syntax=python	Python syntax. |ft-python-syntax|
+:set syntax=rst		reStructuredText syntax.
+:set syntax=markdown	Markdown syntax.
+:set syntax=vim		Vimscript syntax.
 
-:set filetype=help	Force filetype (also afffects syntax highlighting).  |help|
+Example syntax plugin locations: >
+	/usr/share/vim/vimcurrent/syntax/
+	/usr/share/vim/vimcurrent/syntax/cpp.vim
+	/usr/share/vim/vimcurrent/syntax/crontab.vim
+	/usr/share/vim/vimcurrent/syntax/lisp.vim
+	/usr/share/vim/vimcurrent/syntax/messages.vim
+	/usr/share/vim/vimcurrent/syntax/perl6.vim
+	/usr/share/vim/vimcurrent/syntax/python.vim
+	/usr/share/vim/vimcurrent/syntax/sh.vim
+<
+Some of these can get long; see the perl6 plugin, for example.
 
-:verbose set modeline?	See if modeline is enabled and why. |:verbose| |'modeline'| |E518|
+:verbose set modeline?
+			See if modeline is enabled and why. |:verbose| |'modeline'| |E518|
 
 	Could use modelines to enable syntax highlighting and so on,
 	but mostly modeline is disabled by default for security reasons.
@@ -783,97 +789,96 @@ Filetype plugins are in e.g.
 	http://vim.wikia.com/wiki/Modeline_magic
 	https://wiki.python.org/moin/Vim
 
-" Getting help for different modes.
-:help ctrl-f		ctrl-f in normal mode
-:help i_ctrl-f		ctrl-f in insert mode
-:help c_ctrl-f		ctrl-f in ex mode (after typing : or Q)
-" Use tab to cycle through the various options.
+		Getting help for different modes.
+:help ctrl-f	What does CTRL-F do in normal mode?
+:help i_ctrl-f	What does CTRL-F do in insert mode?
+:help c_ctrl-f	What does CTRL-F do in command mode?
+		Use tab to cycle through the various options.
 
-" Go to local variable definition. |gd|
-gd
-" Go to global variable definition. |gD|
-gD
+gd		Go to local variable definition. |gd|
 
-" Reload all windows
-" |:windo|
-:windo e
-" Reload all buffer
-:buffdo e
-" Reload all tabs
-:tabdo e
+gD		Go to global variable definition. |gD|
 
-" Automatically keep buffers up to date,
-" in case a program other than vim changes them.
-" |'autoread'|
-:set autoread
+:windo e	Reload (edit) all windows. |:windo| |:edit|
+:buffdo e	Reload all buffers. |:bufdo|
+:tabd e		Reload all tabs. |:tabdo|
 
-" Keep only the current buffer up to date
+:set autoread	Automatically keep buffers up to date,
+		in case a program other than vim changes them. |'autoread'|
+
 :setlocal autoread
+		Keep only the current buffer up to date.
 
-" Vim regular expressions for searching. |/character-classes| |/ordinary-atom|
-" http://vimregex.com/#metacharacters
-.  any character except new line |whitespace|
-\s whitespace character          |/\s|
-\S non-whitespace character      etc.
-\d digit
-\D non-digit
-\x hex digit
-\X non-hex digit
-\o octal digit
-\O non-octal digit
-\h head of word character (a,b,c...z,A,B,C...Z and _)
-\H non-head of word character
-\p printable character
-\P like \p, but excluding digits
-\w word character
-\W non-word character
-\a alphabetic character
-\A non-alphabetic character
-\l lowercase character
-\L non-lowercase character
-\u uppercase character
-\U non-uppercase character
+/\#\a			Search for # followed by an alphabetic character. |/\a| 
 
-" Search for # followed by an alphabetic character
-/\#\a
+		Vim regular expressions for searching. |/character-classes| |/ordinary-atom|
+	.  any character except new line |whitespace|
+	\s whitespace character          |/\s|
+	\S non-whitespace character      etc.
+	\d digit
+	\D non-digit
+	\x hex digit
+	\X non-hex digit
+	\o octal digit
+	\O non-octal digit
+	\h head of word character (a,b,c...z,A,B,C...Z and _)
+	\H non-head of word character
+	\p printable character
+	\P like \p, but excluding digits
+	\w word character
+	\W non-word character
+	\a alphabetic character
+	\A non-alphabetic character
+	\l lowercase character
+	\L non-lowercase character
+	\u uppercase character
+	\U non-uppercase character
+		http://vimregex.com/#metacharacters
+	
 
-" Basic vim indentation.
-" http://tedlogan.com/techblog3.html
 :set softtabstop=4 shiftwidth=4 expandtab smartindent
-" softtabstop is how many columns vim moves when you press tab. |'softtabstop'|
-" shiftwidth controls >> << and cindent                         |'shiftwidth'|
-" expandtab produces spaces when the tab key is pressed         |'expandtab'|
+			Basic vim indentation for e.g. python.
+			softtabstop is how many columns vim moves when you press tab. |'softtabstop'|
+			shiftwidth controls >> << and cindent                         |'shiftwidth'|
+			expandtab produces spaces when the tab key is pressed         |'expandtab'|
+		http://tedlogan.com/techblog3.html
 
-" Insert literal tab when expandtab is on. |i_CTRL-V|
-Ctrl-V <tab>
-"http://blog.swwomm.com/2011/01/literal-tabs-in-vi.html
-" Insert literal null character
-Ctrl-V 0 <enter>
+Example indentation plugin locations: >
+	/usr/share/vim/vimcurrent/indent/
+	/usr/share/vim/vimcurrent/indent/c.vim
+	/usr/share/vim/vimcurrent/indent/lisp.vim
+	/usr/share/vim/vimcurrent/indent/python.vim
+	/usr/share/vim/vimcurrent/indent/sh.vim
+<
 
-" Search for # followed by a letter (not a space). |/\a|
-/\#\a
-" Search for # followed by a letter,
-" then put a space between them.
-" |/\1| |/\(\)|
+Ctrl-V <tab>		Insert literal tab when expandtab is on. |i_CTRL-V|
+	http://blog.swwomm.com/2011/01/literal-tabs-in-vi.html
+
+Ctrl-V 0 <enter>	Insert literal null character. |i_CTRL-V_digit|
+
+/\#\a			Search for # followed by a letter (not a space). |/\a|
+
 :%s/\#\(\a\)/\# \1/gc
+			Search for # followed by a letter,
+			then put a space between them. |/\1| |/\(\)|
 
-" Note: vim swap files (.swp) don't hold edit history,
-" so if you do a vim -r myfile.txt,
-" you'll have to output the resulting file and diff it,
-" not press u and Ctrl-R to run through the history.
-" There will be no history.
-" |swap-file|
-"     The swap file is updated after typing 200 characters or when you have not
-"     typed anything for four seconds.  This only happens if the buffer was
-"     changed, not when you only moved around.
+vim -r myfile.txt	Recovering swap files. |E325|
+			Note: vim swap files (.swp) don't hold edit history,
+			so if you do a vim -r myfile.txt,
+			you'll have to output the resulting file and diff it,
+			not press u and Ctrl-R to run through the history.
+			There will be no history. |swap-file| >
+			    The swap file is updated after typing 200 characters or when you have not
+			    typed anything for four seconds.  This only happens if the buffer was
+			    changed, not when you only moved around.
+			<
 
-" Reload the vimrc file
-:source $MYVIMRC
+:so $MYVIMRC		Reload the vimrc file. |:source|
 
-" Go to next buffer.
-" Note that you must save the file first,
-" unlike going to the next tab.
-:bn
+:bn			Go to next buffer. |:bnext|
+			Note that you must save the file first,
+			unlike going to the next tab. |E37|
+
 
 " Repeat last change or yank.
 .
@@ -881,18 +886,24 @@ Ctrl-V 0 <enter>
 @:
 " Repeat last colon command again. |@@|
 @@
-" TODO Any way to repeat last movement?
-" http://vim.1045645.n5.nabble.com/How-to-repeat-the-last-movement-command-td1173323.html
-" http://vim.sourceforge.net/scripts/script.php?script_id=2174
 
-" Disable arrow keys.
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
+	*Todo	any way to repeat last movement?
+	http://vim.1045645.n5.nabble.com/How-to-repeat-the-last-movement-command-td1173323.html
+	http://vim.sourceforge.net/scripts/script.php?script_id=2174
+
+			Disable arrow keys. |:nnoremap|
+			Usually added to ~/.vimrc file,
+			in which case the leading colons are not necessary. |vimrc|
+:nnoremap <up> <nop>
+:nnoremap <down> <nop>
+:nnoremap <left> <nop>
+:nnoremap <right> <nop>
+	https://stackoverflow.com/questions/23548932/how-do-i-disable-the-arrow-keys-in-insert-mode
 
 " Saving a vim session.
 :mksession! ~/temp/current.ses
+" Note that this does not preserve history.
+" For that, you will need viminfo.
 " Restore that same session.
 vim -S ~/temp/current.ses
 
