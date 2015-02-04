@@ -418,7 +418,7 @@ g8			Inspect hex bytes of UTF-8. |g8|
 			(Not useful for searching with /usr/bin/unicode command.)
 
 			Examples of entering digraphs in insert modek. |i_CTRL-K|
-Ctrl-K n?		Enter an ñ (enye).
+Ctrl-K n?		Enter an ñ (enye). https://en.wikipedia.org/wiki/%C3%91
 Ctrl-K DG		Enter the degree symbol, °
 Ctrl-K DE		Enter the section sign, §
 
@@ -430,7 +430,7 @@ Ctrl-K DE		Enter the section sign, §
 V{motion}		Make visual selection.
 :!nl			Run through external command.
 			Looks like this: >
-	:'<,'>!nl
+				:'<,'>!nl
 <
 :%!tac			Reverse order of lines using external /usr/bin/tac command.
 
@@ -447,7 +447,7 @@ V{motion}		Sort visual selection.
 :sort n			Sort numerically instead of alphabetically.
 :sort /.*\%52v/		Sort visual selection based on 52nd character.
 			Looks like this when typed: >
-	:'<,'>sort /.*\%52v/
+				:'<,'>sort /.*\%52v/
 <
 			Execute current line in shell.
 yy			Yank line.
@@ -488,7 +488,7 @@ K			Load man page for current word using /usr/bin/man by default.|K| |'keywordpr
 
 r<CR>			Quickly split a line at a space without entering insert mode.
 			Much faster than: >
-	i<Enter><Esc>
+				i<Enter><Esc>
 <
 
 :set nu			View line numbers. |'number'|
@@ -529,37 +529,36 @@ Alt-o			Open new line while in insert mode.
 
 :%s/\s\+$//		Delete all trailing whitespace.
 /\S\s$			Search for trailing whitespace, ignoring a line that is only whitespace.
+			*Todo	how can you jump to the whitespace, not one character to the left?
+			*Todo	how can you turn this into a substitution command?
 
-	*Todo	how can you jump to the whitespace, not one character to the left?
-	*Todo	how can you turn this into a substitution command?
+f<Space>		Jump to next space. |f|
 
-f<Space>			Jump to next space. |f|
-
-ct<Space>			Change text till next space
+ct<Space>		Change text till next space
 
 /^V142			Search for decimal ascii value #142.
 			Useful for getting rid of control characters in a text file,
 			e.g. the control character U+008E <control> UTF-8: c2 8e  UTF-16BE: 008e  Decimal: &#142;
 	http://en.wikipedia.org/wiki/%C2%8E
 
-/CTRL-V CTRL-M			Search for DOS line feed (\r\n or <CR><NL>). |i_CTRL-V|
+/CTRL-V CTRL-M		Search for DOS line feed (\r\n or <CR><NL>). |i_CTRL-V|
 
-:%s/\r\+$//g			Remove DOS line feeds (\r\n). |/\r| |'fileformat'|
-	*Todo	why does :help \\r also work?
+:%s/\r\+$//g		Remove DOS line feeds (\r\n). |/\r| |'fileformat'|
+			*Todo	why does :help \\r also work?
 	https://stackoverflow.com/questions/811193/how-to-convert-the-m-linebreak-to-normal-linebreak-in-a-file-opened-in-vim
 	https://en.wikipedia.org/wiki/Newline
 
 			Move by |word|s separated by spaces, punctuation, etc.
 w			Forward to start of next word. |w|
 e			Forward to end of current word. |e|
+			Note: |word| is affected by |'iskeyword'|
 
 			Moving by space-separated |WORD|s, not letters and underscores.
 W			Forward to start of next word. |W|
 E			Forward to end of current word. |E|
 
-If you want to move by e.g. /, use |f| or |t|.
 
-:set spell			Check spelling. |'spell'|
+:set spell		Check spelling. |'spell'|
 
 ]s			Move to next misspelled word. |]s|
 
@@ -596,16 +595,16 @@ $ vim file1 file2 file3
 			but unfortunately it does not; you just get Vim's built-in |pager|.
 			*Todo	it is possible to search in Vim's |pager|?
 
-From the Vim documentation: >
-		u	an unlisted buffer (only displayed when [!] is used) |unlisted-buffer|
-		%	the buffer in the current window
-		#	the alternate buffer for ":e #" and CTRL-^
-		a	an active buffer: it is loaded and visible
-		h	a hidden buffer: It is loaded, but currently not displayed in a window |hidden-buffer|
-		-	a buffer with 'modifiable' off
-		=	a readonly buffer
-		+	a modified buffer
-		x	a buffer with read errors
+			From the Vim documentation: >
+			u	an unlisted buffer (only displayed when [!] is used) |unlisted-buffer|
+			%	the buffer in the current window
+			#	the alternate buffer for ":e #" and CTRL-^
+			a	an active buffer: it is loaded and visible
+			h	a hidden buffer: It is loaded, but currently not displayed in a window |hidden-buffer|
+			-	a buffer with 'modifiable' off
+			=	a readonly buffer
+			+	a modified buffer
+			x	a buffer with read errors
 <
 g<			Get back to the last page of command output. |g<|
 			Useful if you accidentally hit <Enter> or <Space> too many times at the |more-prompt|.
@@ -613,14 +612,14 @@ g<			Get back to the last page of command output. |g<|
 :redir			Capture output of ex command. |:redir|
 
 			Example: 
-	*Todo	expand this example. Maybe with e.g. copying from :set iskeyword?
+			*Todo	expand this example. Maybe with e.g. copying from :set iskeyword?
 			Useful with the |q:| command.
 
-	*Todo	see what happens when you capture :highlight.
+			*Todo	see what happens when you capture :highlight.
 
 			Example: capture open buffers into unnamed register. |ls|
 :redir @" | silent ls
-	*Todo	why is redir END not necessary in this case?
+			*Todo	why is redir END not necessary in this case?
 			Example: store all digraphs to file.
 :redir > digraphs.txt | silent digraphs | redir END
 	http://vim.wikia.com/wiki/Capture_ex_command_output
@@ -749,41 +748,41 @@ Ctrl-R Ctrl-R a		Modify as desired, then add a closing '''. Use double '' for li
 
 !!echo %		Replace current line with filename.
 			Looks like this: >
-	:.!echo %
+				:.!echo %
 <
 			Evaluate math expression on current line using external /usr/bin/bc command,
 			replacing current line with the result.
 1 + 1			Enter math expression.
 !!bc			Evaluate with bc (integers only). Looks like this: >
-	:.!bc
+				:.!bc
 2			Get back result.
 4195835 / 3145727	Enter a different math expression on a different line.
 !!bc -l			Do 20 digits of floating point precision and load math library. Looks like this: >
-	:.!bc
+				:.!bc
 1.33382044913624100247	Get back result.
 			You can also do calculations on multiple lines with a visual selection.
 			Looks like this: >
-	:'<,'>!bc -l
+				:'<,'>!bc -l
 
-g?		ROT13 a visual selection. |g?|
+g?			ROT13 a visual selection. |g?|
 
-		ROT13 (Caesar cipher) with external rot13 command (in bsdgames package).
-V{motion}	Select linewise with V.
-!rot13		Send text to external command.
-		Look like this when typed: >
-	:'<,'>!rot13
+			ROT13 (Caesar cipher) with external rot13 command (in bsdgames package).
+V{motion}		Select linewise with V.
+!rot13			Send text to external command.
+			Look like this when typed: >
+				:'<,'>!rot13
 >
 
 Ctrl-l			Redraw screen. |CTRL-L|
 
 !pandoc -t latex
-		Convert visual selection to LaTeX syntax by running it through the /usr/bin/pandoc command.
-		For example, this will escape &, %, and # to \&, \%, and \#.
+			Convert visual selection to LaTeX syntax by running it through the /usr/bin/pandoc command.
+			For example, this will escape &, %, and # to \&, \%, and \#.
 
 
-:set ft?	See what Vim reads the current filetype as. |'filetype'|
-		Not to be confused with |'fileformat'|
-		which sets DOS or Unix line endings.
+:set ft?		See what Vim reads the current filetype as. |'filetype'|
+			Not to be confused with |'fileformat'|
+			which sets DOS or Unix line endings.
 
 			Choose vim's filetype. |:setfiletype| |filetypes|
 :setf c			Set filetype for C or C++ source code. |c.vim| |ft-c-syntax|
@@ -791,24 +790,24 @@ Ctrl-l			Redraw screen. |CTRL-L|
 :setf messages		Set filetype to messages, e.g. /var/log/syslog.
 :set filetype=help	Force filetype to be a Vim help file. (also afffects syntax highlighting).  |help|
 
-Example filetype plugins locations: >
-	/usr/share/vim/vimcurrent/ftplugin/
-	/usr/share/vim/vimcurrent/ftplugin/c.vim
-	/usr/share/vim/vimcurrent/ftplugin/lisp.vim
-	/usr/share/vim/vimcurrent/ftplugin/python.vim
-	/usr/share/vim/vimcurrent/ftplugin/sh.vim
-	/usr/share/vim/vimcurrent/ftplugin/tex.vim
+			Example filetype plugins locations: >
+				/usr/share/vim/vimcurrent/ftplugin/
+				/usr/share/vim/vimcurrent/ftplugin/c.vim
+				/usr/share/vim/vimcurrent/ftplugin/lisp.vim
+				/usr/share/vim/vimcurrent/ftplugin/python.vim
+				/usr/share/vim/vimcurrent/ftplugin/sh.vim
+				/usr/share/vim/vimcurrent/ftplugin/tex.vim
 <
-Note that this is not all possible filetypes,
-e.g. crontab does not have its own filetype plugin.
+			Note that this is not all possible filetypes,
+			e.g. crontab does not have its own filetype plugin.
 
 
-:set syntax?	See what syntax highlighting Vim is using,
-		even if syntax highlighting is off.
-		This should be set by filetype. |'syntax'|
+:set syntax?		See what syntax highlighting Vim is using,
+			even if syntax highlighting is off.
+			This should be set by filetype. |'syntax'|
 
-:sy off		Turn off syntax highlighting. |:syntax|
-:set syn=off	Turn off syntax highlighting. |'syntax'|
+:sy off			Turn off syntax highlighting. |:syntax|
+:set syn=off		Turn off syntax highlighting. |'syntax'|
 
 			Force syntax highlight if e.g. file extension is wrong.
 :set syntax=python	Python syntax. |ft-python-syntax|
@@ -816,77 +815,75 @@ e.g. crontab does not have its own filetype plugin.
 :set syntax=markdown	Markdown syntax.
 :set syntax=vim		Vimscript syntax.
 
-Example syntax plugin locations: >
-	/usr/share/vim/vimcurrent/syntax/
-	/usr/share/vim/vimcurrent/syntax/cpp.vim
-	/usr/share/vim/vimcurrent/syntax/crontab.vim
-	/usr/share/vim/vimcurrent/syntax/lisp.vim
-	/usr/share/vim/vimcurrent/syntax/messages.vim
-	/usr/share/vim/vimcurrent/syntax/perl6.vim
-	/usr/share/vim/vimcurrent/syntax/python.vim
-	/usr/share/vim/vimcurrent/syntax/sh.vim
+			Example syntax plugin locations: >
+				/usr/share/vim/vimcurrent/syntax/
+				/usr/share/vim/vimcurrent/syntax/cpp.vim
+				/usr/share/vim/vimcurrent/syntax/crontab.vim
+				/usr/share/vim/vimcurrent/syntax/lisp.vim
+				/usr/share/vim/vimcurrent/syntax/messages.vim
+				/usr/share/vim/vimcurrent/syntax/perl6.vim
+				/usr/share/vim/vimcurrent/syntax/python.vim
+				/usr/share/vim/vimcurrent/syntax/sh.vim
 <
-Some of these can get long; see the perl6 plugin, for example.
+			Some of these can get long; see the perl6 plugin, for example.
 
 :verbose set modeline?
 			See if modeline is enabled and why. |:verbose| |'modeline'| |E518|
-
-	Could use modelines to enable syntax highlighting and so on,
-	but mostly modeline is disabled by default for security reasons.
-	Modelines are useful for e.g. setting the filetype even if the file
-	extension is misleading. For example: >
-		# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
-<	in a python file will make the spacing come out right.
-	Or this in a javascript file: >
-		// vim: set ft=javascript:
+			Could use modelines to enable syntax highlighting and so on,
+			but mostly modeline is disabled by default for security reasons.
+			Modelines are useful for e.g. setting the filetype even if the file
+			extension is misleading. For example: >
+				# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+<			in a python file will make the spacing come out right.
+			Or this in a javascript file: >
+				// vim: set ft=javascript:
 <
 	http://vim.wikia.com/wiki/Modeline_magic
 	https://wiki.python.org/moin/Vim
 
-		Getting help for different modes.
-:help ctrl-f	What does CTRL-F do in normal mode?
-:help i_ctrl-f	What does CTRL-F do in insert mode?
-:help c_ctrl-f	What does CTRL-F do in command mode?
-		Use tab to cycle through the various options.
+			Getting help for different modes.
+:help ctrl-f		What does CTRL-F do in normal mode?
+:help i_ctrl-f		What does CTRL-F do in insert mode?
+:help c_ctrl-f		What does CTRL-F do in command mode?
+			Use tab to cycle through the various options.
 
-gd		Go to local variable definition. |gd|
+gd			Go to local variable definition. |gd|
 
-gD		Go to global variable definition. |gD|
+gD			Go to global variable definition. |gD|
 
-:windo e	Reload (edit) all windows. |:windo| |:edit|
-:buffdo e	Reload all buffers. |:bufdo|
-:tabd e		Reload all tabs. |:tabdo|
+:windo e		Reload (edit) all windows. |:windo| |:edit|
+:buffdo e		Reload all buffers. |:bufdo|
+:tabd e			Reload all tabs. |:tabdo|
 
-:set autoread	Automatically keep buffers up to date,
-		in case a program other than vim changes them. |'autoread'|
+:set autoread		Automatically keep buffers up to date,
+			in case a program other than vim changes them. |'autoread'|
 
-:setlocal autoread
-		Keep only the current buffer up to date.
+:setlocal autoread	 Keep only the current buffer up to date.
 
-/\#\a		Search for # followed by an alphabetic character. |/\a| 
+/\#\a			Search for # followed by an alphabetic character. |/\a| 
 
-		Vim regular expressions for searching. |/character-classes| |/ordinary-atom|
-		.  any character except new line |whitespace|
-		\s whitespace character          |/\s|
-		\S non-whitespace character      etc.
-		\d digit
-		\D non-digit
-		\x hex digit
-		\X non-hex digit
-		\o octal digit
-		\O non-octal digit
-		\h head of word character (a,b,c...z,A,B,C...Z and _)
-		\H non-head of word character
-		\p printable character
-		\P like \p, but excluding digits
-		\w word character
-		\W non-word character
-		\a alphabetic character
-		\A non-alphabetic character
-		\l lowercase character
-		\L non-lowercase character
-		\u uppercase character
-		\U non-uppercase character
+			Vim regular expressions for searching. |/character-classes| |/ordinary-atom|
+			.  any character except new line |whitespace|
+			\s whitespace character          |/\s|
+			\S non-whitespace character      etc.
+			\d digit
+			\D non-digit
+			\x hex digit
+			\X non-hex digit
+			\o octal digit
+			\O non-octal digit
+			\h head of word character (a,b,c...z,A,B,C...Z and _)
+			\H non-head of word character
+			\p printable character
+			\P like \p, but excluding digits
+			\w word character
+			\W non-word character
+			\a alphabetic character
+			\A non-alphabetic character
+			\l lowercase character
+			\L non-lowercase character
+			\u uppercase character
+			\U non-uppercase character
 	http://vimregex.com/#metacharacters
 	
 
@@ -895,14 +892,14 @@ gD		Go to global variable definition. |gD|
 			softtabstop is how many columns vim moves when you press tab. |'softtabstop'|
 			shiftwidth controls >> << and cindent                         |'shiftwidth'|
 			expandtab produces spaces when the tab key is pressed         |'expandtab'|
-		http://tedlogan.com/techblog3.html
+	http://tedlogan.com/techblog3.html
 
-Example indentation plugin locations: >
-	/usr/share/vim/vimcurrent/indent/
-	/usr/share/vim/vimcurrent/indent/c.vim
-	/usr/share/vim/vimcurrent/indent/lisp.vim
-	/usr/share/vim/vimcurrent/indent/python.vim
-	/usr/share/vim/vimcurrent/indent/sh.vim
+			Example indentation plugin locations: >
+				/usr/share/vim/vimcurrent/indent/
+				/usr/share/vim/vimcurrent/indent/c.vim
+				/usr/share/vim/vimcurrent/indent/lisp.vim
+				/usr/share/vim/vimcurrent/indent/python.vim
+				/usr/share/vim/vimcurrent/indent/sh.vim
 <
 
 Ctrl-V <tab>		Insert literal tab when expandtab is on. |i_CTRL-V|
