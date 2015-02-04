@@ -5,26 +5,32 @@
 2. Command list.			|my-command-list|
 
 ================================================================================
-1. Vim help tag prefix conventions.				*tag-prefixes*
+1. Vim help tag prefix conventions and notation.		*tag-prefixes*
 
-      Description                                  Example#1  Example#2     Reference
-----------------------------------------------------------------------------------------------------
-      No prefix for keystrokes in normal mode.     |CTRL-R|     |<Up>|          |Normal-mode| |command-mode|
-i_    Tag prefix for keystrokes in insert mode.    |i_CTRL-R|   |i_<Up>|        |Insert-mode|
-:     Tag prefix for ranges and ex commands.       |:%|         |:shell|        |:|
-:_    Tag prefix for characters in cmdline mode.   |:_%|        |:_!|           |Cmdline-mode|
-c_    Usually same as the :_ prefix.               |c_%|        |c_CTRL-C|      |Cmdline-mode|
-v_    Tag prefix for keystrokes in visual mode.    |v_!|        |v_CTRL-C|      |Visual-mode|
-/     Tag prefix for patterns.                     |/star|      |/.|            |pattern-overview|
-s_    Tag prefix for substitution flags.           |:s_c|                     |:s_flags|
-quote Tag prefix for registers.                    |quote-|     |quote_alpha|   |registers|
--     Tag prefix for arguments when invoking Vim.  |-+|         |-c|            |vim-arguments|
-t_    Tag prefix for termcap flags.                |t_k5|       |t_cm|          |terminal-options|
-+     Tag prefix for features.                     |+visual|    |+syntax|       |+feature-list|
-Vim |options| are in single quotes.                  |'ic'|       |'noic'|        |set-option|
-Vim error numbers start with E.                    |E10|        |E849|          |error-messages|
+      Description                                   Example#1  Example#2     Reference
+--------------------------------------------------- -------------------------------------------------
+      No prefix for keystrokes in normal mode.      |CTRL-R|     |<Up>|          |Normal-mode| |command-mode|
+i_    Tag prefix for keystrokes in insert mode.     |i_CTRL-R|   |i_<Up>|        |Insert-mode|
+:     Tag prefix for ranges and ex commands.        |:%|         |:shell|        |:|
+:_    Tag prefix for characters in cmdline mode.    |:_%|        |:_!|           |Cmdline-mode|
+c_    Usually same as the :_ prefix.                |c_%|        |c_CTRL-C|      |Cmdline-mode|
+v_    Tag prefix for keystrokes in visual mode.     |v_!|        |v_CTRL-C|      |Visual-mode|
+/     Tag prefix for patterns.                      |/star|      |/.|            |pattern-overview|
+s_    Tag prefix for substitution flags.            |:s_c|                     |:s_flags|
+quote Tag prefix for registers.                     |quote-|     |quote_alpha|   |registers|
+-     Tag prefix for arguments when invoking Vim.   |-+|         |-c|            |vim-arguments|
+t_    Tag prefix for termcap flags.                 |t_k5|       |t_cm|          |terminal-options|
++     Tag prefix for features.                      |+visual|    |+syntax|       |+feature-list|
+Vim |options| are in single quotes.                   |'ic'|       |'noic'|        |set-option|
+Vim error numbers start with E.                     |E10|        |E849|          |error-messages|
+Special key names are in angle brackets.            |<BS>|       |<F1>|          |key-notation|
+Optional parts of a command are in square brackets. |[count]|    |[quotex]|      |notation|
+Required parts of a command are in curly brackets.  |{motion}|   |{Visual}|      |{}|
+Character class expressions are in [: :].           |[:alpha:]|  |[:cntrl:]|     |[:alnum:]|
 
 	http://vim.wikia.com/wiki/Learn_to_use_help#Context
+
+	*Todo	the ":tag /." command still jumps to *.* instead of */.*.
 
 Formatting conventions:
 -- Make unindented text correspond to actual keystrokes,
@@ -36,6 +42,7 @@ Formatting conventions:
 -- Mark up output text as examples: >
 	This is some output text.
 <  Like so.
+	*Todo	should the commands include shortened version, or long versions to find more easily?
 
 ==============================================================================
 2. List of commands.		*my-command-list*
@@ -49,7 +56,7 @@ Ctrl-]			Jump to tag under cursor. |Ctrl-]| |tag-regexp|
 Ctrl-t			Jump to last tag. |CTRL-T|
 			Note: Unlike Ctrl-O, Ctrl-I will not jump forward again.
 
-Ctrl-W]			Open tag in new window. |CTRL-W_]|
+Ctrl-w Ctrl-]		Open tag in new window. |CTRL-W_]|
 
 	http://vim.wikia.com/wiki/Follow_tag_in_new_window
 
@@ -101,6 +108,9 @@ V			Enter linewise visual mode. |V|
 :s/^/#/			Use the |:substitute| command to replace the |/^| pattern atom with '#'. |pattern-atoms|
 			It will look like this while typing: >
 	:'<,'>s/^/#/
+
+:s/\s\+/\r/g		Split a line with words and whitespace into several lines with one word per line.
+			Also strips whitespace. |:substitute| |/\+|
 
 			Append "hi" to several lines using blockwise-visual mode.
 Ctrl-v{motion}		Blockwise visual selection. |CTRL-V| |blockwise-visual|
@@ -352,9 +362,8 @@ dd			Delete the line. |dd|
 <			would make more sense,
 			but this is consistent with other options.
 
-:help i_<command>	Help on command in insert mode
-
-|i_CTRL-X_CTRL-L|
+:help i_<command>	Help on command in insert mode. Example: >
+				:help i_CTRL-X_CTRL-L
 
 gf			Open filename or path under cursor. |gf|
 			Must save current file first. |E37|
@@ -474,13 +483,10 @@ zz			Put this line at the middle of the screen. |zz|
 
 :help help-writing	The Vim documentation format. |help-writing|
 
-" Start editing at the end of a file/bottom of document/last line
-vim + myfile.txt
+$ vim + myfile.txt	Start editing at the end of a file/bottom of document/last line. |-+|
 
-" Jump to last edited spot
-g;
-" Jump to next edited spot
-g,
+g;			Jump to last edited spot
+g,			Jump to next edited spot
 " Jump to last visual selection
 
 " Open new line while in insert mode.
@@ -517,8 +523,8 @@ ct<Space>			Change text till next space
 	https://en.wikipedia.org/wiki/Newline
 
 			Move by |word|s separated by spaces, punctuation, etc.
-w			|w|
-e			|e|
+w			Forward to start of next word. |w|
+e			Forward to end of current word. |e|
 
 			Moving by space-separated |WORD|s, not letters and underscores.
 W			Forward to start of next word. |W|
@@ -530,16 +536,15 @@ If you want to move by e.g. /, use |f| or |t|.
 
 ]s			Move to next misspelled word. |]s|
 
-[s			Move back to previous misspelled word
+[s			Move back to previous misspelled word. |[s|
 
 zg			Mark a word as spelled correctly (add a word to vim's dictionary). Mnemonic: good |zg|
 
+zw			Mark a word as misspelled (remove from vim's dictionary). Mnemonic: wrong. |zw|
+			Note: Vim's personal dictionary is $HOME/.vim/spell/en.utf-8.add by default.
 
-" Mark a word as misspelled (remove from vim's dictionary). Mnemonic: wrong. |zw|
-
-zw			Vim personal dictionary is by default in ~/.vim/spell/en.utf-8.add
-
-:w !sudo tee > /dev/null %			When you try to save and find you're editing a file without the needed permissions.
+:w !sudo tee > /dev/null %
+			When you try to save and find you're editing a file without the needed permissions.
 
 			https://stackoverflow.com/questions/1005/getting-root-permissions-on-a-file-inside-of-vi
 			http://www.commandlinefu.com/commands/view/1204/save-a-file-you-edited-in-vim-without-the-needed-permissions
@@ -555,7 +560,7 @@ Ctrl-G u		Start new change in insert mode. |i_CTRL-G_u|
 :set shellcmdflag=-ic
 			Access shell aliases from vim.
 
-vim file1 file2 file3
+$ vim file1 file2 file3
 			Opening multiple buffers with vim (not tabs)
 
 :ls			See open buffers, one on each line. |:ls|
@@ -563,7 +568,7 @@ vim file1 file2 file3
 			Note: it would be nice if this gave you the option to select a buffer to move to,
 			but unfortunately it does not; you just get Vim's built-in |pager|.
 
-From vim docs: >
+From the Vim documentation: >
 		u	an unlisted buffer (only displayed when [!] is used) |unlisted-buffer|
 		%	the buffer in the current window
 		#	the alternate buffer for ":e #" and CTRL-^
@@ -576,6 +581,21 @@ From vim docs: >
 <
 g<			Get back to the last page of command output. |g<|
 			Useful if you accidentally hit <Enter> or <Space> too many times at the |more-prompt|.
+
+:redir			Capture output of ex command. |:redir|
+
+			Example: 
+			Useful with the |q:| command,
+
+			Example: capture open buffers into unnamed register. |ls|
+:redir @" | silent ls | redir END
+:redir @"> | silent ls
+			Example: store all digraphs to file.
+:redir > digraphs.txt | silent digraphs | redir END
+	http://vim.wikia.com/wiki/Capture_ex_command_output
+	https://stackoverflow.com/questions/2573021/how-to-redirect-ex-command-output-into-current-buffer-or-file
+			Example: append register contents to end of current file.
+:redir >> % | silent registers | redir END | edit
 
 :args			List arguments to vim when it was invoked.
 			Will not include e.g. buffers opened with |:badd| or |:tabnew|.
@@ -608,11 +628,12 @@ Ctrl-D			Show the options for the next completion (better than Ctrl-E). |c_CTRL-
 
 :sav file2.txt		Save/rename a file and start editing it instead of the current file. |:saveas|
 
-vim -c "set list" file.txt
+$ vim -c "set list" file.txt
 			Run :set list as soon as file.txt is loaded. |-c| |'list'|
 
-vim -c "set backupcopy=yes|set noswapfile" myfile
+$ vim -c "set backupcopy=yes|set noswapfile" myfile
 			Set vim so that it will write a file in place rather than making a temp or backup file (.swp). |'backupcopy'| |'noswapfile'|
+
 
 :m +4			Move current line down 4 lines. |:move|
 
@@ -754,7 +775,8 @@ e.g. crontab does not have its own filetype plugin.
 		even if syntax highlighting is off.
 		This should be set by filetype. |'syntax'|
 
-:syntax off	Turn off syntax highlighting. |:syntax|
+:sy off		Turn off syntax highlighting. |:syntax|
+:set syn=off	Turn off syntax highlighting. |'syntax'|
 
 			Force syntax highlight if e.g. file extension is wrong.
 :set syntax=python	Python syntax. |ft-python-syntax|
@@ -862,30 +884,32 @@ Ctrl-V 0 <enter>	Insert literal null character. |i_CTRL-V_digit|
 			Search for # followed by a letter,
 			then put a space between them. |/\1| |/\(\)|
 
-vim -r myfile.txt	Recovering swap files. |E325|
+$ vim -r myfile.txt	Recovering swap files. |E325|
 			Note: vim swap files (.swp) don't hold edit history,
 			so if you do a vim -r myfile.txt,
 			you'll have to output the resulting file and diff it,
 			not press u and Ctrl-R to run through the history.
 			There will be no history. |swap-file| >
-			    The swap file is updated after typing 200 characters or when you have not
-			    typed anything for four seconds.  This only happens if the buffer was
-			    changed, not when you only moved around.
-			<
+				The swap file is updated after typing 200 characters or when you have not
+				typed anything for four seconds.  This only happens if the buffer was
+				changed, not when you only moved around.
+<			Note that vim swap files are not always portable between machines,
+			and attempting to open swap files from other machines may lead to error like this: >
+				.file.txt.swp cannot be used on this computer.
+				The file was created on <hostname>,
+				or the file has been damaged.
+<	https://groups.google.com/forum/#!msg/vim_use/-wKUzSTun04/4Gu6cXUkKwUJ
 
-:so $MYVIMRC		Reload the vimrc file. |:source|
+:source $MYVIMRC	Reload the vimrc file. |:source| |$MYVIMRC|
 
 :bn			Go to next buffer. |:bnext|
 			Note that you must save the file first,
 			unlike going to the next tab. |E37|
 
 
-" Repeat last change or yank.
-.
-" Repeat last colon command. |@:|
-@:
-" Repeat last colon command again. |@@|
-@@
+.			Repeat last change or yank. |.|
+@:			Repeat last colon command. |@:|
+@@			Repeat last colon command again. |@@|
 
 	*Todo	any way to repeat last movement?
 	http://vim.1045645.n5.nabble.com/How-to-repeat-the-last-movement-command-td1173323.html
@@ -894,54 +918,39 @@ vim -r myfile.txt	Recovering swap files. |E325|
 			Disable arrow keys. |:nnoremap|
 			Usually added to ~/.vimrc file,
 			in which case the leading colons are not necessary. |vimrc|
-:nnoremap <up> <nop>
-:nnoremap <down> <nop>
+:nnoremap <up> <nop>	|<Up>| |<Nop>|
+:nnoremap <down> <nop>	|<Down>|
 :nnoremap <left> <nop>
 :nnoremap <right> <nop>
 	https://stackoverflow.com/questions/23548932/how-do-i-disable-the-arrow-keys-in-insert-mode
 
-" Saving a vim session.
-:mksession! ~/temp/current.ses
-" Note that this does not preserve history.
-" For that, you will need viminfo.
-" Restore that same session.
-vim -S ~/temp/current.ses
+:mksession! /tmp/current.ses
+			Saving a vim session.
+			Note that this does not preserve history.
+			(For that, you will need |viminfo|.)
 
-" Fix indentation for an entire file. |=| |filter|
-gg=G
-" http://vim.wikia.com/wiki/Fix_indentation
+$ vim -S /tmp/current.ses
+			Restore that same session. |-S|
 
-" Stop jumping to start of line when moving around.
-:set nostartofline
-" http://stackoverflow.com/questions/16748161/jump-to-last-line-but-stay-in-the-same-column
+			Fix indentation for an entire file. |=| |filter|
+gg			Go to top of file. |gg|
+=G			Filter all lines to bottom of file through default indentation program. |G|
+	http://vim.wikia.com/wiki/Fix_indentation
 
-" Show command history as an editable vim window.
-q:
-" Press enter to execute the command the cursor is on or Ctrl-C to quit.
+:set nostartofline	Stop jumping to start of line when using |jump-motions|.
+	http://stackoverflow.com/questions/16748161/jump-to-last-line-but-stay-in-the-same-column
 
-" Show search history as an editable vim window.
-q/
-" Press enter to choose that search line or Ctrl-C to quit.
+q:			Show command history as an editable vim window. |q:|
+			Press <Enter> to execute the command the cursor is on,
+			or Ctrl-C to quit. |c_CTRL-C|
 
-" .file.txt.swp cannot be used on this computer.
-" The file was created on <thinkpad> <nathaniel-laptop>,
-" or the file has been damaged.
-" https://groups.google.com/forum/#!msg/vim_use/-wKUzSTun04/4Gu6cXUkKwUJ
+q/			Show search history as an editable vim window. |q/|
+			Press <Enter> to choose that search line,
+			or Ctrl-C to quit. |CTRL-C|
 
-" Capture output of ex command.
-" Useful with the q: command.
-" |:redir|
-" Example: capture open buffers into unnamed register.
-:redir @" | ls | redir END
-" Example: store all digraphs to file.
-:redir > digraphs.txt | digraphs | redir END
-" http://vim.wikia.com/wiki/Capture_ex_command_output
-" https://stackoverflow.com/questions/2573021/how-to-redirect-ex-command-output-into-current-buffer-or-file
+gq			Reflow/wrap/format the selected text. |gq|
+			Useful for hard-wrapping long lines.
 
-" Reflow/wrap/format the selected text. |gq|
-" Useful for hard-wrapping long lines.
-gq
-" Reflow/wrap/format only the line under the cursor. |gqq|
-gqq
-" Warning: easily mistyped with |gQ|, which means go into |Ex-mode|.
-gQ
+gqq			Reflow/wrap/format only the line under the cursor. |gqq|
+			Note: easily mistyped with |gQ|, which means go into |Ex-mode|.
+
