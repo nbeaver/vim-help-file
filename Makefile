@@ -1,4 +1,4 @@
-all: vim-notes.html vim-notes.awk.html TAGS
+all: vim-notes.html index.html TAGS
 # Prevent make from looking for a file called 'all'
 .PHONY : all
 
@@ -8,10 +8,10 @@ vim-notes.html: vim-notes.vimhelp Makefile TAGS
 	# Change links in generated html so they point to the HTML files.
 	sed --in-place 's;/usr/share/vim/vimcurrent/doc;/usr/share/doc/vim-doc/html;' vim-notes.vimhelp.html
 
-vim-notes.awk.html: makehtml.awk vim-notes.vimhelp Makefile
+index.html: makehtml.awk vim-notes.vimhelp Makefile
 	# The awk script assumes all the files are in the same directory,
 	# so it doesn't read the TAGS file.
-	gawk --file makehtml.awk vim-notes.vimhelp > vim-notes.awk.html
+	gawk --file makehtml.awk vim-notes.vimhelp > index.html
 
 TEMPFILE := $(shell mktemp)
 TAGS: Makefile
