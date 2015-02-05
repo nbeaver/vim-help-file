@@ -393,9 +393,13 @@ v{motion}		Select path, including spaces.
 gf			Jump to file. |v_gf|
 			Useful for e.g. opening paths containing spaces.
 
-Ctrl-W Ctrl-F		Open filename under cursor in new window. |CTRL-W_f| |CTRL-W_CTRL-F|
+Ctrl-W f		Open filename under cursor in new window. |CTRL-W_f| |CTRL-W_CTRL-F|
 
-Ctrl-W Ctrl-=		Make each window about the same height. |CTRL-W_=|
+Ctrl-W =		Make each window about the same height. |CTRL-W_=|
+
+Ctrl-W o		Make the current window maximized so that it expands to fill the entire viewport. |CTRL-W_o|
+
+Ctrl-W T		Move window to a new tab. |CTRL-W_T|
 
 :resize 90		Resize window height to 90 lines. |:resize|
 
