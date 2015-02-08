@@ -387,6 +387,8 @@ gf			Open filename or path under cursor. |gf|
 			Must save current file first. |E37|
 			(Use |CTRL-W_f| if you don't want to |abandon| the file.)
 			Path must not contain spaces. |'isfname'| |E447|
+			*Todo	is there a way to make vim follow paths with escaped spaces?
+
 
 			Open selected file or path, regardless of |'isfname'|.
 v{motion}		Select path, including spaces.
