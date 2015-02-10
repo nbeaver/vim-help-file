@@ -156,7 +156,8 @@ p			Paste last yank.
 			Re-open a recently closed tab.
 :ls			Check if it's in the list of open buffers. |:ls|
 :tabnew#		Often, it will be the alternate file buffer, '#'. |:_#|  |alternate-file|
-:tabnew +11buf		Otherwise, open the appropriate buffer number (11 in this case).
+:tabnew +11buf		Otherwise, open the appropriate buffer number (11 in this case). |+cmd| |:buf|
+:tabnew \+11buf		If you actually want to open a {file} called "+11buf".
 
 	https://stackoverflow.com/questions/571955/undo-close-tab-in-vim
 
@@ -216,7 +217,8 @@ Ctrl-o			Jump backward through jumplist. |CTRL-O|
 
 Ctrl-g			Find name of current file and other helpful information. |CTRL-G| |:file|
 
-g Ctrl-g		Count characters in file or visual selection. |g_CTRL-G| |word-count| |byte-count|
+g Ctrl-g		Count characters in file. |g_CTRL-G| |word-count| |byte-count|
+{Visual}g Ctrl-g	Count characters in visual selection.
 
 :pwd			Find out the current working directory. |:pwd|
 
@@ -433,8 +435,7 @@ Ctrl-K DE		Enter the section sign, §
 :%!nl			Put line numbers into file using external /usr/bin/nl command.
 
 			Number a visual selection.
-V{motion}		Make visual selection.
-:!nl			Run through external command.
+{Visual}:!nl		Run through external command.
 			Looks like this: >
 				:'<,'>!nl
 <
@@ -443,8 +444,7 @@ V{motion}		Make visual selection.
 			Sorting with external /usr/bin/sort command.
 :!4,7!sort		Sort lines 4-7.
 :4,$ !sort		Sort lines 4 to end of document.
-V{motion}		Sort visual selection.
-:!sort
+{Visual}:!sort		Sort visual selection.
 
 			Sorting with internal Vim command, |:sort|.
 :sort			Sort alphabetically.
@@ -692,9 +692,9 @@ qy			Start recording macro y
 q			Stop recording macro y
 
 :reg			See registers, including macros. Press <Enter> to see more and <Q> when finished.
-@y			Run macro.
-"yp			Paste macro onto current line.
-"yy			Yank the current selection into the y register.
+@a			Run macro 'a'.
+"ap			Paste macro onto current line.
+"ay			Yank the current selection into the y register.
 
 
 :%s/\%x85/\r/gc		Replace non-printing characters (high ascii), e.g. 0x85 with \r.
@@ -724,8 +724,12 @@ V{motion}
 
 g~~			Flip case of entire line. |g~~|
 
-:normal @q		Run the q macro on each line of some visually selected text.
-:g/vim/ normal @q	Run the q macros on lines matching the 'vim' pattern
+{Visual}:normal @a	Run the 'a' macro on each line of some visually selected text. |:normal|
+			Looks like this: >
+				:'<,'>normal @a
+<
+
+:g/vim/ normal @a	Run the 'a' macro on lines matching the 'vim' pattern
 	http://blog.sanctum.geek.nz/advanced-vim-macros/
 
 :%!column -t		Format current file using external /usr/bin/column program.
@@ -770,7 +774,7 @@ Ctrl-R Ctrl-R a		Modify as desired, then add a closing '''. Use double '' for li
 			Looks like this: >
 				:'<,'>!bc -l
 
-g?			ROT13 a visual selection. |g?|
+{Visual}g?		ROT13 a visual selection. |g?|
 
 			ROT13 (Caesar cipher) with external rot13 command (in bsdgames package).
 V{motion}		Select linewise with V.
@@ -781,10 +785,8 @@ V{motion}		Select linewise with V.
 
 Ctrl-l			Redraw screen. |CTRL-L|
 
-!pandoc -t latex
-			Convert visual selection to LaTeX syntax by running it through the /usr/bin/pandoc command.
+!pandoc -t latex	Convert visual selection to LaTeX syntax by running it through the /usr/bin/pandoc command.
 			For example, this will escape &, %, and # to \&, \%, and \#.
-
 
 :set ft?		See what Vim reads the current filetype as. |'filetype'|
 			Not to be confused with |'fileformat'|
