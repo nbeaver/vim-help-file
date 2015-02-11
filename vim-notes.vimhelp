@@ -39,16 +39,7 @@ Formatting conventions:
 -- Indent URLs with <Tab>.
 -- Mark up output text as examples: >
 	This is some output text.
-<  Like so.
-	*Todo	should the commands include shortened version, or long versions to find more easily?
-	*Todo	decide between e.g.
->
-		v{motion}
-		gf
-<	and >
-		{Visual}gf
-	Tradeoffs: searchability vs. accuracy, reduced redundancy, and consistency.
-<
+< End the example with an angle bracket.
 
 
 ==============================================================================
@@ -616,22 +607,23 @@ g<			Get back to the last page of command output. |g<|
 			Useful if you accidentally hit <Enter> or <Space> too many times at the |more-prompt|.
 
 :redir			Capture output of ex command. |:redir|
+	http://vim.wikia.com/wiki/Capture_ex_command_output
 
-			Example: 
+			Capture open buffers into unnamed register. |ls| |:silent|
+:redir @" | silent ls | redir END
+
+			Easily edit complex options like |'iskeyword'|.
+:redir @" | silent set iskeyword? | redir END
+  iskeyword=!-~,^*,^|,^",192-255
 			*Todo	expand this example. Maybe with e.g. copying from :set iskeyword?
 			Useful with the |q:| command.
 
-			*Todo	see what happens when you capture :highlight.
 
-			Example: capture open buffers into unnamed register. |ls|
-:redir @" | silent ls
-			*Todo	why is redir END not necessary in this case?
-			Example: store all digraphs to file.
+			Store all digraphs to file. |:digraphs|
 :redir > digraphs.txt | silent digraphs | redir END
-	http://vim.wikia.com/wiki/Capture_ex_command_output
 	https://stackoverflow.com/questions/2573021/how-to-redirect-ex-command-output-into-current-buffer-or-file
 
-			Example: append register contents to end of current file.
+			Append contents of all registers to end of current file.
 :redir >> % | silent registers | redir END | edit
 
 :args			List arguments to vim when it was invoked.
@@ -921,7 +913,35 @@ Ctrl-V 0 <enter>	Insert literal null character. |i_CTRL-V_digit|
 			Search for # followed by a letter,
 			then put a space between them. |/\1| |/\(\)|
 
+
 $ vim -r myfile.txt	Recovering swap files. |E325|
+			Note: a typical recovery message looks like this: >
+				E325: ATTENTION
+				Found a swap file by the name ".myfile.txt.swp"
+				          owned by: user   dated: Tue Feb 10 09:28:48 2015
+				         file name: /tmp/myfile.txt
+				          modified: YES
+				         user name: user   host name: laptop
+				        process ID: 9670
+				While opening file "myfile.txt"
+				
+				(1) Another program may be editing the same file.  If this is the case,
+				    be careful not to end up with two different instances of the same
+				    file when making changes.  Quit, or continue with caution.
+				(2) An edit session for this file crashed.
+				    If this is the case, use ":recover" or "vim -r myfile.txt"
+				    to recover the changes (see ":help recovery").
+				    If you did this already, delete the swap file ".myfile.txt.swp"
+				    to avoid this message.
+				
+				Swap file ".myfile.txt.swp" already exists!
+				[O]pen Read-Only, (E)dit anyway, (R)ecover, (D)elete it, (Q)uit, (A)bort:
+<			The most important lines are "process ID" and "modified".
+			If another copy of vim is still running, it will look like, e.g.: >
+        			process ID: 9526 (still running)
+>			If the file hasn't been modified, it will say this: >
+          			modified: no
+>			This means it is safe to delete the swap file.
 			Note: vim swap files (.swp) don't hold edit history,
 			so if you do a vim -r myfile.txt,
 			you'll have to output the resulting file and diff it,
