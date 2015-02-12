@@ -106,7 +106,7 @@ Ctrl-r "		Paste the last yank. |i_CTRL-R|
 V			Enter linewise visual mode. |V|
 :s/^/#/			Use the |:substitute| command to replace the |/^| pattern atom with '#'. |pattern-atoms|
 			It will look like this while typing: >
-	:'<,'>s/^/#/
+				:'<,'>s/^/#/
 
 :s/\s\+/\r/g		Split a line with words and whitespace into several lines with one word per line.
 			Also strips whitespace. |:substitute| |/\+|
@@ -1000,6 +1000,16 @@ gg			Go to top of file. |gg|
 q:			Show command history as an editable vim window. |q:|
 			Press <Enter> to execute the command the cursor is on,
 			or Ctrl-C to quit. |c_CTRL-C|
+			
+			Example of how this is useful: it gets you insert-mode editing for free.
+q:			Open up the command history.
+i			Enter insert mode. |i|
+:s/			Start a substitution command. Can also use <Tab> to autocomplete.
+{char}			Start typing the name of the keyword.
+Ctrl-n			Autocomplete the name of the keyword. |i_CTRL-N|
+/replacement/		Finish typing the substition command.
+<Enter>			Execute the substitution command.
+	https://stackoverflow.com/questions/19730567/vim-auto-completion-on-substitutions-and-searches-in-the-command-line
 
 q/			Show search history as an editable vim window. |q/|
 			Press <Enter> to choose that search line,
