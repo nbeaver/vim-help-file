@@ -1,8 +1,8 @@
-all: vim-notes.html index.html TAGS
+all: vim-notes.vimhelp.html index.html TAGS README.html
 # Prevent make from looking for a file called 'all'
 .PHONY : all
 
-vim-notes.html: vim-notes.vimhelp Makefile TAGS 
+vim-notes.vimhelp.html: vim-notes.vimhelp Makefile TAGS 
 	# The perl script adds more color, but it doesn't convert links.
 	./vim2html.pl TAGS vim-notes.vimhelp
 	# Change links in generated html so they point to the HTML files.
@@ -19,3 +19,6 @@ TAGS: Makefile
 	# Make expands $ unless they are doubled ($$ becomes $).
 	awk '{print $$1"\t/usr/share/vim/vimcurrent/doc/"$$2"\t"$$3}' $(TEMPFILE) > TAGS
 	rm $(TEMPFILE)
+
+README.html: README.rst Makefile
+	rst2html README.rst > README.html
