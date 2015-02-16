@@ -1,6 +1,5 @@
 let b:did_ftplugin = 1
-" Nasty hack that lets us avoid the side effects of the help filetype plugin,
-" which will somehow be called last by the 'set buftype=help' above.
+" Nasty hack that lets us avoid the side effects of the help filetype plugin.
 " (See /usr/share/vim/vimcurrent/ftplugin/help.vim for the plugin.)
 
 set filetype=help
@@ -9,9 +8,8 @@ set filetype=help
 " e.g. |/star| jumps to *star*, not */star*.
 " e.g. |/ignorecase| jumps to *'ignorecase'*
 " |/atom| |/bar| |/\bar|
-" but it has some drawbacks, e.g. :help will leave the current buffer,
-" so use :split | :help instead.
-"autocmd BufNewFile,BufRead *.vimhelp cnoremap :help :split\|help TODO: fix this.
+" but it has some drawbacks,
+" e.g. running :help will leave the current buffer.
 
 setlocal iskeyword=!-~,^\*,^\|,^\",192-255
 " Make the keywords match other help files,
@@ -20,11 +18,11 @@ setlocal iskeyword=!-~,^\*,^\|,^\",192-255
 
 setlocal noreadonly
 setlocal modifiable
-" Stop the file from being read-only, which is default for buftype=help.
+" Stop the file from being read-only, which is default for filetype=help.
 
 setlocal textwidth=0
 set formatoptions-=tc
-" Prevent autowrapping at 78 characters, which is default for buftype=help.
+" Prevent autowrapping at 78 characters, which is default for filetype=help.
 
 highlight link helpStar Type
 " Make the ** characters in a tag target visible.

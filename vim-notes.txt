@@ -42,6 +42,7 @@ Formatting conventions:
 < End the example with an angle bracket.
 
 	*Todo	is it possible to use two tag files at once?
+	*Todo	change <Enter> to <CR>.
 
 ==============================================================================
 2. List of commands.

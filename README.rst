@@ -17,7 +17,7 @@ Quickstart
 
 #. Run this command:
 
-    vim -S read-help-file.vim vim-notes.vimhelp
+    vim -S tweak.vim vim-notes.vimhelp
 
 #. Jump to one of the tags with ``Ctrl-[``.
 #. Optional: run ``make`` to generate HTML files.
@@ -35,11 +35,12 @@ The `Vim text editor`_ has integrated help with hyperlinking via help tags, like
 
 .. _Vim text editor: http://www.vim.org/
 
-It's possible to write a `personal Vim help file`_,
+It's possible to write a `personal Vim help file`_ using the same `format`_,
 but it will only be able to access its own help tags,
 not the ones in the official Vim documentation.
 
 .. _personal Vim help file: http://vim.wikia.com/wiki/Add_your_note_files_to_Vim_help
+.. _format: http://vimdoc.sourceforge.net/htmldoc/usr_41.html#write-local-help
 
 One fix for this is to copy the help tags in
 ``/usr/share/vim/vimcurrent/doc/tags``
@@ -55,8 +56,7 @@ does not include the characters ``!-*|"``
 thus it will not follow correctly tags such as ``|command-mode|``.
 
 To fix this and related problems,
-use the ``.vimhelp`` suffix for the notes file instead of ``.txt``
-and source the `included vim script <./read-help-file.vim>`_ script in ``vimrc``.
+run the `included vim script <./tweak.vim>`_ script when invoking vim on the desired file.
 
 You can generate the TAGS file and HTML output with ``make``.
 (The HTML has some kinks to work out and is still a work in progress.)
