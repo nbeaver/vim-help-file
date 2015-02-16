@@ -15,13 +15,12 @@ A personal Vim help file.
 Quickstart
 ----------
 
-#. Source `read-help-file.vim <./vim-notes.vimhelp>`_ in your ``vimrc``. ::
+#. Run this command:
 
-    echo "source $PWD/read-help-file.vim" >> ~/.vimrc
+    vim -S read-help-file.vim vim-notes.vimhelp
 
-#. Open `vim-notes.vimhelp <./vim-notes.vimhelp>`_ with Vim.
-#. Jump to one of the tags.
-#. Run ``make`` to generate HTML (optional).
+#. Jump to one of the tags with ``Ctrl-[``.
+#. Optional: run ``make`` to generate HTML files.
 
 ----------
 Motivation
@@ -59,6 +58,9 @@ To fix this and related problems,
 use the ``.vimhelp`` suffix for the notes file instead of ``.txt``
 and source the `included vim script <./read-help-file.vim>`_ script in ``vimrc``.
 
+You can generate the TAGS file and HTML output with ``make``.
+(The HTML has some kinks to work out and is still a work in progress.)
+
 ----
 TODO
 ----
@@ -82,7 +84,7 @@ Improvements:
 
 - Read ``tags`` file to for path to tag
   instead of just assuming they are all in the current directory.
-- Syntax highlighting.
+- Colored syntax highlighting.
 - Convert ``https://`` URLs to links.
 - Use UTF-8 instead of ISO-8859-1.
 
