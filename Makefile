@@ -12,6 +12,8 @@ index.html: makehtml.awk vim-notes.vimhelp Makefile
 	# The awk script assumes all the files are in the same directory,
 	# so it doesn't read the TAGS file.
 	gawk --file makehtml.awk vim-notes.vimhelp > index.html
+	# TODO: fix links like <A HREF="intro.html
+	# but not <A HREF="http://
 
 TEMPFILE := $(shell mktemp)
 TAGS: Makefile
