@@ -16,12 +16,12 @@ i_    Tag prefix for keystrokes in insert mode.     |i_CTRL-R|   |i_<Up>|       
 c_    Usually same as the :_ prefix.                |c_%|        |c_CTRL-C|      |Cmdline-mode|
 v_    Tag prefix for keystrokes in visual mode.     |v_!|        |v_CTRL-C|      |Visual-mode|
 /     Tag prefix for patterns.                      |/star|      |/.|            |pattern-overview|
-s_    Tag prefix for substitution flags.            |:s_c|                     |:s_flags|
+s_    Tag prefix for substitution flags.            |:s_c|                       |:s_flags|
 quote Tag prefix for registers.                     |quote-|     |quote_alpha|   |registers|
 -     Tag prefix for arguments when invoking Vim.   |-+|         |-c|            |vim-arguments|
 t_    Tag prefix for termcap flags.                 |t_k5|       |t_cm|          |terminal-options|
 +     Tag prefix for features.                      |+visual|    |+syntax|       |+feature-list|
-Vim |options| are in single quotes.                   |'ic'|       |'noic'|        |set-option|
+Vim |options| are in single quotes.                 |'ic'|       |'noic'|        |set-option|
 Vim error numbers start with E.                     |E10|        |E849|          |error-messages|
 Special key names are in angle brackets.            |<BS>|       |<F1>|          |key-notation|
 Optional parts of a command are in square brackets. |[count]|    |[quotex]|      |notation|
@@ -418,9 +418,12 @@ g8			Inspect hex bytes of UTF-8. |g8|
 			(Not useful for searching with /usr/bin/unicode command.)
 
 			Examples of entering digraphs in insert modek. |i_CTRL-K|
-Ctrl-K n?		Enter an ñ (enye). https://en.wikipedia.org/wiki/%C3%91
+Ctrl-K n?		Enter an ñ (enye).
 Ctrl-K DG		Enter the degree symbol, °
 Ctrl-K DE		Enter the section sign, §
+	https://en.wikipedia.org/wiki/%C3%91
+	https://en.wikipedia.org/wiki/Degree_symbol
+	https://en.wikipedia.org/wiki/Section_sign
 
 :digraphs		See all available digraphs. |:digraphs|
 
@@ -591,7 +594,7 @@ $ vim file1 file2 file3
 			(Windows and tabs are buffers, too.)
 			Note: it would be nice if this gave you the option to select a buffer to move to,
 			but unfortunately it does not; you just get Vim's built-in |pager|.
-			*Todo	it is possible to search in Vim's |pager|?
+			*Todo	it is possible to search in Vim's pager?
 
 			From the Vim documentation: >
 			u	an unlisted buffer (only displayed when [!] is used) |unlisted-buffer|
@@ -702,12 +705,12 @@ q			Stop recording macro y
 :!markdown % > %:r.html
 			Use it in a script. |:!|
 :w|!markdown % > %:r.html
-			Run multiple commands with pipe (|),
+			Run multiple commands with pipe |
 			so we can write out and convert to html,
 			excluding the .markdown extension.
 
 p'[			Paste without moving cursor. |p| |'[|
-			http://stackoverflow.com/questions/1587178/paste-in-vim-without-moving-the-cursor
+	http://stackoverflow.com/questions/1587178/paste-in-vim-without-moving-the-cursor
 
 :v/@/p			See all lines that don't contain the @ symbol.
 			What this does is do a global search (equivalent to :g!)
