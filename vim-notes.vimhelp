@@ -1,11 +1,11 @@
 *vim-notes.vimhelp*	Personal vim notes.
 
 
-1. Vim help tag prefix conventions.	|tag-prefixes|
-2. Command list.			|my-command-list|
+1. Vim help tag prefix conventions.
+2. Command list.
 
 ================================================================================
-1. Vim help tag prefix conventions and notation.		*tag-prefixes*
+1. Vim help tag prefix conventions and notation.
 
       Description                                   Example#1  Example#2     Reference
 --------------------------------------------------- -------------------------------------------------
@@ -41,9 +41,10 @@ Formatting conventions:
 	This is some output text.
 < End the example with an angle bracket.
 
+	*Todo	is it possible to use two tag files at once?
 
 ==============================================================================
-2. List of commands.		*my-command-list*
+2. List of commands.
 
 :w | sh			Write file and jump to shell,
 			with Ctrl-D to jump back. |:write| |:shell|
@@ -612,12 +613,15 @@ g<			Get back to the last page of command output. |g<|
 			Capture open buffers into unnamed register. |ls| |:silent|
 :redir @" | silent ls | redir END
 
-			Easily edit complex options like |'iskeyword'|.
+			Make it easier to capture and edit complex options like |'iskeyword'|.
 :redir @" | silent set iskeyword? | redir END
-  iskeyword=!-~,^*,^|,^",192-255
-			*Todo	expand this example. Maybe with e.g. copying from :set iskeyword?
-			Useful with the |q:| command.
-
+			Store contents of 'iskeyword' in the unnamed register, e.g. >
+				^J  iskeyword=@,48-57,_,192-255 
+<			|:redir| |:silent| |:set| |'iskeyword'|
+q:			Bring up the command-line window. |q:|
+p			Paste the unnamed register. Will need to scroll down due to ^J character. |p|
+<Enter>			After editing, execute the command. |E199|
+			*Todo	why does the ^J character show up?
 
 			Store all digraphs to file. |:digraphs|
 :redir > digraphs.txt | silent digraphs | redir END
@@ -684,9 +688,12 @@ qy			Start recording macro y
 q			Stop recording macro y
 
 :reg			See registers, including macros. Press <Enter> to see more and <Q> when finished.
+
 @a			Run macro 'a'.
-"ap			Paste macro onto current line.
-"ay			Yank the current selection into the y register.
+
+"ap			Paste macro 'a' onto current line.
+
+{Visual}"ay		Yank visual selection into the 'a' register.
 
 
 :%s/\%x85/\r/gc		Replace non-printing characters (high ascii), e.g. 0x85 with \r.
