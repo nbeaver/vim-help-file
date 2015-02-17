@@ -26,7 +26,7 @@ Quickstart
 Motivation
 ----------
 
-The `Vim text editor`_ has integrated help with hyperlinking via help tags, like this::
+The `Vim text editor`_ has integrated help with hyperlinks via help tags, like this::
 
     							*yy*
     ["x]yy			Yank [count] lines [into register x] |linewise|.
@@ -61,15 +61,37 @@ You can generate HTML output with ``make``.
 TODO
 ----
 
-The main issue is with generating HTML documentation.
-Vim has two ways of doing this:
-the first is an `awk script <./makehtml.awk>`_
-and the second is a `Perl script <./vim2html.pl>`_.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Better way of accessing tags?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Instead of setting ``filetype=help``,
+one can instead copy over the ``tags`` file for the Vim documentation,
+then change all the file paths to absolute paths.
+The one can load the syntax for a help file
+while still retaining ``filetype=text``.
+
+This has the advantage of e.g. not abandoning the current buffer after running ``:help``,
+and could theoretically allow for comibining internal tags with external tags
+(as long as they are all in the same tag file).
+
+This approach has disadvantages, though:
+it is not possible to follow tags like ``|[:alnum:]|``,
+and it doesn't set the filetype of the help files jumped to.
+Because of these drawbacks, I abandoned this approach.
+
+~~~~~~~~~~~~~~~
+Generating HTML
+~~~~~~~~~~~~~~~
+
+Vim has two ways of generating HTML documentation:
+an `awk script <./makehtml.awk>`_
+and a `Perl script <./vim2html.pl>`_.
 Both have advantages and disadvantages.
 
-~~~~~~~~~~~~
+::::::::::::
 makehtml.awk
-~~~~~~~~~~~~
+::::::::::::
 
 Bugs:
 
@@ -84,9 +106,9 @@ Improvements:
 - Convert ``https://`` URLs to links.
 - Use UTF-8 instead of ISO-8859-1.
 
-~~~~~~~~~~~
+:::::::::::
 vim2html.pl
-~~~~~~~~~~~
+:::::::::::
 
 Bugs:
 
