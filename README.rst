@@ -19,7 +19,7 @@ Quickstart
 
     vim -S tweak.vim vim-notes.vimhelp
 
-#. Jump to one of the tags with ``Ctrl-[``.
+#. Jump to one of the tags by typing ``Ctrl-[``.
 #. Optional: run ``make`` to generate HTML files.
 
 ----------
@@ -35,30 +35,26 @@ The `Vim text editor`_ has integrated help with hyperlinking via help tags, like
 
 .. _Vim text editor: http://www.vim.org/
 
-It's possible to write a `personal Vim help file`_ using the same `format`_,
+It's possible to write a `personal Vim help file`_ using the same `notation`_,
 but it will only be able to access its own help tags,
 not the ones in the official Vim documentation.
 
 .. _personal Vim help file: http://vim.wikia.com/wiki/Add_your_note_files_to_Vim_help
-.. _format: http://vimdoc.sourceforge.net/htmldoc/usr_41.html#write-local-help
+.. _notation: http://vimdoc.sourceforge.net/htmldoc/intro.html#notation
 
-One fix for this is to copy the help tags in
-``/usr/share/vim/vimcurrent/doc/tags``
-to the current directory
-and make the paths absolute.
-Now the personal help file can jump to the Vim documentation files directly.
+However, by setting ``filetype=help``,
+the current file will gain access to all the help tags in the Vim help files,
+at the price of losing access to local help tags.
 
-Unfortunately, Vim will not distinguish ordinary text files
-from Vim help files since they both end in ``.txt``,
-so there will be no syntax highlighting.
-Also, ``'iskeyword'`` for text files in Vim
+There are some other tweaks required;
+``'iskeyword'`` for text files in Vim
 does not include the characters ``!-*|"``
 thus it will not follow correctly tags such as ``|command-mode|``.
 
 To fix this and related problems,
 run the `included vim script <./tweak.vim>`_ script when invoking vim on the desired file.
 
-You can generate the TAGS file and HTML output with ``make``.
+You can generate HTML output with ``make``.
 (The HTML has some kinks to work out and is still a work in progress.)
 
 ----
