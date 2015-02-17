@@ -1,4 +1,4 @@
-*vim-notes.vimhelp*	Personal vim notes.
+*vim-notes.txt*	Personal vim notes.
 
 
 1. Vim help tag prefix conventions.

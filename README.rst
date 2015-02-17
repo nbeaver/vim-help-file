@@ -16,10 +16,10 @@ Quickstart
 ----------
 
 #. Install Vim_ and its documentation, e.g. ``apt-get install vim vim-doc``.
-#. Clone the git repository.
+#. Clone this git repository or otherwise download the files.
 #. Run this command:
 
-    ``vim -S tweak.vim vim-notes.vimhelp``
+    ``vim -S tweak.vim vim-notes.txt``
 
 #. Jump to one of the tags by typing ``Ctrl-[``.
 #. Optional: run ``make`` to generate HTML files.
@@ -56,7 +56,7 @@ does not include the characters ``!-*|"``
 thus it will not follow correctly tags such as ``|command-mode|``.
 
 The `included vim script <./tweak.vim>`_ script fixes this and related problems,
-which is why it's necessary to source it when invoking vim on `vimtips.txt <./vimtips.txt>`_.
+which is why it's necessary to source it when invoking vim on `vim-notes.txt <./vim-notes.txt>`_.
 
 If you prefer to use a web browser to view documentation,
 you can generate HTML output with ``make``.
