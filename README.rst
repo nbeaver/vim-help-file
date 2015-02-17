@@ -15,6 +15,8 @@ A personal Vim help file.
 Quickstart
 ----------
 
+#. Install ``vim`` and its documentation, e.g. ``apt-get install vim vim-doc``.
+#. Clone the git repository.
 #. Run this command:
 
     vim -S tweak.vim vim-notes.vimhelp
@@ -54,7 +56,8 @@ thus it will not follow correctly tags such as ``|command-mode|``.
 To fix this and related problems,
 run the `included vim script <./tweak.vim>`_ script when invoking vim on the desired file.
 
-You can generate HTML output with ``make``.
+If you prefer to use a web browser to view documentation,
+you can generate HTML output with ``make``.
 (The HTML has some kinks to work out and is still a work in progress.)
 
 ----
@@ -80,6 +83,10 @@ it is not possible to follow tags like ``|[:alnum:]|``,
 and it doesn't set the filetype of the help files jumped to.
 Because of these drawbacks, I abandoned this approach.
 
+The tag file is still necessary for the ``vim2html.pl`` script to work,
+but I've changed the filename from ``tags`` to ``tagfile.txt``
+so that Vim doesn't automatically read it.
+
 ~~~~~~~~~~~~~~~
 Generating HTML
 ~~~~~~~~~~~~~~~
@@ -89,9 +96,9 @@ an `awk script <./makehtml.awk>`_
 and a `Perl script <./vim2html.pl>`_.
 Both have advantages and disadvantages.
 
-::::::::::::
+++++++++++++
 makehtml.awk
-::::::::::::
+++++++++++++
 
 Bugs:
 
@@ -106,9 +113,9 @@ Improvements:
 - Convert ``https://`` URLs to links.
 - Use UTF-8 instead of ISO-8859-1.
 
-:::::::::::
++++++++++++
 vim2html.pl
-:::::::::::
++++++++++++
 
 Bugs:
 

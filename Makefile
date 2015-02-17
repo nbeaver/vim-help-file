@@ -2,11 +2,16 @@ all: vim-notes.html index.html README.html
 # Prevent make from looking for a file called 'all'
 .PHONY : all
 
+TEMPFILE := $(shell mktemp)
+tagfile.txt : Makefile /usr/share/vim/vimcurrent/doc/tags
+	cp /usr/share/vim/vimcurrent/doc/tags $(TEMPFILE)
+	# Make expands $ unless they are doubled ($$ becomes $).
+	awk '{print $$1"\t/usr/share/doc/vim-doc/html/"$$2"\t"$$3}' $(TEMPFILE) > tagfile.txt
+	rm $(TEMPFILE)
+
 vim-notes.html: vim-notes.txt Makefile
 	# The perl script adds more color, but it doesn't convert links.
 	./vim2html.pl tagfile.txt vim-notes.txt
-	# Change links in generated html so they point to the HTML files.
-	sed --in-place 's;/usr/share/vim/vimcurrent/doc;/usr/share/doc/vim-doc/html;' vim-notes.html
 
 index.html: makehtml.awk vim-notes.txt Makefile
 	# The awk script assumes all the files are in the same directory,
