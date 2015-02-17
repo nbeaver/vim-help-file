@@ -1,8 +1,8 @@
-all: vim-notes.txt.html index.html TAGS README.html
+all: vim-notes.txt.html index.html README.html
 # Prevent make from looking for a file called 'all'
 .PHONY : all
 
-vim-notes.txt.html: vim-notes.txt Makefile TAGS 
+vim-notes.txt.html: vim-notes.txt Makefile
 	# The perl script adds more color, but it doesn't convert links.
 	./vim2html.pl TAGS vim-notes.txt
 	# Change links in generated html so they point to the HTML files.
@@ -14,13 +14,6 @@ index.html: makehtml.awk vim-notes.txt Makefile
 	gawk --file makehtml.awk vim-notes.txt > index.html
 	# TODO: fix links like <A HREF="intro.html
 	# but not <A HREF="http://
-
-TEMPFILE := $(shell mktemp)
-TAGS: Makefile
-	cp /usr/share/vim/vimcurrent/doc/tags $(TEMPFILE)
-	# Make expands $ unless they are doubled ($$ becomes $).
-	awk '{print $$1"\t/usr/share/vim/vimcurrent/doc/"$$2"\t"$$3}' $(TEMPFILE) > TAGS
-	rm $(TEMPFILE)
 
 README.html: README.rst Makefile
 	rst2html README.rst > README.html
