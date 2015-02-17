@@ -15,14 +15,16 @@ A personal Vim help file.
 Quickstart
 ----------
 
-#. Install ``vim`` and its documentation, e.g. ``apt-get install vim vim-doc``.
+#. Install Vim_ and its documentation, e.g. ``apt-get install vim vim-doc``.
 #. Clone the git repository.
 #. Run this command:
 
-    vim -S tweak.vim vim-notes.vimhelp
+    ``vim -S tweak.vim vim-notes.vimhelp``
 
 #. Jump to one of the tags by typing ``Ctrl-[``.
 #. Optional: run ``make`` to generate HTML files.
+
+.. _Vim: http://www.vim.org/
 
 ----------
 Motivation
@@ -53,8 +55,8 @@ There are some other tweaks required;
 does not include the characters ``!-*|"``
 thus it will not follow correctly tags such as ``|command-mode|``.
 
-To fix this and related problems,
-run the `included vim script <./tweak.vim>`_ script when invoking vim on the desired file.
+The `included vim script <./tweak.vim>`_ script fixes this and related problems,
+which is why it's necessary to source it when invoking vim on `vimtips.txt <./vimtips.txt>`_.
 
 If you prefer to use a web browser to view documentation,
 you can generate HTML output with ``make``.
