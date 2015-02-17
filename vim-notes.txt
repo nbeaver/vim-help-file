@@ -142,8 +142,10 @@ p			Paste last yank.
 	http://vim.wikia.com/wiki/Search_for_visually_selected_text
 
 *			Search forward for word under cursor. |star|
+			Note: this does not work for a visual selection.
 
 #			Search backward for word under cursor. |#|
+			Note: this does not work for a visual selection.
 
 			Re-open a recently closed tab.
 :ls			Check if it's in the list of open buffers. |:ls|
