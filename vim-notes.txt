@@ -1032,5 +1032,7 @@ gq			Reflow/wrap/format the selected text. |gq|
 gqq			Reflow/wrap/format only the line under the cursor. |gqq|
 			Note: easily mistyped with |gQ|, which means go into |Ex-mode|.
 
+Ctrl-L			Autocomplete in incremental search mode. |c_CTRL-L|
+
 ==============================================================================
  vim:ft=help:norl:
