@@ -12,6 +12,14 @@ if has('autocmd')
     " so tags like |command-mode| don't jump to *:command*
     " and tags like |%| don't throw "E349: No identifier under cursor".
     
+    autocmd BufNewFile,BufRead vim-notes.txt setlocal noreadonly
+    autocmd BufNewFile,BufRead vim-notes.txt setlocal modifiable
+    " Stop the file from being read-only, which is default for buftype=help.
+    
+    autocmd BufNewFile,BufRead vim-notes.txt setlocal textwidth=0
+    autocmd BufNewFile,BufRead vim-notes.txt set formatoptions-=tc
+    " Prevent autowrapping at 78 characters, which is default for buftype=help.
+    
     autocmd BufNewFile,BufRead vim-notes.txt highlight link helpStar Type
     " Make the ** characters in a tag target visible.
     

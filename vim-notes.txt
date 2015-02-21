@@ -42,6 +42,7 @@ Formatting conventions:
 < End the example with an angle bracket.
 
 	*Todo	change <Enter> to <CR>.
+	*Todo	change {motion} to {move-around} if it's more than one motion command.
 
 ==============================================================================
 2. List of commands.
@@ -120,6 +121,12 @@ hi			Type the desired text.
 <Esc>			Exit insert mode.
 
 :.,.+5s/$/hi		Append "hi" to 5 lines using ex command. |:.| |:,| |:s|
+
+			Append "hi" to several lines using linewise visual mode. |linewise-visual|
+V{motion}		Select the text. |V|
+:norm Ahi		Apply the normal mode command to the selected lines. |:normal| |A|
+			Looks like this when typed: >
+				:'<,'>norm Ahi
 
 ''			Toggle previous cursor position. |''| |``|
 
@@ -280,10 +287,11 @@ set tags		See which files vim looks for tags in. |'tags'| |E433|
 			Jump to the longest line in the current file.
 			Uses the external /usr/bin/wc command.
 :r !wc -L %		Get the length of the longest line, e.g. >
-	137 myfile.txt 
+	137 myfile.txt
 /\%137c			Jump to column #137. |/\%c|
-			Note: this is kind of a hack.
-			Emacs would be better for this kind of thing.
+			“What! That is far too complex for such a simple task!” cried the student.
+	http://blog.sanctum.geek.nz/vim-koans/
+			
 
 	https://stackoverflow.com/questions/2075276/longest-line-in-vim
 	https://superuser.com/questions/255368/how-to-find-the-line-with-the-maximum-number-of-columns-characters-in-vim-gvim
@@ -305,7 +313,7 @@ Ctrl-X Ctrl-F		Auto-complete filenames while in insert mode.
 V			Select current line. |V|
 :w !sh			Execute the selected text with /bin/sh (default shell).
 			Looks like this when typed: >
-				'<,'>w !sh	
+				'<,'>w !sh
 :w !bash	 	Can also use e.g. bash shell.
 
 :! my-shell-command	Running shell commands
@@ -419,7 +427,15 @@ ga			Inspect character for decimal, hex, or octal representation, e.g.  >
 g8			Inspect hex bytes of UTF-8. |g8|
 			(Not useful for searching with /usr/bin/unicode command.)
 
-			Examples of entering digraphs in insert modek. |i_CTRL-K|
+			While Vim can search for Unicode characters directly,
+			sometimes it is useful to be able to search by Unicode value.
+/\%d173			Search for the soft hyphen by its decimal value 0x00ad. |/\%d|
+/\%xad			Search for the soft hyphen by its hexadecimal value 0x00ad. |/\%x|
+/\%o255			Search for the soft hyphen by its octal value 0255. |/\%o|
+
+:s/\%xad//g		Remove all the soft hyphens on the current line.
+
+			Examples of entering digraphs in insert mode. |i_CTRL-K|
 Ctrl-K n?		Enter an ñ (enye).
 Ctrl-K DG		Enter the degree symbol, °
 Ctrl-K DE		Enter the section sign, §
@@ -621,7 +637,7 @@ g<			Get back to the last page of command output. |g<|
 			Make it easier to capture and edit complex options like |'iskeyword'|.
 :redir @" | silent set iskeyword? | redir END
 			Store contents of 'iskeyword' in the unnamed register, e.g. >
-				^J  iskeyword=@,48-57,_,192-255 
+				^J  iskeyword=@,48-57,_,192-255
 <			|:redir| |:silent| |:set| |'iskeyword'|
 q:			Bring up the command-line window. |q:|
 p			Paste the unnamed register. Will need to scroll down due to ^J character. |p|
@@ -745,9 +761,11 @@ F<space>		|F|
 T<space>		|T|
 
 			Overwriting a word with yanked text.
-y<motion>		Yank word and move to word to replace.
-ve			Visually Visually  to end of word.
-p			Overwrite word. Clobbers the " register.
+ye			Yank to end of word.
+{move-around} 		Move to the word to replace.
+ve			Visually select to end of word.
+p			Overwrite word. |v_p|
+			Note: this puts the overwritten word into the unnamed register. |quotequote|
 
 			Edit a macro in the 'a' register.
 "ap			Paste contents of the macro into the current buffer and edit away.
@@ -872,7 +890,7 @@ gD			Go to global variable definition. |gD|
 
 :setlocal autoread	 Keep only the current buffer up to date.
 
-/\#\a			Search for # followed by an alphabetic character. |/\a| 
+/\#\a			Search for # followed by an alphabetic character. |/\a|
 
 			Vim regular expressions for searching. |/character-classes| |/ordinary-atom|
 			.  any character except new line |whitespace|
