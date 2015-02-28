@@ -1011,6 +1011,14 @@ $ vim -r myfile.txt	Recovering swap files. |E325|
 :nnoremap <right> <nop> |<Right>|
 	https://stackoverflow.com/questions/23548932/how-do-i-disable-the-arrow-keys-in-insert-mode
 
+
+			Show syntax highlighting when F10 key is pressed.
+			Useful for debugging syntax highlighting.
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+	http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
+
 :mks! /tmp/current.ses
 			Saving a vim session, overwriting old sessions. |:mksession|
 			Note that this does not preserve history.
