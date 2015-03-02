@@ -256,12 +256,13 @@ Ctrl-R %		Put/paste filename in insert mode. |:_%|
 :set comments=sl:/*,mb:**,elx
 			C-style multi-line comments. |'comments'| |format-comments|
 			Start left aligned with /*,
-                        continue with ** followed by a blank,
+                        continue with **
+                        followed by a blank,
                         end by typing the last character.
 
 	http://tldp.org/HOWTO/C-editing-with-VIM-HOWTO/auto-format.html#AEN274
 
-d0			Delete everything before cursor on line. |d|
+d0			Delete everything before cursor on line. |d| |0|
 
 D			Delete everything after cursor on line. |D|
 
@@ -302,6 +303,9 @@ set tags		See which files vim looks for tags in. |'tags'| |E433|
 	https://stackoverflow.com/questions/2075276/longest-line-in-vim
 	https://superuser.com/questions/255368/how-to-find-the-line-with-the-maximum-number-of-columns-characters-in-vim-gvim
 	http://of-vim-and-vigor.blogspot.com/2012/02/jump-to-longest-line.html
+
+/\%137v                 Look for lines that have virtual columns longer than 137 characters,
+                        e.g. after expanding tabs. |/\%v|
 
 Ctrl-X Ctrl-F		Auto-complete filenames while in insert mode.
 			|i_CTRL-X_CTRL-F|	|compl-filename|
@@ -573,7 +577,8 @@ ct<Space>		Change text till next space
 
 /^V142			Search for decimal ascii value #142.
 			Useful for getting rid of control characters in a text file,
-			e.g. the control character U+008E <control> UTF-8: c2 8e  UTF-16BE: 008e  Decimal: &#142;
+			e.g. the control character U+008E.
+        http://www.fileformat.info/info/unicode/char/008e/index.htm
 	http://en.wikipedia.org/wiki/%C2%8E
 
 /CTRL-V CTRL-M		Search for DOS line feed (\r\n or <CR><NL>). |i_CTRL-V|
@@ -685,14 +690,14 @@ p			Paste the unnamed register. Will need to scroll down due to ^J character. |p
 
 Ctrl-6			Jump to the alternate buffer. |CTRL-6|
 
-			Select a folder or directory to enter rather than cycling through them. |c_End| |c_CTRL-E|
+			Select a folder or directory to enter
+                        rather than cycling through them. |c_End| |c_CTRL-E|
 End			Or,
 Ctrl-E
 
-
 Ctrl-D			Show the options for the next completion (better than Ctrl-E). |c_CTRL-D|
 
-:set wildmenu		Add tab-completion to new buffer |'wildmenu'|
+:set wildmenu		Add tab-completion to new buffer. |'wildmenu'|
 
 :bd			Close a buffer. |:bd|
 
@@ -705,7 +710,8 @@ $ vim -c "set list" file.txt
 			Run :set list as soon as file.txt is loaded. |-c| |'list'|
 
 $ vim -c "set backupcopy=yes|set noswapfile" myfile
-			Set vim so that it will write a file in place rather than making a temp or backup file (.swp). |'backupcopy'| |'noswapfile'|
+			Set vim so that it will write a file in place
+                        rather than making a temp or backup file (.swp). |'backupcopy'| |'noswapfile'|
 
 
 :m +4			Move current line down 4 lines. |:move|
@@ -727,7 +733,8 @@ $ vim -c "set backupcopy=yes|set noswapfile" myfile
 qy			Start recording macro y
 q			Stop recording macro y
 
-:reg			See registers, including macros. Press <Enter> to see more and <Q> when finished.
+:reg			See registers, including macros.
+                        Press <Enter> to see more and <Q> when finished.
 
 @a			Run macro 'a'.
 
@@ -791,11 +798,15 @@ p			Overwrite word. |v_p|
 "add			When finished, delete the line back into the "a register.
 			If it runs over multiple lines, use a visual selection.
 
-:let @a='		Another way to edit a named macro; somewhat less convenient than the other way. |:let|
-Ctrl-R Ctrl-R a		Modify as desired, then add a closing '''. Use double '' for literal ' inside, not \' |c_CTRL-R|
-'			Press enter, and you're done. If it ends with <CR> or <NL>, though, you are in for trouble.
+:let @a='		Another way to edit a named macro;
+                        somewhat less convenient than the other way. |:let|
+Ctrl-R Ctrl-R a		Modify as desired, then add a closing '''.
+                        Use double '' for literal ' inside, not \' |c_CTRL-R|
+'			Press enter, and you're done.
+                        If it ends with <CR> or <NL>, though, you are in for trouble.
 
-:set hidden		Abandon a buffer so it won't complain if you make changes and then leave without saving. |'hidden'|
+:set hidden		Abandon a buffer so it won't complain if you make changes
+                        and then leave without saving. |'hidden'|
 
 !!echo %		Replace current line with filename.
 			Looks like this: >
@@ -808,7 +819,8 @@ Ctrl-R Ctrl-R a		Modify as desired, then add a closing '''. Use double '' for li
 				:.!bc
 2			Get back result.
 4195835 / 3145727	Enter a different math expression on a different line.
-!!bc -l			Do 20 digits of floating point precision and load math library. Looks like this: >
+!!bc -l			Do 20 digits of floating point precision and load math library.
+                        Looks like this: >
 				:.!bc
 1.33382044913624100247	Get back result.
 			You can also do calculations on multiple lines with a visual selection.
@@ -826,7 +838,8 @@ V{motion}		Select linewise with V.
 
 Ctrl-l			Redraw screen. |CTRL-L|
 
-!pandoc -t latex	Convert visual selection to LaTeX syntax by running it through the /usr/bin/pandoc command.
+!pandoc -t latex	Convert visual selection to LaTeX syntax
+                        by running it through the /usr/bin/pandoc command.
 			For example, this will escape &, %, and # to \&, \%, and \#.
 
 :set ft?		See what Vim reads the current filetype as. |'filetype'|
@@ -837,7 +850,8 @@ Ctrl-l			Redraw screen. |CTRL-L|
 :setf c			Set filetype for C or C++ source code. |c.vim| |ft-c-syntax|
 :setf php		Set filetype for PHP source code. |php.vim|
 :setf messages		Set filetype to messages, e.g. /var/log/syslog.
-:set filetype=help	Force filetype to be a Vim help file. (also afffects syntax highlighting).  |help|
+:set filetype=help	Force filetype to be a Vim help file.
+                        Also afffects syntax highlighting.  |help|
 
 			Example filetype plugins locations: >
 				/usr/share/vim/vimcurrent/ftplugin/
@@ -1000,7 +1014,8 @@ $ vim -r myfile.txt	Recovering swap files. |E325|
 				typed anything for four seconds.  This only happens if the buffer was
 				changed, not when you only moved around.
 <			Note that vim swap files are not always portable between machines,
-			and attempting to open swap files from other machines may lead to error like this: >
+			and attempting to open swap files from other machines
+                        may lead to error like this: >
 				.file.txt.swp cannot be used on this computer.
 				The file was created on <hostname>,
 				or the file has been damaged.
