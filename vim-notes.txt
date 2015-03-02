@@ -1,32 +1,31 @@
 *vim-notes.txt*	Personal vim notes.
 
-
 1. Vim help tag prefix conventions.
 2. Command list.
 
 ================================================================================
 1. Vim help tag prefix conventions and notation.
 
-      Description                                   Example#1  Example#2     Reference
---------------------------------------------------- -------------------------------------------------
-      No prefix for keystrokes in normal mode.      |CTRL-R|     |<Up>|          |Normal-mode| |command-mode|
-i_    Tag prefix for keystrokes in insert mode.     |i_CTRL-R|   |i_<Up>|        |Insert-mode|
-:     Tag prefix for ranges and ex commands.        |:%|         |:shell|        |:|
-:_    Tag prefix for characters in cmdline mode.    |:_%|        |:_!|           |Cmdline-mode|
-c_    Usually same as the :_ prefix.                |c_%|        |c_CTRL-C|      |Cmdline-mode|
-v_    Tag prefix for keystrokes in visual mode.     |v_!|        |v_CTRL-C|      |Visual-mode|
-/     Tag prefix for patterns.                      |/star|      |/.|            |pattern-overview|
-s_    Tag prefix for substitution flags.            |:s_c|                       |:s_flags|
-quote Tag prefix for registers.                     |quote-|     |quote_alpha|   |registers|
--     Tag prefix for arguments when invoking Vim.   |-+|         |-c|            |vim-arguments|
-t_    Tag prefix for termcap flags.                 |t_k5|       |t_cm|          |terminal-options|
-+     Tag prefix for features.                      |+visual|    |+syntax|       |+feature-list|
-Vim |options| are in single quotes.                 |'ic'|       |'noic'|        |set-option|
-Vim error numbers start with E.                     |E10|        |E849|          |error-messages|
-Special key names are in angle brackets.            |<BS>|       |<F1>|          |key-notation|
-Optional parts of a command are in square brackets. |[count]|    |[quotex]|      |notation|
-Required parts of a command are in curly brackets.  |{motion}|   |{Visual}|      |{}|
-Character class expressions are in [: :].           |[:alpha:]|  |[:cntrl:]|     |[:alnum:]|
+      Description                                   Example#1   Example#2     Reference
+-----------------------------------------------------------------------------------------------------
+      No prefix for keystrokes in normal mode.      |CTRL-R|    |<Up>|        |Normal-mode|
+i_    Tag prefix for keystrokes in insert mode.     |i_CTRL-R|  |i_<Up>|      |Insert-mode|
+:     Tag prefix for ranges and ex commands.        |:%|        |:shell|      |Cmdline-mode|
+:_    Tag prefix for characters in cmdline mode.    |:_%|       |:_!|         |Cmdline-mode|
+c_    Usually same as the :_ prefix.                |c_%|       |c_CTRL-C|    |Cmdline-mode|
+v_    Tag prefix for keystrokes in visual mode.     |v_!|       |v_CTRL-C|    |Visual-mode|
+/     Tag prefix for patterns.                      |/star|     |/.|          |pattern-overview|
+s_    Tag prefix for substitution flags.            |:s_c|                    |:s_flags|
+quote Tag prefix for registers.                     |quote-|    |quote_alpha| |registers|
+-     Tag prefix for arguments when invoking Vim.   |-+|        |-c|          |vim-arguments|
+t_    Tag prefix for termcap flags.                 |t_k5|      |t_cm|        |terminal-options|
++     Tag prefix for features.                      |+visual|   |+syntax|     |+feature-list|
+Vim |options| are in single quotes.                 |'ic'|      |'noic'|      |set-option|
+Vim error numbers start with E.                     |E10|       |E849|        |error-messages|
+Special key names are in angle brackets.            |<BS>|      |<F1>|        |key-notation|
+Optional parts of a command are in square brackets. |[count]|   |[quotex]|    |notation|
+Required parts of a command are in curly brackets.  |{motion}|  |{Visual}|    |{}|
+Character class expressions are in [: :].           |[:alpha:]| |[:cntrl:]|   |[:alnum:]|
 
 	http://vim.wikia.com/wiki/Learn_to_use_help#Context
 
@@ -37,9 +36,9 @@ Formatting conventions:
    e.g. wc(1) doesn't work, nor at the end of sentence ( wc. ), but wc (1) is
    fine, as is /usr/bin/wc (with no period after).
 -- Indent URLs with <Tab>.
--- Mark up output text as examples: >
+-- Mark up output text as examples with a closing angle bracket: >
 	This is some output text.
-< End the example with an angle bracket.
+< End the example with an open angle bracket.
 
 	*Todo	change <Enter> to <CR>.
 	*Todo	change {motion} to {move-around} if it's more than one motion command.
@@ -82,7 +81,8 @@ vib			Select parenthesis block. |v_ib|
 viB			Select curly braces block. |v_iB|
 
 d%			When on a bracket, e.g. ( [ { } ] ),
-			delete bracket, matching bracket, and everything in between. |d| |%| |inclusive|
+			delete bracket, matching bracket,
+                        and everything in between. |d| |%| |inclusive|
 
 dt<Space>		Delete until space.
 			(Usually dW does the same thing and is faster.)
@@ -106,12 +106,14 @@ Ctrl-r "		Paste the last yank. |i_CTRL-R|
 			Add # in front of several lines, but using linewise visual mode
 			instead of block visual mode. |linewise-visual|
 V			Enter linewise visual mode. |V|
-:s/^/#/			Use the |:substitute| command to replace the |/^| pattern atom with '#'. |pattern-atoms|
+:s/^/#/			Use the |:substitute| command to replace
+                        the |/^| pattern atom with '#'. |pattern-atoms|
 			It will look like this while typing: >
 				:'<,'>s/^/#/
 
-:s/\s\+/\r/g		Split a line with words and whitespace into several lines with one word per line.
-			Also strips whitespace. |:substitute| |/\+|
+:s/\s\+/\r/g		Splir a line with words and whitespace into several lines
+                        with one word per line.
+			Also strips whitespace. |:substitute| |/\+| |/\s|
 
 			Append "hi" to several lines using blockwise-visual mode.
 Ctrl-v{motion}		Blockwise visual selection. |CTRL-V| |blockwise-visual|
@@ -122,7 +124,8 @@ hi			Type the desired text.
 
 :.,.+5s/$/hi		Append "hi" to 5 lines using ex command. |:.| |:,| |:s|
 
-			Append "hi" to several lines using linewise visual mode. |linewise-visual|
+			Append "hi" to several lines
+                        using linewise visual mode. |linewise-visual|
 V{motion}		Select the text. |V|
 :norm Ahi		Apply the normal mode command to the selected lines. |:normal| |A|
 			Looks like this when typed: >
@@ -156,8 +159,9 @@ p			Paste last yank.
 
 			Re-open a recently closed tab.
 :ls			Check if it's in the list of open buffers. |:ls|
-:tabnew#		Often, it will be the alternate file buffer, '#'. |:_#|  |alternate-file|
+:tabnew#		Often, it will be the alternate file buffer, '#'. |:_#| |alternate-file|
 :tabnew +11buf		Otherwise, open the appropriate buffer number (11 in this case). |+cmd| |:buf|
+
 :tabnew \+11buf		If you actually want to open a {file} called "+11buf".
 
 	https://stackoverflow.com/questions/571955/undo-close-tab-in-vim
@@ -173,7 +177,8 @@ p			Paste last yank.
 
 /foo\c			Case-insensitive search (for current search only). |/\c|
 
-:%s/foo/bar/gci		Change each 'foo' (case insensitive) to 'bar' starting from the top of the file; ask for confirmation.
+:%s/foo/bar/gci		Change each 'foo' (case insensitive) to 'bar'
+                        starting from the top of the file; ask for confirmation.
 			The % is short for 1,$ (the entire file). |:%| |:range|
 			The /g is for global substitution (not just once per line). |:s_flags|
 			The /c is for confirmation on each substitution. |:s_c|
@@ -224,7 +229,7 @@ g Ctrl-g		Count characters in file. |g_CTRL-G| |word-count| |byte-count|
 :pwd			Find out the current working directory. |:pwd|
 
 !!pwd			Overwrite current line with directory vim was invoked in,
-			or path of buffer if autochdir is set.  |!!| |filter| |'autochdir'|
+			or path of buffer if autochdir is set. |!!| |filter| |'autochdir'|
 			Looks like this when typed: >
 	:.!pwd
 
@@ -250,7 +255,9 @@ Ctrl-R %		Put/paste filename in insert mode. |:_%|
 
 :set comments=sl:/*,mb:**,elx
 			C-style multi-line comments. |'comments'| |format-comments|
-			Start left aligned with /*, continue with ** followed by a blank, end by typing the last character.
+			Start left aligned with /*,
+                        continue with ** followed by a blank,
+                        end by typing the last character.
 
 	http://tldp.org/HOWTO/C-editing-with-VIM-HOWTO/auto-format.html#AEN274
 
@@ -282,7 +289,8 @@ Ctrl-]			Jump to help tags like |tag-commands|
 
 set tags		See which files vim looks for tags in. |'tags'| |E433|
 
-:! wc %			Word count of current file using external /usr/bin/wc shell command. |:!| |:_%| |c_%|
+:! wc %			Word count of current file
+                        using external /usr/bin/wc command. |:!| |:_%| |c_%|
 
 			Jump to the longest line in the current file.
 			Uses the external /usr/bin/wc command.
@@ -291,8 +299,6 @@ set tags		See which files vim looks for tags in. |'tags'| |E433|
 /\%137c			Jump to column #137. |/\%c|
 			“What! That is far too complex for such a simple task!” cried the student.
 	http://blog.sanctum.geek.nz/vim-koans/
-			
-
 	https://stackoverflow.com/questions/2075276/longest-line-in-vim
 	https://superuser.com/questions/255368/how-to-find-the-line-with-the-maximum-number-of-columns-characters-in-vim-gvim
 	http://of-vim-and-vigor.blogspot.com/2012/02/jump-to-longest-line.html
@@ -339,8 +345,9 @@ strftime("%c")		Get time. |strftime()|
 :unmap k		These must be done one at a time. |E31|
 :unmap j		Otherwise it's not clear what the mapping is.
 
-			Deleting (e.g. |d| and |x|) affects unnamed register (|quotequote|) and therefore |p|,
-			so how do we overwrite text? One fairly easy way:
+			Deleting (e.g. |d| and |x|) affects unnamed register (|quotequote|)
+                        and therefore |p|, so how do we overwrite text?
+                        One fairly easy way:
 yy			Yank current line. |yy|
 {motion}		Move to desired line to replace.
 dd			Delete the line. |dd|
@@ -403,7 +410,8 @@ Ctrl-W f		Open filename under cursor in new window. |CTRL-W_f| |CTRL-W_CTRL-F|
 
 Ctrl-W =		Make each window about the same height. |CTRL-W_=|
 
-Ctrl-W o		Make the current window maximized so that it expands to fill the entire viewport. |CTRL-W_o|
+Ctrl-W o		Make the current window maximized
+                        so that it expands to fill the entire viewport. |CTRL-W_o|
 
 Ctrl-W T		Move window to a new tab. |CTRL-W_T|
 
@@ -445,14 +453,16 @@ Ctrl-K DE		Enter the section sign, §
 
 :digraphs		See all available digraphs. |:digraphs|
 
-:%!nl			Put line numbers into file using external /usr/bin/nl command.
+:%!nl			Put line numbers into file
+                        using external /usr/bin/nl command.
 
 			Number a visual selection.
 {Visual}:!nl		Run through external command.
 			Looks like this: >
 				:'<,'>!nl
 <
-:%!tac			Reverse order of lines using external /usr/bin/tac command.
+:%!tac			Reverse order of lines
+                        using external /usr/bin/tac command.
 
 			Sorting with external /usr/bin/sort command.
 :!4,7!sort		Sort lines 4-7.
@@ -473,9 +483,13 @@ yy			Yank line.
 :!<C-R>"<ENTER>		Paste line after ! to run as command.
 :.!sh			Now replace current line with the output results
 
-K			Load man page for current word using /usr/bin/man by default.|K| |'keywordprg'|
+K			Load man page for current word
+                        using /usr/bin/man by default.|K| |'keywordprg'|
+
 {Visual}K		Load man page for visual selection. |v_K|
+
 3K			Load section 3 of a man page, e.g. printf (3) instead of printf (1).
+
 4K			Load section 4 of a man page, e.g. urandom (4) or console (4).
 			Use 'q' to exit man, then press enter when it says >
 				Press ENTER or type command to continue
@@ -534,7 +548,8 @@ zz			Put this line at the middle of the screen. |zz|
 
 :help help-writing	The Vim documentation format. |help-writing|
 
-$ vim + myfile.txt	Start editing at the end of a file/bottom of document/last line. |-+|
+$ vim + myfile.txt	Start editing at the end of a file,
+                        i.e. bottom or last line of document. |-+|
 
 g;			Jump to last edited spot
 g,			Jump to next edited spot
@@ -546,8 +561,9 @@ Alt-o			Open new line while in insert mode.
 
 :earlier 10s		Return to 10 seconds earlier. |:earlier|
 
-:%s/\s\+$//		Delete all trailing whitespace.
-/\S\s$			Search for trailing whitespace, ignoring a line that is only whitespace.
+:%s/\s\+$//		Delete all trailing whitespace. |/\s|
+/\S\s$			Search for trailing whitespace,
+                        ignoring a line that is only whitespace.
 			*Todo	how can you jump to the whitespace, not one character to the left?
 			*Todo	how can you turn this into a substitution command?
 
@@ -583,13 +599,16 @@ E			Forward to end of current word. |E|
 
 [s			Move back to previous misspelled word. |[s|
 
-zg			Mark a word as spelled correctly (add a word to vim's dictionary). Mnemonic: good |zg| |spellfile|
+zg			Mark a word as spelled correctly (add a word to vim's dictionary).
+                        Mnemonic: {g}ood |zg| |spellfile|
 			Note: Vim's personal dictionary is $HOME/.vim/spell/en.utf-8.add by default.
 
-zw			Mark a word as misspelled (remove from vim's dictionary). Mnemonic: wrong. |zw|
+zw			Mark a word as misspelled (remove from vim's dictionary).
+                        Mnemonic: {w}rong. |zw|
 
 :w !sudo tee > /dev/null %
 			When you try to save and find you're editing a file without the needed permissions.
+                        Uses Unix-specific /usr/bin/sudo and /usr/bin/tee commands. |:w| |:!| |:_%|
 
 	https://stackoverflow.com/questions/1005/getting-root-permissions-on-a-file-inside-of-vi
 	http://www.commandlinefu.com/commands/view/1204/save-a-file-you-edited-in-vim-without-the-needed-permissions
@@ -752,9 +771,9 @@ g~~			Flip case of entire line. |g~~|
 :g/vim/ normal @a	Run the 'a' macro on lines matching the 'vim' pattern
 	http://blog.sanctum.geek.nz/advanced-vim-macros/
 
-:%!column -t		Format current file using external /usr/bin/column program.
+:%!column -t		Format current file using external /usr/bin/column program. |:%| |:!|
 
-:s/\s//g		Remove all spaces on a line.
+:s/\s//g		Remove all spaces on a line. |:s| |/\s|
 
 			Jumping to spaces.
 F<space>		|F|
