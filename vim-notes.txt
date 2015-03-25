@@ -280,7 +280,7 @@ D			Delete everything after cursor on line. |D|
 
 :%s/\t/\n/g		Replace tabs with newlines.
 
-Ctrl-V Ctrl-I		Insert tab character when |'expandtab'| is set. |i_CTRL-V|
+Ctrl-V Ctrl-I		Insert a raw tab character, even when |'expandtab'| is set. |i_CTRL-V|
 
 :set list		View whitespace and non-printing characters in current file. |'list'|
 :tabdo set list		Do this for all buffers. |:bufdo|
@@ -1104,6 +1104,11 @@ Ctrl-L			Autocomplete in incremental search mode. |c_CTRL-L|
 :let @/ = ""            Clear last search, turning off the distracting highlighting
                         without disabling the highlighting for the next search. |last-pattern|
         http://stackoverflow.com/a/657484/1608986
+
+                        Writing your own ex commands. |user-commands| |40.2|
+command ClearSearch let @/ = ""
+                        They must start with a capital letter,
+                        and it is customary to use CamelCase.
 
 ==============================================================================
  vim:ft=help:norl:
