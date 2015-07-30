@@ -221,6 +221,9 @@ Ctrl-o			Jump backward through jumplist. |CTRL-O|
 
 :set autochdir		Set working directory to directory of current file. |'autochdir'|
 
+TODO: How to get :sh to open in the current directory, not the parent of the
+current one?
+
 Ctrl-g			Find name of current file and other helpful information. |CTRL-G| |:file|
 
 g Ctrl-g		Count characters in file. |g_CTRL-G| |word-count| |byte-count|
