@@ -389,6 +389,10 @@ dd			Delete the line. |dd|
 {Visual}"*x		Cut visual selection into primary clipboard selection. |quotestar|
 			Paste it with middle mouse button.
 
+:set clipboard=unnamedplus
+			Use system clipboad so that e.g. yanks can be easily
+			copied into other applications. |clipboard-unnamedplus|
+
 			Before pasting into vim,
 :set nopaste		turn off autowrap and such. |'paste'|
 :set paste		Then turn it all back on.
