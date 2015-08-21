@@ -61,7 +61,7 @@ Ctrl-w Ctrl-]		Open tag in new window. |CTRL-W_]|
 
 v			Begin visual selection. |characterwise-visual|
 
-v			End visual selection. |v_v|
+v			Deselect visual selection. |v_v|
 			*Todo	train myself to do this instead of Esc.
 
 vw			Select a word, starting from the current cursor position
@@ -389,6 +389,7 @@ dd			Delete the line. |dd|
 {Visual}"*x		Cut visual selection into primary clipboard selection. |quotestar|
 			Paste it with middle mouse button.
 
+:set clipboard=unnamed
 :set clipboard=unnamedplus
 			Use system clipboad so that e.g. yanks can be easily
 			copied into other applications. |clipboard-unnamedplus|
@@ -575,7 +576,7 @@ Alt-o			Open new line while in insert mode.
 :earlier 10s		Return to 10 seconds earlier. |:earlier|
 
 :%s/\s\+$//		Delete all trailing whitespace. |/\s|
-/\S\s$			Search for trailing whitespace,
+/\S\s\+$		Search for trailing whitespace,
                         ignoring a line that is only whitespace.
 			*Todo	how can you jump to the whitespace, not one character to the left?
 			*Todo	how can you turn this into a substitution command?
@@ -684,18 +685,21 @@ p			Paste the unnamed register. Will need to scroll down due to ^J character. |p
 			Append contents of all registers to end of current file.
 :redir >> % | silent registers | redir END | edit
 
+			Append contents of all user-defined command to end of current file.
+:redir >> % | silent commands | redir END | edit
+
 :args			List arguments to vim when it was invoked.
 			Will not include e.g. buffers opened with |:badd| or |:tabnew|.
 
 :b <Tab>		Switch to a buffer using tab completion.
 
-:new			Open a new empty, blank buffer.
+:new			Open a new empty, blank buffer. |:new|
 
-:badd			Add a buffer from e.g. a different file.
+:badd			Add a buffer from e.g. a different file. |:badd|
 
-:b#			Jump to last buffer.
+:b#			Jump to last buffer. |:b#|
 
-@:			Repeat last colon command.
+@:			Repeat last colon command. |@:|
 
 Ctrl-6			Jump to the alternate buffer. |CTRL-6|
 
@@ -1126,5 +1130,17 @@ gg=G
 
 :set pastetoggle=<F2>
         http://yubinkim.com/?p=6
+
+I-wwwwwdw0Pwwwr-wwx0
+			Macro to change 1/15/2010 to 2010-01-15
+
+:g/\d\d\d\d-\d\d-\d\d\n\S/put
+                        Match a date like 2011-01-01, followed by a newline
+                        and non-whitespace character, and put the last yanked text there.
+
+>>			Indent current line. |>>|
+			Note that you do not need to be at the beginning of the line.
+
+>}			Indent current paragraph. |>|
 ==============================================================================
  vim:ft=help:norl:
