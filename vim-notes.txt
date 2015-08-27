@@ -82,7 +82,7 @@ viB			Select curly braces block. |v_iB|
 
 d%			When on a bracket, e.g. ( [ { } ] ),
 			delete bracket, matching bracket,
-                        and everything in between. |d| |%| |inclusive|
+			and everything in between. |d| |%| |inclusive|
 
 dt<Space>		Delete until space.
 			(Usually dW does the same thing and is faster.)
@@ -107,12 +107,12 @@ Ctrl-r "		Paste the last yank. |i_CTRL-R|
 			instead of block visual mode. |linewise-visual|
 V			Enter linewise visual mode. |V|
 :s/^/#/			Use the |:substitute| command to replace
-                        the |/^| pattern atom with '#'. |pattern-atoms|
+			the |/^| pattern atom with '#'. |pattern-atoms|
 			It will look like this while typing: >
 				:'<,'>s/^/#/
 
 :s/\s\+/\r/g		Split a line with words and whitespace into several lines
-                        with one word per line.
+			with one word per line.
 			Also strips whitespace. |:substitute| |/\+| |/\s|
 
 			Append "hi" to several lines using blockwise-visual mode.
@@ -125,7 +125,7 @@ hi			Type the desired text.
 :.,.+5s/$/hi		Append "hi" to 5 lines using ex command. |:.| |:,| |:s|
 
 			Append "hi" to several lines
-                        using linewise visual mode. |linewise-visual|
+			using linewise visual mode. |linewise-visual|
 V{motion}		Select the text. |V|
 :norm Ahi		Apply the normal mode command to the selected lines. |:normal| |A|
 			Looks like this when typed: >
@@ -133,6 +133,7 @@ V{motion}		Select the text. |V|
 
 ''			Toggle previous cursor position. |''| |``|
 
+'.			Jump to last change.
 
 / Ctrl-R 0		Search for yanked text. Breakdown:
 /			Begin search. |/|
@@ -178,7 +179,7 @@ p			Paste last yank.
 /foo\c			Case-insensitive search (for current search only). |/\c|
 
 :%s/foo/bar/gci		Change each 'foo' (case insensitive) to 'bar'
-                        starting from the top of the file; ask for confirmation.
+			starting from the top of the file; ask for confirmation.
 			The % is short for 1,$ (the entire file). |:%| |:range|
 			The /g is for global substitution (not just once per line). |:s_flags|
 			The /c is for confirmation on each substitution. |:s_c|
@@ -259,9 +260,9 @@ Ctrl-R %		Put/paste filename in insert mode. |:_%|
 :set comments=sl:/*,mb:**,elx
 			C-style multi-line comments. |'comments'| |format-comments|
 			Start left aligned with /*,
-                        continue with **
-                        followed by a blank,
-                        end by typing the last character.
+			continue with **
+			followed by a blank,
+			end by typing the last character.
 
 	http://tldp.org/HOWTO/C-editing-with-VIM-HOWTO/auto-format.html#AEN274
 
@@ -271,7 +272,7 @@ D			Delete everything after cursor on line. |D|
 
 :set makeprg=gcc\ test.c
 			Set |:make| command to run "gcc test.c". |'makeprg'|
-                        Note: make sure to set |errorformat| correctly.
+			Note: make sure to set |errorformat| correctly.
 
 :set makeprg=gcc\ %
 			Set |:make| command to run gcc on current filename. |:_%|
@@ -296,12 +297,18 @@ Ctrl-]			Jump to help tags like |tag-commands|
 set tags		See which files vim looks for tags in. |'tags'| |E433|
 
 :! wc %			Word count of current file
-                        using external /usr/bin/wc command. |:!| |:_%| |c_%|
+			using external /usr/bin/wc command. |:!| |:_%| |c_%|
 
 			Jump to the longest line in the current file.
 			Uses the external /usr/bin/wc command.
 :r !wc -L %		Get the length of the longest line, e.g. >
 	137 myfile.txt
+
+:put=max(map(getline(1,'$'), 'len(v:val)'))
+:let @" =  max(map(getline(1,'$'), 'len(v:val)'))
+
+			Alternatively, get it directly from vim.
+
 /\%137c			Jump to column #137. |/\%c|
 			“What! That is far too complex for such a simple task!” cried the student.
 	http://blog.sanctum.geek.nz/vim-koans/
@@ -309,12 +316,15 @@ set tags		See which files vim looks for tags in. |'tags'| |E433|
 	https://superuser.com/questions/255368/how-to-find-the-line-with-the-maximum-number-of-columns-characters-in-vim-gvim
 	http://of-vim-and-vigor.blogspot.com/2012/02/jump-to-longest-line.html
 
-/\%137v                 Look for lines that have virtual columns longer than 137 characters,
-                        e.g. after expanding tabs. |/\%v|
+/\%137v			Look for lines that have virtual columns longer than 137 characters,
+			e.g. after expanding tabs. |/\%v|
 
 Ctrl-X Ctrl-F		Auto-complete filenames while in insert mode.
 			|i_CTRL-X_CTRL-F|	|compl-filename|
 			|i_CTRL-X|		|insert_expand|
+
+Ctrl-X Ctrl-L		Auto-complete lines while in insert mode.
+			|i_CTRL-X_CTRL-L|	|compl-whole-line|
 
 :tabnew | r !w3m http://en.wikipedia.org/wiki/Vi -dump
 			Dump Wikipedia page into new tab. |:r| |:!|
@@ -355,8 +365,8 @@ strftime("%c")		Get time. |strftime()|
 :unmap j		Otherwise it's not clear what the mapping is.
 
 			Deleting (e.g. |d| and |x|) affects unnamed register (|quotequote|)
-                        and therefore |p|, so how do we overwrite text?
-                        One fairly easy way:
+			and therefore |p|, so how do we overwrite text?
+			One fairly easy way:
 yy			Yank current line. |yy|
 {motion}		Move to desired line to replace.
 dd			Delete the line. |dd|
@@ -425,7 +435,7 @@ Ctrl-W f		Open filename under cursor in new window. |CTRL-W_f| |CTRL-W_CTRL-F|
 Ctrl-W =		Make each window about the same height. |CTRL-W_=|
 
 Ctrl-W o		Make the current window maximized
-                        so that it expands to fill the entire viewport. |CTRL-W_o|
+			so that it expands to fill the entire viewport. |CTRL-W_o|
 
 Ctrl-W T		Move window to a new tab. |CTRL-W_T|
 
@@ -468,7 +478,7 @@ Ctrl-K DE		Enter the section sign, §
 :digraphs		See all available digraphs. |:digraphs|
 
 :%!nl			Put line numbers into file
-                        using external /usr/bin/nl command.
+			using external /usr/bin/nl command.
 
 			Number a visual selection.
 {Visual}:!nl		Run through external command.
@@ -476,7 +486,7 @@ Ctrl-K DE		Enter the section sign, §
 				:'<,'>!nl
 <
 :%!tac			Reverse order of lines
-                        using external /usr/bin/tac command.
+			using external /usr/bin/tac command.
 
 			Sorting with external /usr/bin/sort command.
 :!4,7!sort		Sort lines 4-7.
@@ -498,7 +508,7 @@ yy			Yank line.
 :.!sh			Now replace current line with the output results
 
 K			Load man page for current word
-                        using /usr/bin/man by default.|K| |'keywordprg'|
+			using /usr/bin/man by default.|K| |'keywordprg'|
 
 {Visual}K		Load man page for visual selection. |v_K|
 
@@ -563,7 +573,7 @@ zz			Put this line at the middle of the screen. |zz|
 :help help-writing	The Vim documentation format. |help-writing|
 
 $ vim + myfile.txt	Start editing at the end of a file,
-                        i.e. bottom or last line of document. |-+|
+			i.e. bottom or last line of document. |-+|
 
 g;			Jump to last edited spot
 g,			Jump to next edited spot
@@ -577,7 +587,7 @@ Alt-o			Open new line while in insert mode.
 
 :%s/\s\+$//		Delete all trailing whitespace. |/\s|
 /\S\s\+$		Search for trailing whitespace,
-                        ignoring a line that is only whitespace.
+			ignoring a line that is only whitespace.
 			*Todo	how can you jump to the whitespace, not one character to the left?
 			*Todo	how can you turn this into a substitution command?
 
@@ -588,7 +598,7 @@ ct<Space>		Change text till next space
 /^V142			Search for decimal ascii value #142.
 			Useful for getting rid of control characters in a text file,
 			e.g. the control character U+008E.
-        http://www.fileformat.info/info/unicode/char/008e/index.htm
+	http://www.fileformat.info/info/unicode/char/008e/index.htm
 	http://en.wikipedia.org/wiki/%C2%8E
 
 /CTRL-V CTRL-M		Search for DOS line feed (\r\n or <CR><NL>). |i_CTRL-V|
@@ -615,15 +625,15 @@ E			Forward to end of current word. |E|
 [s			Move back to previous misspelled word. |[s|
 
 zg			Mark a word as spelled correctly (add a word to vim's dictionary).
-                        Mnemonic: {g}ood |zg| |spellfile|
+			Mnemonic: {g}ood |zg| |spellfile|
 			Note: Vim's personal dictionary is $HOME/.vim/spell/en.utf-8.add by default.
 
 zw			Mark a word as misspelled (remove from vim's dictionary).
-                        Mnemonic: {w}rong. |zw|
+			Mnemonic: {w}rong. |zw|
 
 :w !sudo tee > /dev/null %
 			When you try to save and find you're editing a file without the needed permissions.
-                        Uses Unix-specific /usr/bin/sudo and /usr/bin/tee commands. |:w| |:!| |:_%|
+			Uses Unix-specific /usr/bin/sudo and /usr/bin/tee commands. |:w| |:!| |:_%|
 
 	https://stackoverflow.com/questions/1005/getting-root-permissions-on-a-file-inside-of-vi
 	http://www.commandlinefu.com/commands/view/1204/save-a-file-you-edited-in-vim-without-the-needed-permissions
@@ -704,7 +714,7 @@ p			Paste the unnamed register. Will need to scroll down due to ^J character. |p
 Ctrl-6			Jump to the alternate buffer. |CTRL-6|
 
 			Select a folder or directory to enter
-                        rather than cycling through them. |c_End| |c_CTRL-E|
+			rather than cycling through them. |c_End| |c_CTRL-E|
 End			Or,
 Ctrl-E
 
@@ -724,7 +734,7 @@ $ vim -c "set list" file.txt
 
 $ vim -c "set backupcopy=yes|set noswapfile" myfile
 			Set vim so that it will write a file in place
-                        rather than making a temp or backup file (.swp). |'backupcopy'| |'noswapfile'|
+			rather than making a temp or backup file (.swp). |'backupcopy'| |'noswapfile'|
 
 
 :m +4			Move current line down 4 lines. |:move|
@@ -747,7 +757,7 @@ qy			Start recording macro y
 q			Stop recording macro y
 
 :reg			See registers, including macros.
-                        Press <Enter> to see more and <Q> when finished.
+			Press <Enter> to see more and <Q> when finished.
 
 @a			Run macro 'a'.
 
@@ -812,14 +822,14 @@ p			Overwrite word. |v_p|
 			If it runs over multiple lines, use a visual selection.
 
 :let @a='		Another way to edit a named macro;
-                        somewhat less convenient than the other way. |:let|
+			somewhat less convenient than the other way. |:let|
 Ctrl-R Ctrl-R a		Modify as desired, then add a closing '''.
-                        Use double '' for literal ' inside, not \' |c_CTRL-R|
+			Use double '' for literal ' inside, not \' |c_CTRL-R|
 '			Press enter, and you're done.
-                        If it ends with <CR> or <NL>, though, you are in for trouble.
+			If it ends with <CR> or <NL>, though, you are in for trouble.
 
 :set hidden		Abandon a buffer so it won't complain if you make changes
-                        and then leave without saving. |'hidden'|
+			and then leave without saving. |'hidden'|
 
 !!echo %		Replace current line with filename.
 			Looks like this: >
@@ -833,7 +843,7 @@ Ctrl-R Ctrl-R a		Modify as desired, then add a closing '''.
 2			Get back result.
 4195835 / 3145727	Enter a different math expression on a different line.
 !!bc -l			Do 20 digits of floating point precision and load math library.
-                        Looks like this: >
+			Looks like this: >
 				:.!bc
 1.33382044913624100247	Get back result.
 			You can also do calculations on multiple lines with a visual selection.
@@ -852,7 +862,7 @@ V{motion}		Select linewise with V.
 Ctrl-l			Redraw screen. |CTRL-L|
 
 !pandoc -t latex	Convert visual selection to LaTeX syntax
-                        by running it through the /usr/bin/pandoc command.
+			by running it through the /usr/bin/pandoc command.
 			For example, this will escape &, %, and # to \&, \%, and \#.
 
 :set ft?		See what Vim reads the current filetype as. |'filetype'|
@@ -864,7 +874,7 @@ Ctrl-l			Redraw screen. |CTRL-L|
 :setf php		Set filetype for PHP source code. |php.vim|
 :setf messages		Set filetype to messages, e.g. /var/log/syslog.
 :set filetype=help	Force filetype to be a Vim help file.
-                        Also afffects syntax highlighting.  |help|
+			Also afffects syntax highlighting.  |help|
 
 			Example filetype plugins locations: >
 				/usr/share/vim/vimcurrent/ftplugin/
@@ -962,6 +972,10 @@ gD			Go to global variable definition. |gD|
 			\U non-uppercase character
 	http://vimregex.com/#metacharacters
 	
+			\_.  any character, including new line |/\_.|
+			Note that this allows for multiline patterns,
+			but may match more than you want.
+
 
 :set softtabstop=4 shiftwidth=4 expandtab smartindent
 			Basic vim indentation for e.g. python. |ft-python-indent|
@@ -1028,7 +1042,7 @@ $ vim -r myfile.txt	Recovering swap files. |E325|
 				changed, not when you only moved around.
 <			Note that vim swap files are not always portable between machines,
 			and attempting to open swap files from other machines
-                        may lead to error like this: >
+			may lead to error like this: >
 				.file.txt.swp cannot be used on this computer.
 				The file was created on <hostname>,
 				or the file has been damaged.
@@ -1104,7 +1118,7 @@ gq			Reflow/wrap/format the selected text. |gq|
 			Useful for hard-wrapping long lines.
 
 :set textwidth=40       Set the reflow width to 40 characters,
-                        useful if you want a half-screen full, for example.
+			useful if you want a half-screen full, for example.
 
 gqq			Reflow/wrap/format only the line under the cursor. |gqq|
 			Note: easily mistyped as |gQ|, which means go into |Ex-mode|.
@@ -1116,31 +1130,35 @@ Ctrl-L			Autocomplete in incremental search mode. |c_CTRL-L|
 :set hlsearch           Highlight searched words. |'hlsearch'|
 
 :let @/ = ""            Clear last search, turning off the distracting highlighting
-                        without disabling the highlighting for the next search. |last-pattern|
-        http://stackoverflow.com/a/657484/1608986
+			without disabling the highlighting for the next search. |last-pattern|
+	http://stackoverflow.com/a/657484/1608986
 
-                        Writing your own ex commands. |user-commands| |40.2|
+			Writing your own ex commands. |user-commands| |40.2|
 command ClearSearch let @/ = ""
-                        They must start with a capital letter,
-                        and it is customary to use CamelCase.
+			They must start with a capital letter,
+			and it is customary to use CamelCase.
 
 :set shiftwidth=4
 gg=G
 	https://stackoverflow.com/questions/16888658/change-2-space-indent-to-4-space-in-vim
 
 :set pastetoggle=<F2>
-        http://yubinkim.com/?p=6
+	http://yubinkim.com/?p=6
 
 I-wwwwwdw0Pwwwr-wwx0
 			Macro to change 1/15/2010 to 2010-01-15
 
 :g/\d\d\d\d-\d\d-\d\d\n\S/put
-                        Match a date like 2011-01-01, followed by a newline
-                        and non-whitespace character, and put the last yanked text there.
+			Match a date like 2011-01-01, followed by a newline
+			and non-whitespace character, and put the last yanked text there.
 
 >>			Indent current line. |>>|
 			Note that you do not need to be at the beginning of the line.
 
 >}			Indent current paragraph. |>|
+			Note that you must be on the first line.
+>
+>
+>
 ==============================================================================
  vim:ft=help:norl:
