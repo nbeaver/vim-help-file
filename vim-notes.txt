@@ -197,6 +197,7 @@ p			Paste last yank.
 
 :%s/blah//gn		Count number of matches the pattern "blah".
 			There may be multiple matches per line. |count-items|
+			(There is a doc-tag for |:s_c| but not |:s_n|. Weird.)
 
 :%s/^+//n		Count number of lines starting with + sign.
 			Useful for counting number of added lines in a patch.
