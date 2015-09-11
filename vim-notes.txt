@@ -320,6 +320,11 @@ set tags		See which files vim looks for tags in. |'tags'| |E433|
 /\%137v			Look for lines that have virtual columns longer than 137 characters,
 			e.g. after expanding tabs. |/\%v|
 
+Ctrl-X Ctrl-N		Autocomplete keywords. |i_CTRL-X_CTRL-N|
+			Note: Vim autocompletes words, not WORDS.
+			The only way around this is by changing |iskeyword|.
+			https://vi.stackexchange.com/questions/1871/ins-completion-of-words
+
 Ctrl-X Ctrl-F		Auto-complete filenames while in insert mode.
 			|i_CTRL-X_CTRL-F|	|compl-filename|
 			|i_CTRL-X|		|insert_expand|
@@ -1113,6 +1118,7 @@ Ctrl-n			Autocomplete the name of the keyword. |i_CTRL-N|
 /replacement/		Finish typing the substition command.
 <Enter>			Execute the substitution command.
 	https://stackoverflow.com/questions/19730567/vim-auto-completion-on-substitutions-and-searches-in-the-command-line
+
 
 q/			Show search history as an editable vim window. |q/|
 			Press <Enter> to choose that search line,
