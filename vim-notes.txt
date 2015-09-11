@@ -32,7 +32,7 @@ Character class expressions are in [: :].           |[:alpha:]| |[:cntrl:]|   |[
 Formatting conventions:
 -- Make unindented text correspond to actual keystrokes,
    so a search for e.g. "^I" will jump to the "I" keystroke in any mode.
--- Make sure that external commands (e.g. wc(1)) can be followed with |K|,
+-- Make sure that external commands (e.g. wc(1)) can be accessed with |K|,
    e.g. wc(1) doesn't work, nor at the end of sentence ( wc. ), but wc (1) is
    fine, as is /usr/bin/wc (with no period after).
 -- Indent URLs with <Tab>.
@@ -40,8 +40,8 @@ Formatting conventions:
 	This is some output text.
 < End the example with an open angle bracket.
 
-	*Todo	change <Enter> to <CR>.
-	*Todo	change {motion} to {move-around} if it's more than one motion command.
+	*Done	change <Enter> to <CR>.
+	*Done	change {motion} to {move-around} if it's more than one motion command.
 
 ==============================================================================
 2. List of commands.
@@ -93,7 +93,7 @@ gI			Enter insert mode at beginning of line. |gI|
 
 			Add '#' in front of several lines.
 			Useful for commenting out blocks of code.
-Ctrl-v{motion}		Blockwise visual selection. |CTRL-V| |blockwise-visual|
+Ctrl-v{move-around}	Blockwise visual selection. |CTRL-V| |blockwise-visual|
 I			Now move into insert mode at the beginning of each line. |v_b_I|
 #			Now type the comment character, e.g. #
 Esc			Now get out of insert mode. |i_esc|
@@ -116,7 +116,7 @@ V			Enter linewise visual mode. |V|
 			Also strips whitespace. |:substitute| |/\+| |/\s|
 
 			Append "hi" to several lines using blockwise-visual mode.
-Ctrl-v{motion}		Blockwise visual selection. |CTRL-V| |blockwise-visual|
+Ctrl-v{move-around}	Blockwise visual selection. |CTRL-V| |blockwise-visual|
 $      			Move to end of each line. |v_$|
 A			Enter insert mode after the cursor. |A|
 hi			Type the desired text.
@@ -126,7 +126,7 @@ hi			Type the desired text.
 
 			Append "hi" to several lines
 			using linewise visual mode. |linewise-visual|
-V{motion}		Select the text. |V|
+V{move-around}		Select the text. |V|
 :norm Ahi		Apply the normal mode command to the selected lines. |:normal| |A|
 			Looks like this when typed: >
 				:'<,'>norm Ahi
@@ -145,7 +145,7 @@ Ctrl-R			Enter contents of register. |i_CTRL-R|
 Ctrl-R			Enter contents of register. |i_CTRL-R|
 +			Paste yanked text. |quote+|
 
-q/p<Enter>		Search for yanked text. Breakdown:
+q/p<CR>		Search for yanked text. Breakdown:
 q/			Open |command-line-window|.
 p			Paste last yank.
 
@@ -223,8 +223,7 @@ Ctrl-o			Jump backward through jumplist. |CTRL-O|
 
 :set autochdir		Set working directory to directory of current file. |'autochdir'|
 
-TODO: How to get :sh to open in the current directory, not the parent of the
-current one?
+			*Todo	how to get |:sh| to open in the current directory, not the parent of the current one?
 
 Ctrl-g			Find name of current file and other helpful information. |CTRL-G| |:file|
 
@@ -322,8 +321,8 @@ set tags		See which files vim looks for tags in. |'tags'| |E433|
 
 Ctrl-X Ctrl-N		Autocomplete keywords. |i_CTRL-X_CTRL-N|
 			Note: Vim autocompletes words, not WORDS.
-			The only way around this is by changing |iskeyword|.
-			https://vi.stackexchange.com/questions/1871/ins-completion-of-words
+			The only way around this limitation is by changing |iskeyword|.
+	https://vi.stackexchange.com/questions/1871/ins-completion-of-words
 
 Ctrl-X Ctrl-F		Auto-complete filenames while in insert mode.
 			|i_CTRL-X_CTRL-F|	|compl-filename|
@@ -374,7 +373,7 @@ strftime("%c")		Get time. |strftime()|
 			and therefore |p|, so how do we overwrite text?
 			One fairly easy way:
 yy			Yank current line. |yy|
-{motion}		Move to desired line to replace.
+{move-around}		Move to desired line to replace.
 dd			Delete the line. |dd|
 "0p			Paste the first line. |quote0| |p|
 	http://vim.wikia.com/wiki/Replace_a_word_with_yanked_text
@@ -432,7 +431,7 @@ gf			Open filename or path under cursor. |gf|
 
 
 			Open selected file or path, regardless of |'isfname'|.
-v{motion}		Select path, including spaces.
+v{move-around}		Select path, including spaces.
 gf			Jump to file. |v_gf|
 			Useful for e.g. opening paths containing spaces.
 
@@ -551,7 +550,7 @@ K			Load man page for current word
 
 r<CR>			Quickly split a line at a space without entering insert mode.
 			Much faster than: >
-				i<Enter><Esc>
+				i<CR><Esc>
 <
 
 :set nu			View line numbers. |'number'|
@@ -665,7 +664,7 @@ $ vim file1 file2 file3
 			(Windows and tabs are buffers, too.)
 			Note: it would be nice if this gave you the option to select a buffer to move to,
 			but unfortunately it does not; you just get Vim's built-in |pager|.
-			*Todo	it is possible to search in Vim's pager?
+			*Todo	is it possible to search in Vim's pager?
 
 			From the Vim documentation: >
 			u	an unlisted buffer (only displayed when [!] is used) |unlisted-buffer|
@@ -679,7 +678,7 @@ $ vim file1 file2 file3
 			x	a buffer with read errors
 <
 g<			Get back to the last page of command output. |g<|
-			Useful if you accidentally hit <Enter> or <Space> too many times at the |more-prompt|.
+			Useful if you accidentally hit <CR> or <Space> too many times at the |more-prompt|.
 
 :redir			Capture output of ex command. |:redir|
 	http://vim.wikia.com/wiki/Capture_ex_command_output
@@ -694,7 +693,7 @@ g<			Get back to the last page of command output. |g<|
 <			|:redir| |:silent| |:set| |'iskeyword'|
 q:			Bring up the command-line window. |q:|
 p			Paste the unnamed register. Will need to scroll down due to ^J character. |p|
-<Enter>			After editing, execute the command. |E199|
+<CR>			After editing, execute the command. |E199|
 			*Todo	why does the ^J character show up?
 
 			Store all digraphs to file. |:digraphs|
@@ -766,7 +765,7 @@ qy			Start recording macro y
 q			Stop recording macro y
 
 :reg			See registers, including macros.
-			Press <Enter> to see more and <Q> when finished.
+			Press <CR> to see more and <Q> when finished.
 
 @a			Run macro 'a'.
 
@@ -797,7 +796,7 @@ p'[			Paste without moving cursor. |p| |'[|
 :diffu			Update the diffs for vimdiff. |:diffupdate|
 
 			Delete last two chars of contiguous lines.
-V{motion}
+V{move-around}
 :s/..$//
 
 g~~			Flip case of entire line. |g~~|
@@ -862,7 +861,7 @@ Ctrl-R Ctrl-R a		Modify as desired, then add a closing '''.
 {Visual}g?		ROT13 a visual selection. Built in to Vim. |g?|
 
 			ROT13 (Caesar cipher) with external rot13 command (in bsdgames package).
-V{motion}		Select linewise with V.
+V{move-around}		Select linewise with V.
 !rot13			Send text to external command.
 			Look like this when typed: >
 				:'<,'>!rot13
@@ -1106,7 +1105,7 @@ gg			Go to top of file. |gg|
 	http://stackoverflow.com/questions/16748161/jump-to-last-line-but-stay-in-the-same-column
 
 q:			Show command history as an editable vim window. |q:|
-			Press <Enter> to execute the command the cursor is on,
+			Press <CR> to execute the command the cursor is on,
 			or Ctrl-C to quit. |c_CTRL-C|
 			
 			Example of how this is useful: it gets you insert-mode editing for free.
@@ -1116,12 +1115,12 @@ i			Enter insert mode. |i|
 {char}			Start typing the name of the keyword.
 Ctrl-n			Autocomplete the name of the keyword. |i_CTRL-N|
 /replacement/		Finish typing the substition command.
-<Enter>			Execute the substitution command.
+<CR>			Execute the substitution command.
 	https://stackoverflow.com/questions/19730567/vim-auto-completion-on-substitutions-and-searches-in-the-command-line
 
 
 q/			Show search history as an editable vim window. |q/|
-			Press <Enter> to choose that search line,
+			Press <CR> to choose that search line,
 			or Ctrl-C to quit. |CTRL-C|
 
 gq			Reflow/wrap/format the selected text. |gq|
