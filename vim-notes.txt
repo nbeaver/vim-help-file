@@ -331,6 +331,9 @@ Ctrl-X Ctrl-F		Auto-complete filenames while in insert mode.
 Ctrl-X Ctrl-L		Auto-complete lines while in insert mode.
 			|i_CTRL-X_CTRL-L|	|compl-whole-line|
 
+			*Todo	can vim autocomplete executables in $PATH,
+				maybe using output of compen -c?
+
 :tabnew | r !w3m http://en.wikipedia.org/wiki/Vi -dump
 			Dump Wikipedia page into new tab. |:r| |:!|
 			Requires external /usr/bin/w3m browser.
@@ -490,6 +493,8 @@ Ctrl-K DE		Enter the section sign, §
 			Looks like this: >
 				:'<,'>!nl
 <
+{Visual}:s/\n/\r\r	Double-space a visual selection. |:substitute| |/\n| |s/\r|
+
 :%!tac			Reverse order of lines
 			using external /usr/bin/tac command.
 
@@ -612,6 +617,8 @@ ct<Space>		Change text till next space
 			*Todo	why does :help \\r also work?
 	https://stackoverflow.com/questions/811193/how-to-convert-the-m-linebreak-to-normal-linebreak-in-a-file-opened-in-vim
 	https://en.wikipedia.org/wiki/Newline
+
+:%s/\n/\r\r		Double space entire file.
 
 			Move by |word|s separated by spaces, punctuation, etc.
 w			Forward to start of next word. |w|
