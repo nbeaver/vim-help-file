@@ -463,6 +463,7 @@ ga			Inspect character for decimal, hex, or octal representation, e.g.  >
 				Bidi: L (Left-to-Right)
 				Decomposition: 006E 0303
 <
+:set nobomb		Remove byte order mark (BOM). |'nobomb'|
 
 g8			Inspect hex bytes of UTF-8. |g8|
 			(Not useful for searching with /usr/bin/unicode command.)
@@ -618,7 +619,10 @@ ct<Space>		Change text till next space
 	https://stackoverflow.com/questions/811193/how-to-convert-the-m-linebreak-to-normal-linebreak-in-a-file-opened-in-vim
 	https://en.wikipedia.org/wiki/Newline
 
-:%s/\n/\r\r		Double space entire file.
+:%s/\n/\r\r		Double space entire file using the |:substitute| command. |/\n| |s/\r|
+:%s/$/\r\r		Double space entire file using the |:substitute| command. |/$| |s/\r|
+:g/^/put_		Double space entire file using the |:global| command.
+	http://rayninfo.co.uk/vimtips.html
 
 			Move by |word|s separated by spaces, punctuation, etc.
 w			Forward to start of next word. |w|
@@ -991,6 +995,8 @@ gD			Go to global variable definition. |gD|
 			Note that this allows for multiline patterns,
 			but may match more than you want.
 
+/<\(table\)\@!		Search for HTML tags that don't start with <table,
+			using negative lookahead regular expressions. |/\@!|
 
 :set softtabstop=4 shiftwidth=4 expandtab smartindent
 			Basic vim indentation for e.g. python. |ft-python-indent|
@@ -1167,6 +1173,8 @@ I-wwwwwdw0Pwwwr-wwx0
 :g/\d\d\d\d-\d\d-\d\d\n\S/put
 			Match a date like 2011-01-01, followed by a newline
 			and non-whitespace character, and put the last yanked text there.
+
+:%s/^\(\d\d\d\d-\d\d-\d\d\)/:date: \1/gci
 
 >>			Indent current line. |>>|
 			Note that you do not need to be at the beginning of the line.
