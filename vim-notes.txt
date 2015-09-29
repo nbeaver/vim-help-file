@@ -199,6 +199,9 @@ p			Paste last yank.
 			There may be multiple matches per line. |count-items|
 			(There is a doc-tag for |:s_c| but not |:s_n|. Weird.)
 
+:%s///gn		Count matches of the pattern in the search register. |quote/|
+	https://stackoverflow.com/questions/715643/search-for-string-and-get-count-in-vi-editor
+
 :%s/^+//n		Count number of lines starting with + sign.
 			Useful for counting number of added lines in a patch.
 
@@ -596,11 +599,10 @@ Alt-o			Open new line while in insert mode.
 
 :earlier 10s		Return to 10 seconds earlier. |:earlier|
 
-:%s/\s\+$//		Delete all trailing whitespace. |/\s|
-/\S\s\+$		Search for trailing whitespace,
+/\s\+$			Search for trailing whitespace. |/\s| |/\+| |/$|
+/\S\s\+$		Search for trailing whitespace, |/\S|
 			ignoring a line that is only whitespace.
-			*Todo	how can you jump to the whitespace, not one character to the left?
-			*Todo	how can you turn this into a substitution command?
+:%s/\s\+$//		Delete all trailing whitespace. |/\s|
 
 f<Space>		Jump to next space. |f|
 
@@ -615,7 +617,6 @@ ct<Space>		Change text till next space
 /CTRL-V CTRL-M		Search for DOS line feed (\r\n or <CR><NL>). |i_CTRL-V|
 
 :%s/\r\+$//g		Remove DOS line feeds (\r\n). |/\r| |'fileformat'|
-			*Todo	why does :help \\r also work?
 	https://stackoverflow.com/questions/811193/how-to-convert-the-m-linebreak-to-normal-linebreak-in-a-file-opened-in-vim
 	https://en.wikipedia.org/wiki/Newline
 
