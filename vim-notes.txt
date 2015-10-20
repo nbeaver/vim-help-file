@@ -62,7 +62,6 @@ Ctrl-w Ctrl-]		Open tag in new window. |CTRL-W_]|
 v			Begin visual selection. |characterwise-visual|
 
 v			Deselect visual selection. |v_v|
-			*Todo	train myself to do this instead of Esc.
 
 vw			Select a word, starting from the current cursor position
 			and ending at the start of the next word.
@@ -240,6 +239,9 @@ g Ctrl-g		Count characters in file. |g_CTRL-G| |word-count| |byte-count|
 			Looks like this when typed: >
 	:.!pwd
 
+Ctrl-R =$PWD		Another method for inserting the directory.
+			Also works for other environmental variables.
+
 Ctrl-R %		Put/paste filename in insert mode. |:_%|
 			May include path, depending on how vim was invoked.
 
@@ -281,9 +283,10 @@ D			Delete everything after cursor on line. |D|
 			Set |:make| command to run gcc on current filename. |:_%|
 
 :nnoremap <F5> :<C-U>make<CR>
-			Bind <F5> key run |:make|.
+			Bind <F5> key run |:make|. |key-notation|
 			The |c_CTRL-U| is there to clear the line of any previous commands.
 
+:copen			View the |quickfix| window. |:copen|
 
 :%s/\t/\n/g		Replace tabs with newlines.
 
@@ -334,8 +337,6 @@ Ctrl-X Ctrl-F		Auto-complete filenames while in insert mode.
 Ctrl-X Ctrl-L		Auto-complete lines while in insert mode.
 			|i_CTRL-X_CTRL-L|	|compl-whole-line|
 
-			*Todo	can vim autocomplete executables in $PATH,
-				maybe using output of compen -c?
 
 :tabnew | r !w3m http://en.wikipedia.org/wiki/Vi -dump
 			Dump Wikipedia page into new tab. |:r| |:!|
@@ -374,6 +375,8 @@ strftime("%c")		Get time. |strftime()|
 			Undo the mapping. |:unmap|
 :unmap k		These must be done one at a time. |E31|
 :unmap j		Otherwise it's not clear what the mapping is.
+
+:map			See active mappings. |:map|
 
 			Deleting (e.g. |d| and |x|) affects unnamed register (|quotequote|)
 			and therefore |p|, so how do we overwrite text?
@@ -440,6 +443,8 @@ gf			Open filename or path under cursor. |gf|
 v{move-around}		Select path, including spaces.
 gf			Jump to file. |v_gf|
 			Useful for e.g. opening paths containing spaces.
+
+gx			Open URL or path using appropriate program. |gx|
 
 Ctrl-W f		Open filename under cursor in new window. |CTRL-W_f| |CTRL-W_CTRL-F|
 
@@ -676,7 +681,6 @@ $ vim file1 file2 file3
 			(Windows and tabs are buffers, too.)
 			Note: it would be nice if this gave you the option to select a buffer to move to,
 			but unfortunately it does not; you just get Vim's built-in |pager|.
-			*Todo	is it possible to search in Vim's pager?
 
 			From the Vim documentation: >
 			u	an unlisted buffer (only displayed when [!] is used) |unlisted-buffer|
@@ -1157,9 +1161,12 @@ Ctrl-L			Autocomplete in incremental search mode. |c_CTRL-L|
 	http://stackoverflow.com/a/657484/1608986
 
 			Writing your own ex commands. |user-commands| |40.2|
-command ClearSearch let @/ = ""
+:command ClearSearch let @/ = ""
 			They must start with a capital letter,
 			and it is customary to use CamelCase.
+
+:command		Show list of user-defined |command|s in Vim's |pager|.
+			(Useful for reminders of what they're called.)
 
 :set shiftwidth=4
 gg=G
