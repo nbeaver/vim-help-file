@@ -357,6 +357,9 @@ V			Select current line. |V|
 
 u			Undo. |u|
 Ctrl-r			Redo. |CTRL-R|
+g-			Go back in time one step. |g-|
+g+			Go forward in time one step. |g+|
+
 
 Ctrl-r "		Inserting/pasting registers in command mode. |c_CTRL-R|
 
