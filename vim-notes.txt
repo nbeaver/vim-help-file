@@ -491,6 +491,12 @@ g8			Inspect hex bytes of UTF-8. |g8|
 Ctrl-K n?		Enter an ñ (enye).
 Ctrl-K DG		Enter the degree symbol, °
 Ctrl-K DE		Enter the section sign, §
+Ctrl-K !=		Enter the not equals sign, ≠
+Ctrl-K ?=		Enter the approximately equal sign, ≅
+Ctrl-K ?2		Enter the almost equal sign, ≈
+Ctrl-K Om		Enter the Ohm sign, Ω
+Ctrl-K AO		Enter the angstrom sign, Å
+
 	https://en.wikipedia.org/wiki/%C3%91
 	https://en.wikipedia.org/wiki/Degree_symbol
 	https://en.wikipedia.org/wiki/Section_sign
