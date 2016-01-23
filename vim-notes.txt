@@ -316,7 +316,7 @@ set tags		See which files vim looks for tags in. |'tags'| |E433|
 			Alternatively, get it directly from vim.
 
 /\%137c			Jump to column #137. |/\%c|
-			“What! That is far too complex for such a simple task!” cried the student.
+			"What! That is far too complex for such a simple task!" cried the student.
 	http://blog.sanctum.geek.nz/vim-koans/
 	https://stackoverflow.com/questions/2075276/longest-line-in-vim
 	https://superuser.com/questions/255368/how-to-find-the-line-with-the-maximum-number-of-columns-characters-in-vim-gvim
