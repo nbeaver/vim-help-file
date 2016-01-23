@@ -500,6 +500,8 @@ Ctrl-K ?=		Enter the approximately equal sign, ≅
 Ctrl-K ?2		Enter the almost equal sign, ≈
 Ctrl-K Om		Enter the Ohm sign, Ω
 Ctrl-K AO		Enter the angstrom sign, Å
+Ctrl-K 0(		Enter the proportionality sign, ∝
+Ctrl-K a*		Enter a lower-case alpha, α
 
 	https://en.wikipedia.org/wiki/%C3%91
 	https://en.wikipedia.org/wiki/Degree_symbol
