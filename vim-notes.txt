@@ -485,6 +485,10 @@ g8			Inspect hex bytes of UTF-8. |g8|
 /\%xad			Search for the soft hyphen by its hexadecimal value 0x00ad. |/\%x|
 /\%o255			Search for the soft hyphen by its octal value 0255. |/\%o|
 
+/[^\d0-\d127]		Search for non-ASCII characters (first 128 characters).
+	https://stackoverflow.com/questions/16987362/how-to-get-vim-to-highlight-non-ascii-characters
+	http://codeyarns.com/2014/04/24/how-to-find-non-ascii-characters-in-vim/
+
 :s/\%xad//g		Remove all the soft hyphens on the current line.
 
 			Examples of entering digraphs in insert mode. |i_CTRL-K|
