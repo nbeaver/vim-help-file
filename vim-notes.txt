@@ -502,6 +502,8 @@ Ctrl-K Om		Enter the Ohm sign, Ω
 Ctrl-K AO		Enter the angstrom sign, Å
 Ctrl-K 0(		Enter the proportionality sign, ∝
 Ctrl-K a*		Enter a lower-case alpha, α
+Ctrl-K 11		Enter a superscript 1, ¹
+Ctrl-K 1s		Enter a subscript 1, ₁
 
 	https://en.wikipedia.org/wiki/%C3%91
 	https://en.wikipedia.org/wiki/Degree_symbol
