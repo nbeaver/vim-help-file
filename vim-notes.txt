@@ -804,6 +804,8 @@ q			Stop recording macro y
 
 "ap			Paste macro 'a' onto current line.
 
+			https://robots.thoughtbot.com/how-to-edit-an-existing-vim-macro
+
 {Visual}"ay		Yank visual selection into the 'a' register.
 
 
