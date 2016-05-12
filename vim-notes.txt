@@ -1095,6 +1095,8 @@ $ vim -r myfile.txt	Recovering swap files. |E325|
 
 :source $MYVIMRC	Reload the vimrc file. |:source| |$MYVIMRC|
 
+:so %			Reload the vimrc file if that's the file you're editing.
+
 :bn			Go to next buffer. |:bnext|
 			Note that you must save the file first,
 			unlike going to the next tab. |E37|
