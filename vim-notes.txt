@@ -558,6 +558,9 @@ K			Load man page for current word
 :r !uname -r		Dump content of command into current buffer. |:read|
 :%!uname -r		Make current buffer match content of command. |:%|
 
+:echo has('unix')       Shows if the current operating system is Unix-based.
+:echo exists("$DISPLAY")    Show if the environment variables $DISPLAY is set.
+
 :tabnew|read !man ascii
 			Open text of ascii (1) manpage as new tab.
 			Note: older version of Vim might not format the text correctly.
