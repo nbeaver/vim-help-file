@@ -1215,6 +1215,22 @@ I-wwwwwdw0Pwwwr-wwx0
 >}			Indent current paragraph. |>|
 			Note that you must be on the first line.
 >
+Ctrl-]			Jump to ctag of current identifier. |Ctrl-]|
+Ctrl-T			Jump back. |Ctrl-T|
+
+:!ctags -r .		Run this on the root of the source directory. |ctags|
+
+:echo tagfiles()	Check what the known |tagfiles()| are.
+			If it returns [], try using this:
+:set tags=./tags,tags;$HOME
+			This will look in the current directory,
+			then the parent, all the way up to |$HOME|.
+			|'tags'| |file-searching|
+	http://stackoverflow.com/questions/5017500/vim-difficulty-setting-up-ctags-source-in-subdirectories-dont-see-tags-file-i
+	http://stackoverflow.com/questions/18581961/no-tags-file-in-gvim-on-some-file-but-not-on-others
+	http://stackoverflow.com/questions/11975316/vim-ctags-tag-not-found
+
+:verbose set tags?	If you are unsure what the current tag settings are.
 >
 >
 ==============================================================================
