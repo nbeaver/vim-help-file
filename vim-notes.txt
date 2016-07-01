@@ -1097,9 +1097,10 @@ $ vim -r myfile.txt	Recovering swap files. |E325|
 				or the file has been damaged.
 <	https://groups.google.com/forum/#!msg/vim_use/-wKUzSTun04/4Gu6cXUkKwUJ
 
-:source $MYVIMRC	Reload the vimrc file. |:source| |$MYVIMRC|
+:source $MYVIMRC	Reload the |vimrc| file. |:source| |$MYVIMRC|
 
-:so %			Reload the vimrc file if that's the file you're editing.
+:so %			Reload the |vimrc| file
+			(if that's the file you're editing.) |:so| |:_%|
 
 :bn			Go to next buffer. |:bnext|
 			Note that you must save the file first,
@@ -1151,10 +1152,12 @@ q:			Show command history as an editable vim window. |q:|
 			Press <CR> to execute the command the cursor is on,
 			or Ctrl-C to quit. |c_CTRL-C|
 			
-			Example of how this is useful: it gets you insert-mode editing for free.
+			Example of how this is useful:
+			it gets you insert-mode editing for free.
 q:			Open up the command history.
 i			Enter insert mode. |i|
-:s/			Start a substitution command. Can also use <Tab> to autocomplete.
+:s/			Start a substitution command.
+			Can also use <Tab> to autocomplete.
 {char}			Start typing the name of the keyword.
 Ctrl-n			Autocomplete the name of the keyword. |i_CTRL-N|
 /replacement/		Finish typing the substition command.
@@ -1205,12 +1208,14 @@ I-wwwwwdw0Pwwwr-wwx0
 
 :g/\d\d\d\d-\d\d-\d\d\n\S/put
 			Match a date like 2011-01-01, followed by a newline
-			and non-whitespace character, and put the last yanked text there.
+			and non-whitespace character,
+			and put the last yanked text there.
 
 :%s/^\(\d\d\d\d-\d\d-\d\d\)/:date: \1/gci
 
 >>			Indent current line. |>>|
-			Note that you do not need to be at the beginning of the line.
+			Note that you do not need to be
+			at the beginning of the line.
 
 >}			Indent current paragraph. |>|
 			Note that you must be on the first line.
