@@ -1213,6 +1213,10 @@ I-wwwwwdw0Pwwwr-wwx0
 
 :%s/^\(\d\d\d\d-\d\d-\d\d\)/:date: \1/gci
 
+
+:%s/old/new/ge		Don't stop executing the command if it fails. |:s_flags| |:bar|
+	http://vim.wikia.com/wiki/Repeat_last_colon_command
+
 >>			Indent current line. |>>|
 			Note that you do not need to be
 			at the beginning of the line.
