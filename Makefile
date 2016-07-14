@@ -10,7 +10,8 @@ tagfile.txt : Makefile /usr/share/vim/vimcurrent/doc/tags
 	rm $(TEMPFILE)
 
 vim-notes.html: vim-notes.txt Makefile
-	# The perl script adds more color, but it doesn't convert links.
+	# The perl script adds more color,
+	# but it doesn't convert HTTP:// URLs into HTML links.
 	./vim2html.pl tagfile.txt vim-notes.txt
 
 index.html: makehtml.awk vim-notes.txt Makefile
