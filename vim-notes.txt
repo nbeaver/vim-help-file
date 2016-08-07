@@ -556,7 +556,7 @@ K			Load man page for current word
 				Press ENTER or type command to continue
 <
 
-:r !uname -r		Dump content of command into current buffer. |:read|
+:r !uname -r		Dump content of "uname -r" command into current buffer. |:read|
 :%!uname -r		Make current buffer match content of command. |:%|
 
 :echo has('unix')       Shows if the current operating system is Unix-based.
