@@ -359,6 +359,7 @@ u			Undo. |u|
 Ctrl-r			Redo. |CTRL-R|
 g-			Go back in time one step. |g-|
 g+			Go forward in time one step. |g+|
+			|undo-two-ways|
 
 
 Ctrl-r "		Inserting/pasting registers in command mode. |c_CTRL-R|
@@ -1144,7 +1145,8 @@ $ vim -S /tmp/current.ses
 
 			Fix indentation for an entire file. |=| |filter|
 gg			Go to top of file. |gg|
-=G			Filter all lines to bottom of file through default indentation program. |G|
+=G			Filter all lines to bottom of file through default indentation program. |G| |=| |'equalprg'|
+
 	http://vim.wikia.com/wiki/Fix_indentation
 
 :set nostartofline	Stop jumping to start of line when using |jump-motions|.
