@@ -801,6 +801,16 @@ $ vim -c "set backupcopy=yes|set noswapfile" myfile
 qy			Start recording macro y
 q			Stop recording macro y
 
+
+{Visual}:normal @a	Run the 'a' macro on each line of some visually selected text. |:normal|
+			Looks like this: >
+				:'<,'>normal @a
+<
+
+:g/vim/ normal @a	Run the 'a' macro on lines matching the 'vim' pattern
+	http://blog.sanctum.geek.nz/advanced-vim-macros/
+
+
 :reg			See registers, including macros.
 			Press <CR> to see more and <Q> when finished.
 
@@ -839,14 +849,6 @@ V{move-around}
 :s/..$//
 
 g~~			Flip case of entire line. |g~~|
-
-{Visual}:normal @a	Run the 'a' macro on each line of some visually selected text. |:normal|
-			Looks like this: >
-				:'<,'>normal @a
-<
-
-:g/vim/ normal @a	Run the 'a' macro on lines matching the 'vim' pattern
-	http://blog.sanctum.geek.nz/advanced-vim-macros/
 
 :%!column -t		Format current file using external /usr/bin/column program. |:%| |:!|
 
