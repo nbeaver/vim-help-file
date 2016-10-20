@@ -184,6 +184,8 @@ p			Paste last yank.
 			The /c is for confirmation on each substitution. |:s_c|
 			The /i is for case-insensitivity. |:s_flags|
 
+:%s/\$\\textrm{MoO}_2\$}/{MoO$_2$}/gci
+
 :.,$s/foo/bar/gci	Change each 'foo' (case insensitive) to 'bar' starting with current line.
 			The '.' means current line and the '$' means last line. |:.| |:$| |:range|
 :,$s/foo/bar/gci	Since starting from the current line is assumed,
@@ -489,6 +491,9 @@ g8			Inspect hex bytes of UTF-8. |g8|
 /[^\d0-\d127]		Search for non-ASCII characters (first 128 characters).
 	https://stackoverflow.com/questions/16987362/how-to-get-vim-to-highlight-non-ascii-characters
 	http://codeyarns.com/2014/04/24/how-to-find-non-ascii-characters-in-vim/
+
+/\D--\D			Search for a character that is not a digit
+			followed by two hyphens and another non-digit. |/\D|
 
 :s/\%xad//g		Remove all the soft hyphens on the current line.
 
