@@ -114,6 +114,10 @@ V			Enter linewise visual mode. |V|
 			with one word per line.
 			Also strips whitespace. |:substitute| |/\+| |/\s|
 
+:%s/^\(\d\d\d\d-\d\d-\d\d\)$/:date: \1
+			Example use of capture groups;
+			replace a date like 1970-01-01 with :date: 1970-01-01
+
 			Append "hi" to several lines using blockwise-visual mode.
 Ctrl-v{move-around}	Blockwise visual selection. |CTRL-V| |blockwise-visual|
 $      			Move to end of each line. |v_$|
@@ -564,6 +568,9 @@ K			Load man page for current word
 
 :r !uname -r		Dump content of "uname -r" command into current buffer. |:read|
 :%!uname -r		Make current buffer match content of command. |:%|
+
+:read !locate -b Ctrl-R"
+			Use the locate(1) command on the unnamed register.
 
 :echo has('unix')       Shows if the current operating system is Unix-based.
 :echo exists("$DISPLAY")    Show if the environment variables $DISPLAY is set.
