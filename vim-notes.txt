@@ -110,6 +110,8 @@ V			Enter linewise visual mode. |V|
 			It will look like this while typing: >
 				:'<,'>s/^/#/
 
+:'<,'>s/\%V //g		Replace spaces in visual selection. |/\%V|
+
 :s/\s\+/\r/g		Split a line with words and whitespace into several lines
 			with one word per line.
 			Also strips whitespace. |:substitute| |/\+| |/\s|
