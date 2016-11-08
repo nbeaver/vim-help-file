@@ -574,6 +574,9 @@ K			Load man page for current word
 :read !locate -b Ctrl-R"
 			Use the locate(1) command on the unnamed register.
 
+:read !dict Ctrl-R" | less
+			Look up definition of word.
+
 :echo has('unix')       Shows if the current operating system is Unix-based.
 :echo exists("$DISPLAY")    Show if the environment variables $DISPLAY is set.
 
