@@ -541,6 +541,9 @@ Ctrl-K 11		Enter a superscript 1, ¹
 :!4,7!sort		Sort lines 4-7.
 :4,$ !sort		Sort lines 4 to end of document.
 {Visual}:!sort		Sort visual selection.
+:'<,'>!sort
+
+:'<,'>!sort -R		Randomly sort.
 
 			Sorting with internal Vim command, |:sort|.
 :sort			Sort alphabetically.
