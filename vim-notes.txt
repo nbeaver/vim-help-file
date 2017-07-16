@@ -97,6 +97,11 @@ I			Now move into insert mode at the beginning of each line. |v_b_I|
 #			Now type the comment character, e.g. #
 Esc			Now get out of insert mode. |i_esc|
 
+
+			Subsitution in blockwise visual selection.
+Ctrl-v{move-around}	Blockwise visual selection. |CTRL-V| |blockwise-visual|
+:'<,'>s/\%Vb/ /g	Substitute, but only in visual selection. |/\%V|
+
 			Put contents of the last yank in front of multiple contiguous lines.
 I			Now move into insert mode at the beginning of each line. |v_b_I|
 Ctrl-r "		Paste the last yank. |i_CTRL-R|
@@ -135,6 +140,10 @@ V{move-around}		Select the text. |V|
 :norm Ahi		Apply the normal mode command to the selected lines. |:normal| |A|
 			Looks like this when typed: >
 				:'<,'>norm Ahi
+
+			Delete last two characters on visually selected lines.
+V{move-around}		Select the text. |V|
+:norm $xx		Apply the normal mode command to the selected lines. |:normal| |$| |x|
 
 ''			Toggle previous cursor position. |''| |``|
 
@@ -218,6 +227,10 @@ p			Paste last yank.
 :%s/,/\r/g		Replace all commas with newlines. |/\r|
 
 :edit			Reload current file. |:edit|
+
+:edit file.txt		Open 'file.txt' for editing. |:edit|
+
+:next *.txt		Open all files ending with '.txt' for editing. |:next|
 
 :set laststatus=2	Always view status bar. |status-line| |'laststatus'|
 
@@ -493,6 +506,9 @@ g8			Inspect hex bytes of UTF-8. |g8|
 /\%d173			Search for the soft hyphen by its decimal value 0x00ad. |/\%d|
 /\%xad			Search for the soft hyphen by its hexadecimal value 0x00ad. |/\%x|
 /\%o255			Search for the soft hyphen by its octal value 0255. |/\%o|
+
+/\u			Search for uppercase letters. |/\u|
+/[A-Z]			Same thing as above.
 
 /[^\d0-\d127]		Search for non-ASCII characters (first 128 characters).
 	https://stackoverflow.com/questions/16987362/how-to-get-vim-to-highlight-non-ascii-characters
