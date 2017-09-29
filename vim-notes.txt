@@ -460,6 +460,7 @@ dd			Delete the line. |dd|
 gf			Open filename or path under cursor. |gf|
 			Must save current file first. |E37|
 			(Use |CTRL-W_f| if you don't want to |abandon| the file.)
+			Path must exist already. |E447|
 			Path must not contain spaces. |'isfname'| |E447|
 			*Todo	is there a way to make vim follow paths with escaped spaces?
 
@@ -472,6 +473,8 @@ gf			Jump to file. |v_gf|
 gx			Open URL or path using appropriate program. |gx|
 
 Ctrl-W f		Open filename under cursor in new window. |CTRL-W_f| |CTRL-W_CTRL-F|
+
+:e <cfile>		Edit filename under cursor. |:edit| |<cfile>|
 
 Ctrl-W =		Make each window about the same height. |CTRL-W_=|
 
