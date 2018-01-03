@@ -476,6 +476,8 @@ Ctrl-W f		Open filename under cursor in new window. |CTRL-W_f| |CTRL-W_CTRL-F|
 
 :e <cfile>		Edit filename under cursor. |:edit| |<cfile>|
 
+:!stat <cfile>		Check if the filename under the cursor exists.
+
 Ctrl-W =		Make each window about the same height. |CTRL-W_=|
 
 Ctrl-W o		Make the current window maximized
