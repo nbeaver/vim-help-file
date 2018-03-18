@@ -599,7 +599,11 @@ K			Load man page for current word
 			Use the locate(1) command on the unnamed register.
 
 :read !dict Ctrl-R" | less
-			Look up definition of word.
+			Look up definition of word in copy buffer.
+
+:!dict <cword>		Look up the word under the current cursor using the
+			external "dict" command. |:!| |:<cword>|
+
 
 :echo has('unix')       Shows if the current operating system is Unix-based.
 :echo exists("$DISPLAY")    Show if the environment variables $DISPLAY is set.
@@ -715,9 +719,6 @@ zg			Mark a word as spelled correctly (add a word to vim's dictionary).
 
 zw			Mark a word as misspelled (remove from vim's dictionary).
 			Mnemonic: {w}rong. |zw|
-
-:!dict <cword>		Look up the word under the current cursor using the
-			external "dict" command. |:!| |:<cword>|
 
 :w !sudo tee > /dev/null %
 			When you try to save and find you're editing a file without the needed permissions.
