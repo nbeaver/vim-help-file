@@ -23,6 +23,10 @@ index.html: makehtml.awk vim-notes.txt Makefile
 	# TODO: fix links like <A HREF="intro.html
 	# but not <A HREF="http://
 
+edit : tweak.vim vim-notes.txt
+	vim -S tweak.vim vim-notes.txt
+
+
 README.html: README.rst Makefile
 	rst2html README.rst > README.html
 
