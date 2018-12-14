@@ -1,4 +1,6 @@
-all: vim-notes.html index.html README.html
+HTML:=vim-notes.html index.html README.html
+TXT :=tagfile.txt
+all: $(HTML)
 # Prevent make from looking for a file called 'all'
 .PHONY : all
 
@@ -23,3 +25,6 @@ index.html: makehtml.awk vim-notes.txt Makefile
 
 README.html: README.rst Makefile
 	rst2html README.rst > README.html
+
+clean :
+	rm -f -- $(HTML) $(TXT)
