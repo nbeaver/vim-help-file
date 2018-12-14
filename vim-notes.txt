@@ -841,6 +841,11 @@ $ vim -c "set backupcopy=yes|set noswapfile" myfile
 
 			http://vim.wikia.com/wiki/Delete_all_lines_containing_a_pattern
 
+:%s/\n\n/\r/c		Remove blank lines, confirming each replacement. |:s_c|
+			Why is it \r, not \n? Long story. |:s%| |s/\r|
+https://stackoverflow.com/questions/706076/vim-delete-blank-lines
+https://stackoverflow.com/questions/71417/why-is-r-a-newline-for-vim
+
 			Macros and registers
 qy			Start recording macro y
 q			Stop recording macro y
