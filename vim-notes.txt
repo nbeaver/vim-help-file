@@ -649,9 +649,9 @@ z.			Center screen on cursor. |z.|
 L			Jump to bottom of screen ("low"). |L|
 M			Jump to middle of screen ("middle"). |M|
 H			Jump to top of screen ("high"). |H|
-zt			Put this line at the 't'op of the screen. |zt|
-zb			Put this line at the 'b'ottom of the screen. |zb|
-zz			Put this line at the middle of the screen. |zz|
+zt			Put this line at the 't'op (top) of the screen. |zt|
+zb			Put this line at the 'b'ottom (bottom) of the screen. |zb|
+zz			Put this line at the middle of the screen (zm is alread taken). |zz|
 50%			Go to a percentage of the file. |N%|
 
 	http://vimuniversity.com/samples/jumping-long-distances
