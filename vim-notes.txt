@@ -555,6 +555,8 @@ Ctrl-K 11		Enter a superscript 1, ¹
 <
 {Visual}:s/\n/\r\r	Double-space a visual selection. |:substitute| |/\n| |s/\r|
 
+{Visual}:!detex		Remove LaTeX markup using external /usr/bin/detex command.
+
 :%!tac			Reverse order of lines
 			using external /usr/bin/tac command.
 
