@@ -5,8 +5,9 @@ all: $(HTML)
 .PHONY : all
 
 TEMPFILE := $(shell mktemp)
-tagfile.txt : Makefile /usr/share/vim/vimcurrent/doc/tags
-	cp /usr/share/vim/vimcurrent/doc/tags $(TEMPFILE)
+TAGFILE:=/usr/share/vim/vimcurrent/doc/tags
+tagfile.txt : Makefile $(TAGFILE)
+	cp $(TAGFILE) $(TEMPFILE)
 	# Make expands $ unless they are doubled ($$ becomes $).
 	awk '{print $$1"\t/usr/share/doc/vim-doc/html/"$$2"\t"$$3}' $(TEMPFILE) > tagfile.txt
 	rm $(TEMPFILE)
