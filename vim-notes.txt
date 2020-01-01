@@ -999,8 +999,10 @@ Ctrl-l			Redraw screen. |CTRL-L|
 			even if syntax highlighting is off.
 			This should be set by filetype. |'syntax'|
 
-:sy off			Turn off syntax highlighting. |:syntax|
-:set syn=off		Turn off syntax highlighting. |'syntax'|
+:sy off			Turn off syntax highlighting (color). |:syntax|
+:set syn=off		Turn off syntax highlighting (color). |'syntax'|
+
+	https://vim.fandom.com/wiki/How_to_turn_off_all_colors
 
 			Force syntax highlight if e.g. file extension is wrong.
 :set syntax=python	Python syntax. |ft-python-syntax|
