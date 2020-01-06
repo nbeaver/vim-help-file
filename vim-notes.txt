@@ -1036,6 +1036,9 @@ Ctrl-l			Redraw screen. |CTRL-L|
 	http://vim.wikia.com/wiki/Modeline_magic
 	https://wiki.python.org/moin/Vim
 
+:set colorcolumn=80
+			Show highlighted column at 80 characters. |colorcolumn|
+
 			Getting help for different modes.
 :help ctrl-f		What does CTRL-F do in normal mode?
 :help i_ctrl-f		What does CTRL-F do in insert mode?
