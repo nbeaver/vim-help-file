@@ -513,6 +513,8 @@ g8			Inspect hex bytes of UTF-8. |g8|
 /\%d173			Search for the soft hyphen by its decimal value 0x00ad. |/\%d|
 /\%xad			Search for the soft hyphen by its hexadecimal value 0x00ad. |/\%x|
 /\%o255			Search for the soft hyphen by its octal value 0255. |/\%o|
+/\%uad			Search for the soft hyphen by up to four hex values. |/\%u|
+/\%Uad			Search for the soft hyphen by up to eight hex values. |/\%U|
 
 /\u			Search for uppercase letters. |/\u|
 /[A-Z]			Same thing as above.
