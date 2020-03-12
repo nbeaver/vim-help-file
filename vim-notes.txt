@@ -542,6 +542,7 @@ Ctrl-K a*		Enter a lower-case alpha, α
 Ctrl-K 1s		Enter a subscript 1, ₁
 Ctrl-K 1S		Enter a superscript 1, ¹
 Ctrl-K 11		Enter a superscript 1, ¹
+Ctrl-K (-		Enter an "element of" symbol, ∈
 
 	https://en.wikipedia.org/wiki/%C3%91
 	https://en.wikipedia.org/wiki/Degree_symbol
