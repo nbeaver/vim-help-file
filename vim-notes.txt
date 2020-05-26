@@ -283,6 +283,10 @@ Ctrl-R %		Put/paste filename in insert mode. |:_%|
 
 [[			Move to previous '}' in the first column. |[[| |object-motions|
 
+]m			Move to start of next method or function. |]m|
+
+[m			Move to start of current or previous method or function. |[m|
+
 :set comments=sl:/*,mb:**,elx
 			C-style multi-line comments. |'comments'| |format-comments|
 			Start left aligned with /*,
