@@ -1124,7 +1124,7 @@ Ctrl-V 0 <enter>	Insert literal null character. |i_CTRL-V_digit|
 
 :%s/\#\(\a\)/\# \1/gc
 			Search for # followed by a letter,
-			then put a space between them. |/\1| |/\(\)|
+			then put a space between them. Uses capture groups. |/\1| |/\(\)|
 
 
 $ vim -r myfile.txt	Recovering swap files. |E325|
