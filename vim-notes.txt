@@ -1286,9 +1286,6 @@ I-wwwwwdw0Pwwwr-wwx0
 			and non-whitespace character,
 			and put the last yanked text there.
 
-:%s/^\(\d\d\d\d-\d\d-\d\d\)/:date: \1/gci
-
-
 :%s/old/new/ge		Don't stop executing the command if it fails. |:s_flags| |:bar|
 	http://vim.wikia.com/wiki/Repeat_last_colon_command
 
