@@ -86,6 +86,8 @@ d%			When on a bracket, e.g. ( [ { } ] ),
 dt<Space>		Delete until space.
 			(Usually dW does the same thing and is faster.)
 
+dn			Delete until next occurrence of pattern. |d| |n|
+
 I			Enter insert mode at end of indentation on current line. |I|
 
 gI			Enter insert mode at beginning of line. |gI|
