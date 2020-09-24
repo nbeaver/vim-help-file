@@ -102,7 +102,7 @@ Esc			Now get out of insert mode. |i_esc|
 
 			Subsitution in blockwise visual selection.
 Ctrl-v{move-around}	Blockwise visual selection. |CTRL-V| |blockwise-visual|
-:'<,'>s/\%Vb/ /g	Substitute, but only in visual selection. |/\%V|
+:'<,'>s/\%Vfoo/bar/g	Substitute, but only in visual selection. |/\%V|
 
 			Put contents of the last yank in front of multiple contiguous lines.
 I			Now move into insert mode at the beginning of each line. |v_b_I|
@@ -117,7 +117,7 @@ V			Enter linewise visual mode. |V|
 			It will look like this while typing: >
 				:'<,'>s/^/#/
 
-:'<,'>s/\%V //g		Replace spaces in visual selection. |/\%V|
+:'<,'>s/\%V //g		Remove spaces in visual selection. |/\%V|
 
 :s/\s\+/\r/g		Split a line with words and whitespace into several lines
 			with one word per line.
