@@ -1129,6 +1129,8 @@ Ctrl-V 0 <enter>	Insert literal null character. |i_CTRL-V_digit|
 			then put a space between them. Uses capture groups. |/\1| |/\(\)|
 
 
+$ vim -r		Summary of swap files. |E325|
+
 $ vim -r myfile.txt	Recovering swap files. |E325|
 			Note: a typical recovery message looks like this: >
 				E325: ATTENTION
