@@ -846,7 +846,7 @@ $ vim -c "set backupcopy=yes|set noswapfile" myfile
 /for.*done		Search for "for" and "done" in the same line. |/\.|
 /computer.*fun		Search for computer and fun on the same line.
 /".*"			Search for items in double quotes (greedy).
-/".\{-}"		Search for items in double quotes (non-greed).
+/".\{-}"		Search for items in double quotes (non-greedy).
 
 :vs.			Open a split window of current directory.
 
