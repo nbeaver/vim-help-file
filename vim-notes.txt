@@ -590,6 +590,9 @@ Ctrl-K (-		Enter an "element of" symbol, ∈
 :sort /.*\%52v/		Sort visual selection based on 52nd character.
 			Looks like this when typed: >
 				:'<,'>sort /.*\%52v/
+
+{Visual}:!sort | uniq	Sort and remove duplicates with external commands. |:!|
+
 <
 			Execute current line in shell.
 yy			Yank line.
