@@ -240,6 +240,9 @@ Ctrl-a			Increment a number. |CTRL-A|
 
 Ctrl-x			Decrement a number. |CTRL-X|
 
+:set nrformats-=octal	Increment/decrement numbers with leading zeroes and base 10 (decimal), not base 8 (octal).
+	https://stackoverflow.com/questions/13273741/why-does-incrementing-with-ctrl-a-in-vim-take-me-from-07-to-10
+
 Ctrl-i			Jump forward through jumplist. |CTRL-I| |<Tab>|
 
 Ctrl-o			Jump backward through jumplist. |CTRL-O|
