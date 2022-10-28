@@ -1,4 +1,4 @@
-HTML:=vim-notes.html index.html README.html
+HTML:=vim-notes.html index.html readme.html
 TXT :=tagfile.txt
 all: $(HTML)
 # Prevent make from looking for a file called 'all'
@@ -28,8 +28,8 @@ edit : tweak.vim vim-notes.txt
 	vim -S tweak.vim vim-notes.txt
 
 
-README.html: README.rst Makefile
-	rst2html README.rst > README.html
+readme.html: readme.rst Makefile
+	rst2html readme.rst readme.html
 
 clean :
 	rm -f -- $(HTML) $(TXT)

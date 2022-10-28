@@ -1,6 +1,6 @@
 .*.sw?
 index.html
-README.html
+readme.html
 vim-notes.html
 *.css
 errors.log
