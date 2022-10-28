@@ -817,6 +817,9 @@ p			Paste the unnamed register. Will need to scroll down due to ^J character. |p
 
 :badd			Add a buffer from e.g. a different file. |:badd|
 
+:argadd *.txt		Add all .txt files to the argument argument list. |:argadd|
+	https://stackoverflow.com/questions/53664/how-to-effectively-work-with-multiple-files-in-vim
+
 :b#			Jump to last buffer. |:b#|
 
 @:			Repeat last colon command. |@:|
