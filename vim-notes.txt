@@ -437,6 +437,10 @@ dd			Delete the line. |dd|
 			it will interpret the ':' in 'http:' as entering command mode.
 			Also, for large amounts of text Ctrl-Shift-V tends to be much slower.
 
+R			Overwrite text. |R|
+	https://vimdoc.sourceforge.net/htmldoc/insert.html#Replace
+	https://vimhelp.org/insert.txt.html#Replace
+
 "+y			Copy current line to clipboard. |quote+|
 {Visual}"+y		Copy visual selection to clipboard. |quote+|
 			(Behaves like Ctrl-C in other text editors.)
