@@ -1141,6 +1141,12 @@ Ctrl-V 0 <enter>	Insert literal null character. |i_CTRL-V_digit|
 			Search for # followed by a letter,
 			then put a space between them. Uses capture groups. |/\1| |/\(\)|
 
+:%s/\(\d*$\)/\t\1
+			Search for numbers at end of a line and put a tab in
+			front of them.
+
+:%s/\( \.\)//g
+			Search for repeated period/spaces and remove them.
 
 $ vim -r		Summary of swap files. |E325|
 
