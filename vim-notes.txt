@@ -888,7 +888,7 @@ q			Stop recording macro y
 {Visual}:normal @a	Run the 'a' macro on each line of some visually selected text. |:normal|
 			Looks like this: >
 				:'<,'>normal @a
-<
+https://stackoverflow.com/questions/390174/in-vim-how-do-i-apply-a-macro-to-a-set-of-lines
 
 :g/vim/ normal @a	Run the 'a' macro on lines matching the 'vim' pattern
 	http://blog.sanctum.geek.nz/advanced-vim-macros/
