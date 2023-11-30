@@ -127,6 +127,9 @@ V			Enter linewise visual mode. |V|
 			Example use of capture groups;
 			replace a date like 1970-01-01 with :date: 1970-01-01
 
+:%s/\( \.\)\+ /\t/
+			Using a capture group to catch multiple things.
+
 			Append "hi" to several lines using blockwise-visual mode.
 Ctrl-v{move-around}	Blockwise visual selection. |CTRL-V| |blockwise-visual|
 $      			Move to end of each line. |v_$|
