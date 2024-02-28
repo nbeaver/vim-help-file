@@ -235,7 +235,8 @@ p			Paste last yank.
 
 :edit file.txt		Open 'file.txt' for editing. |:edit|
 
-:next *.txt		Open all files ending with '.txt' for editing. |:next|
+:next *.txt		Open all files ending with '.txt' for editing, |:next|
+			like |:edit| but for multiple files.
 
 :set laststatus=2	Always view status bar. |status-line| |'laststatus'|
 
