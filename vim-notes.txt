@@ -1280,11 +1280,13 @@ q/			Show search history as an editable vim window. |q/|
 			Press <CR> to choose that search line,
 			or Ctrl-C to quit. |CTRL-C|
 
-gq			Reflow/wrap/format the selected text. |gq|
+{Visual}gq		Reflow/wrap/format the selected text. |gq|
 			Useful for hard-wrapping long lines.
 
 :set textwidth=40       Set the reflow width to 40 characters,
 			useful if you want a half-screen full, for example.
+
+gq}			Reflow/wrap/format until the end of the paragraph. |gq| |}|
 
 gqq			Reflow/wrap/format only the line under the cursor. |gqq|
 			Note: easily mistyped as |gQ|, which means go into |Ex-mode|.
