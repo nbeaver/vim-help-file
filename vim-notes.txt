@@ -125,7 +125,7 @@ V			Enter linewise visual mode. |V|
 
 :%s/^\(\d\d\d\d-\d\d-\d\d\)$/:date: \1
 			Example use of capture groups;
-			replace a date like 1970-01-01 with :date: 1970-01-01
+			replace a date like "1970-01-01" with ":date: 1970-01-01"
 
 :%s/\( \.\)\+ /\t/
 			Using a capture group to catch multiple things.
