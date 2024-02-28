@@ -792,9 +792,16 @@ g<			Get back to the last page of command output. |g<|
 
 :redir			Capture output of ex command. |:redir|
 	http://vim.wikia.com/wiki/Capture_ex_command_output
+	https://stackoverflow.com/questions/2573021/how-to-redirect-ex-command-output-into-current-buffer-or-file
 
 			Capture open buffers into unnamed register. |ls| |:silent|
 :redir @" | silent ls | redir END
+
+			Capture scripts into unnamed register. |:scriptnames| |:silent|
+:redir @" | silent scriptnames | redir END
+
+			Capture version information into unnamed register. |:version| |:silent|
+:redir @" | silent version | redir END
 
 			Make it easier to capture and edit complex options like |'iskeyword'|.
 :redir @" | silent set iskeyword? | redir END
@@ -808,13 +815,15 @@ p			Paste the unnamed register. Will need to scroll down due to ^J character. |p
 
 			Store all digraphs to file. |:digraphs|
 :redir > digraphs.txt | silent digraphs | redir END
-	https://stackoverflow.com/questions/2573021/how-to-redirect-ex-command-output-into-current-buffer-or-file
 
 			Append contents of all registers to end of current file.
 :redir >> % | silent registers | redir END | edit
 
 			Append contents of all user-defined command to end of current file.
-:redir >> % | silent commands | redir END | edit
+:redir >> % | silent command | redir END | edit
+
+			Append contents of all user-defined command to current buffer.
+:put = execute('command')
 
 :args			List arguments to vim when it was invoked.
 			Will not include e.g. buffers opened with |:badd| or |:tabnew|.
