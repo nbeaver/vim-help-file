@@ -1351,6 +1351,19 @@ Ctrl-T			Jump back. |Ctrl-T|
 
 :verbose set tags?	If you are unsure what the current tag settings are.
 >
+:terminal		Open the terminal (horizontal split). |:terminal|
+
+:terminal bash		Open bash terminal.
+:terminal powershell	Open PowerShell terminal.
+:terminal python	Open python interactive session.
+:terminal octave	Open octave interactive session.
+:terminal units		Open GNU units interactive session.
+
+:vertical terminal	Open the terminal (horizontal split). |:vertical|
+:vertical :terminal
+
+:set splitright		Make the vertical splits open to the right. |'splitright'|
+
 >
 ==============================================================================
  vim:ft=help:norl:
